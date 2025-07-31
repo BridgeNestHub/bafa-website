@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head', {
+    title: 'Melba Community Center Blog',
+    description: 'News, stories, and updates from Building Aspirations for Future Achievers'
+  }) %>
+  <style>
+    .blog-card {
+      transition: transform 0.3s;
+      display: flex; /* Ensures content fills height nicely */
+      flex-direction: column;
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+    }
+    /* Custom style for image to maintain aspect ratio and fit */
+    .card-img-top {
+      width: 100%;
+      height: 200px; /* Fixed height for consistency */
+      object-fit: cover; /* Ensures image covers the area without distortion */
+      object-position: top center; /* Focus on the top part of the image */
+    }
+    .card-body {
+      flex-grow: 1; /* Allows card body to take available space */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* Pushes buttons to the bottom */
+    }
+    .blog-content img {
+      max-width: 100%;
+      height: auto;
+      margin: 1rem 0;
+    }
+    .blog-buttons {
+      margin-top: auto; /* Pushes the button container to the bottom of the card-body */
+      text-align: center; /* Center the detail button */
+    }
+  </style>
+</head>
+<body>
+  <%- include('../partials/nav', { currentPage: 'blog' }) %>
+
+  <section class="hero-section bg-primary text-white py-5">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h1 class="display-5 fw-bold mb-3">Melba Community Center Blog</h1>
+          <p class="lead">Explore stories, updates, and insights from our programs and the communities we serve.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container">
+      <% if (posts.length > 0) { %>
+        <div class="row g-4">
+          <% posts.forEach(post => { %>
+          <div class="col-sm-6 col-md-4 col-lg-3" id="post-<%= post._id %>">
+            <div class="card h-100 border-0 shadow-sm blog-card">
+              <% if (post.image) { %>
+                <img src="<%= post.image %>" class="card-img-top" alt="<%= post.title %>">
+              <% } else { %>
+                <div class="card-img-top bg-secondary" style="height: 200px;"></div>
+              <% } %>
+
+              <div class="card-body">
+                <div class="mb-3">
+                  <h5 class="card-title mb-1"><%= post.title %></h5>
+                  <p class="text-muted small mb-2">
+                    <i class="fas fa-calendar me-1"></i>
+                    <%= post.createdAt.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %>
+                  </p>
+                </div>
+
+                <div class="blog-content">
+                  <p class="card-text"><%- post.content.substring(0, 120) + (post.content.length > 120 ? '...' : '') %></p>
+                </div>
+
+                <div class="blog-buttons">
+                  <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#blogPostModal"
+                          data-post-id="<%= post._id %>"
+                          data-post-title="<%= post.title %>"
+                          data-post-date="<%= post.createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %>"
+                          data-post-image="<%= post.image %>"
+                          data-post-content="<%= post.content.replace(/"/g, '&quot;') %>">
+                    Read More
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <div class="text-center py-5">
+          <div class="display-1 text-muted mb-3">
+            <i class="far fa-newspaper"></i>
+          </div>
+          <h3>No Blog Posts Yet</h3>
+          <p class="lead">Check back soon for updates and stories from our programs.</p>
+        </div>
+      <% } %>
+    </div>
+  </section>
+
+  <section class="py-5 bg-light">
+    <div class="container text-center">
+      <h2 class="mb-4">Want to Stay Updated?</h2>
+      <p class="lead mb-4">Subscribe to our newsletter for the latest stories and program updates.</p>
+      
+      <div id="subscriptionForm" class="row justify-content-center">
+        <div class="col-md-6">
+          <form id="newsletterForm" class="d-flex gap-2">
+            <input type="email" class="form-control" id="emailInput" placeholder="Enter your email address" required>
+            <button type="submit" class="btn btn-primary px-4">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <div class="modal fade" id="blogPostModal" tabindex="-1" aria-labelledby="blogPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="blogPostModalLabel">Blog Post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-5">
+              <img id="modalPostImage" src="" class="img-fluid rounded mb-3" alt="Blog Post Image" style="display: none;">
+            </div>
+            <div class="col-md-7">
+              <h3 id="modalPostTitle" class="mb-3"></h3>
+              <p class="text-muted mb-3"><i class="fas fa-calendar-alt me-2"></i><span id="modalPostDate"></span></p>
+              <hr>
+              <div id="modalPostContent" class="text-break blog-content"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../partials/footer') %>
+
+  <div class="toast-container position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1100;">
+    </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Modal for blog posts
+      const blogPostModal = document.getElementById('blogPostModal');
+      blogPostModal.addEventListener('show.bs.modal', function(event) {
+        // Button that triggered the modal
+        const button = event.relatedTarget;
+  
+        // Extract info from data-* attributes
+        const title = button.getAttribute('data-post-title');
+        const date = button.getAttribute('data-post-date');
+        const image = button.getAttribute('data-post-image');
+        const content = button.getAttribute('data-post-content');
+  
+        // Update the modal's content.
+        const modalTitle = blogPostModal.querySelector('#modalPostTitle');
+        const modalDate = blogPostModal.querySelector('#modalPostDate');
+        const modalImage = blogPostModal.querySelector('#modalPostImage');
+        const modalContent = blogPostModal.querySelector('#modalPostContent');
+  
+        modalTitle.textContent = title;
+        modalDate.textContent = date;
+        modalContent.innerHTML = content; // Using innerHTML for rich content
+  
+        if (image && image !== 'null' && image !== '') { // Check if image path exists
+          modalImage.src = image;
+          modalImage.style.display = 'block'; // Show image if present
+        } else {
+          modalImage.src = ''; // Clear src
+          modalImage.style.display = 'none'; // Hide image if not present
+        }
+      });
+  
+      // Newsletter subscription form handling
+      const newsletterForm = document.getElementById('newsletterForm');
+      const emailInput = document.getElementById('emailInput');
+  
+      newsletterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+  
+        const email = emailInput.value.trim();
+  
+        if (email && validateEmail(email)) {
+          // Show a loading state on the button
+          const subscribeButton = newsletterForm.querySelector('button[type="submit"]');
+          subscribeButton.disabled = true;
+          subscribeButton.textContent = 'Subscribing...';
+  
+          // Send the email to your backend
+          fetch('/subscribe', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                email: email
+              })
+            })
+            .then(response => response.json())
+            .then(data => {
+              // Re-enable the button
+              subscribeButton.disabled = false;
+              subscribeButton.textContent = 'Subscribe';
+              emailInput.value = ''; // Clear the input field
+  
+              if (data.success) {
+                // Show success toast notification
+                showGlobalNotification(data.message, 'success', 5000); // 5 seconds
+              } else {
+                // Show error toast notification
+                showGlobalNotification(data.message || 'Subscription failed. Please try again.', 'danger', 7000); // 7 seconds
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              subscribeButton.disabled = false;
+              subscribeButton.textContent = 'Subscribe';
+              // Show error toast for network issues
+              showGlobalNotification('An error occurred. Please check your connection.', 'danger', 7000);
+            });
+        } else {
+          // Show validation error toast
+          showGlobalNotification('Please enter a valid email address.', 'danger', 5000);
+        }
+      });
+  
+      // Email validation function
+      function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+  
+      /**
+       * Shows a global toast notification.
+       * @param {string} message - The message to display.
+       * @param {string} type - The type of notification ('success', 'danger').
+       * @param {number} duration - The duration in milliseconds before the toast auto-hides.
+       */
+      function showGlobalNotification(message, type = 'success', duration = 3000) {
+        const toastContainer = document.querySelector('.toast-container');
+        const toastId = 'toast-' + Date.now(); // Unique ID for each toast
+  
+        const iconClass = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+  
+        const toastHtml = `
+            <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="d-flex p-2 align-items-center">
+                <i class="fas ${iconClass} text-${type} fs-4 me-2"></i>
+                <div class="toast-body text-dark">
+                  ${message}
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+            </div>
+          `;
+  
+        toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+  
+        const toastElement = document.getElementById(toastId);
+        const toast = new bootstrap.Toast(toastElement, {
+          autohide: true,
+          delay: duration
+        });
+  
+        // Add appropriate Bootstrap classes for styling
+        toastElement.classList.add(`bg-${type}-subtle`, `text-${type}`);
+  
+        // Manually show the toast
+        toast.show();
+  
+        // Clean up the DOM after the toast has been hidden
+        toastElement.addEventListener('hidden.bs.toast', () => {
+          toastElement.remove();
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

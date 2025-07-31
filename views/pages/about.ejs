@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head', { 
+    title: 'About Melba',
+    description: 'Learn about Melba\'s mission to empower Seattle youth through education and community programs'
+  }) %>
+  <style>
+    .timeline {
+      position: relative;
+      padding-left: 50px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #2E86AB;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 30px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -38px;
+      top: 5px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #2E86AB;
+      border: 4px solid white;
+    }
+/* WHO WE SERVE STYLING */
+/* WHO WE SERVE SECTION */
+.who-we-serve {
+  background-color: #f8f9fa;
+  padding: 4rem 0;
+  border-top: 1px solid #ddd;
+}
+
+.who-we-serve h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.who-we-serve .lead {
+  color: #444;
+  max-width: 900px;
+  margin: 0 auto 2.5rem auto;
+}
+
+.who-we-serve .age-group h5 {
+  font-size: 1.25rem;
+  color: --primary;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.who-we-serve .modern-list {
+  padding-left: 1.5rem;
+  list-style: none;
+}
+
+.who-we-serve .modern-list li {
+  position: relative;
+  margin-bottom: 0.8rem;
+  padding-left: 1.5rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+.who-we-serve .modern-list li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #2E86AB;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.impact-volunteer-section {
+  margin: 0 auto;
+  border-radius: 1rem;
+}
+
+.impact-volunteer-section h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.impact-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.impact-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.volunteer-cta-box {
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  padding: 1rem 1.5rem;
+  color: white;
+}
+
+.volunteer-cta-box h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.volunteer-cta-box p {
+  font-size: 0.85rem;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+.volunteer-cta-box .btn {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.3rem 1.2rem;
+  color: #2E86AB;
+  background-color: white;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.volunteer-cta-box .btn:hover {
+  background-color: #f1f1f1;
+  color: #1b4f72;
+  text-decoration: none;
+}
+
+.card-img-top {
+  object-fit: cover;
+  object-position: top center;
+  height: 380px; /* increase from 300px */
+  width: 100%;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .card-img-top {
+    height: 300px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-img-top {
+    height: 260px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <%- include('../partials/nav', { currentPage: 'about' }) %>
+
+  <!-- About Hero -->
+  <section class="hero-section bg-primary text-white py-5">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h1 class="display-5 fw-bold mb-3">About MELBA</h1>
+          <p class="lead">Empowering individuals at every stage of life to achieve their potential through accessible education, career support, wellness resources, and leadership opportunities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h2 class="fw-bold mb-4">Our Story</h2>
+          <p >
+            Melba Community Service was founded in 2022 by a group of Highline Students, and community leaders who recognized the urgent need for wraparound support systems for youth in Seattle’s underserved neighborhoods.
+          </p>
+          <p>What began as a grassroots tutoring circle in a school, local community centers quickly evolved into a comprehensive youth development nonprofit. From 3 students in the Highline College, Melba Community Service now reaches over 100 youth each year, offering services in academics, college and career planning, emotional wellness, sports, and arts.</p>
+          <p><strong>Melba</strong> helps people see their potential and equips them with the tools to realize it - because everyone deserves the opportunity to thrive.</p>
+        </div>
+        <div class="col-lg-6">
+          <img src="/images/about-story.jpg" alt="melba Students" class="img-fluid rounded shadow">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mb-4 mb-md-0">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+              <div class="text-center mb-4">
+                <div class="display-3 text-primary">
+                  <i class="fas fa-bullseye"></i>
+                </div>
+              </div>
+              <h3 class="text-center mb-3">Our Mission</h3>
+              <p class="text-center">To empower individuals through comprehensive support in education, career development, wellness, and community engagement - helping people at all life stages achieve their full potential.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+              <div class="text-center mb-4">
+                <div class="display-3 text-primary">
+                  <i class="fas fa-eye"></i>
+                </div>
+              </div>
+              <h3 class="text-center mb-3">Our Vision</h3>
+              <p class="text-center">We envision a community where every individual—regardless of their background—has equitable access to the resources, support, and opportunities needed to thrive academically, professionally, and personally.</p>
+              <p class="text-center fw-bold mt-3">Goal: Raise graduation rates, increase college/trade enrollment, and foster 1,000+ future community leaders by 2028.</p>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="who-we-serve">
+    <div class="container">
+      <h2 class="text-center">Who We Serve</h2>
+      <p class="lead text-center">
+        At Melba Community Service, we champion equity by providing customized support to marginalized communities - including immigrants, refugees, and low-income individuals - at every phase of life.
+      </p>
+  
+      <div class="row text-start">
+        <div class="col-md-4 age-group">
+          <h5>Students & Emerging Leaders</h5>
+          <ul class="modern-list">
+            <li>Academic mentoring & tutoring</li>
+            <li>Life skills & leadership programs</li>
+            <li>Family and peer support</li>
+          </ul>
+        </div>
+  
+        <div class="col-md-4 age-group">
+          <h5>Young Adults in Transition</h5>
+          <ul class="modern-list">
+            <li>Workforce training & internships</li>
+            <li>College & career readiness</li>
+            <li>Mental health resources</li>
+          </ul>
+        </div>
+  
+        <div class="col-md-4 age-group">
+          <h5>Adults Building Stability</h5>
+          <ul class="modern-list">
+            <li>Job placement & entrepreneurship</li>
+            <li>Parent & family support</li>
+            <li>Leadership & civic engagement</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Our History -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-5">Our Journey</h2>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>2022</h4>
+          <p>Melba Community Service founded as an after-school tutoring program serving 15 students in the Highline College.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2023</h4>
+          <p>Expanded to offer college prep workshops and opened our first dedicated center.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2024</h4>
+          <p>Launched career development programs and partnered with 10 local businesses for internships.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2024</h4>
+          <p>Added mental health services and community sports programs. Served 100+ youth annually.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2025</h4>
+          <p>Pivoted to virtual programs during pandemic, distributing 100+ laptops and hotspots.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2025</h4>
+          <p>Opened second location in South Seattle, now serving 100+ youth each year.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-5">Our Team</h2>
+      
+      <div class="row g-4">
+        <!-- Executive Director -->
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100">
+            <img src="/images/kkedir.jpg" class="card-img-top" alt="Executive Director">
+            <div class="card-body text-center">
+              <h5 class="card-title">Korme K.</h5>
+              <p class="card-text text-muted">Executive Director</p>
+              <p class="card-text small">
+                Founder and leader of Melba Community Center since 2022, committed to empowering individuals of all ages through education, career development, and community support.
+              </p>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Programs Director -->
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100">
+            <img src="/images/team-programs1.jpg" class="card-img-top" alt="Programs Director">
+            <div class="card-body text-center">
+              <h5 class="card-title">Obsa B.</h5>
+              <p class="card-text text-muted">Programs Director</p>
+              <p class="card-text small">
+                Oversees education and career development programs for youth, adults, and seniors to ensure inclusive lifelong learning and job readiness.
+              </p>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Community Outreach -->
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100">
+            <img src="/images/team-outreach.jpg" class="card-img-top" alt="Community Outreach Manager">
+            <div class="card-body text-center">
+              <h5 class="card-title">Abdushekur H.</h5>
+              <p class="card-text text-muted">Community Outreach Manager</p>
+              <p class="card-text small">
+                Builds and maintains strong relationships with families, local partners, and volunteers to support Melba’s community programs across Seattle.
+              </p>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Director of Youth & Education Programs -->
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100">
+            <img src="/images/team-youth-education.jpg" class="card-img-top" alt="Director of Youth & Education Programs">
+            <div class="card-body text-center">
+              <h5 class="card-title">Maurice R. </h5>
+              <p class="card-text text-muted">Director of Youth & Education Programs</p>
+              <p class="card-text small">
+                Leads tutoring, mentoring, and lifelong learning initiatives for youth, young adults, and seniors, fostering educational growth at every age.
+              </p>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Immigration Assistance Coordinator -->
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100">
+            <img src="/images/team-immigration.jpg" class="card-img-top" alt="Immigration Assistance Coordinator">
+            <div class="card-body text-center">
+              <h5 class="card-title">Amsale A.</h5>
+              <p class="card-text text-muted">Immigration Assistance Coordinator</p>
+              <p class="card-text small">
+                Provides guidance and support for immigrant families navigating legal, housing, and social services to ensure smooth integration.
+              </p>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Workforce Development Coordinator -->
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100">
+            <img src="/images/team-workforce.jpg" class="card-img-top" alt="Workforce Development Coordinator">
+            <div class="card-body text-center">
+              <h5 class="card-title">Semira M.</h5>
+              <p class="card-text text-muted">Workforce Development Coordinator</p>
+              <p class="card-text small">
+                Connects community members with job training, resume assistance, and employment opportunities to build sustainable careers.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="text-center mt-5">
+        <p class="lead">And 15+ dedicated staff members, 50+ volunteers, and countless community partners.</p>
+        <a href="/contact" class="btn btn-primary">Join Our Team</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Stats -->
+  <section class="impact-volunteer-section bg-primary text-white py-4">
+    <div class="container text-center">
+      <h2 class="fw-bold mb-4">Our Impact</h2>
+      <div class="row justify-content-center mb-4">
+        <div class="col-6 col-sm-3 mb-3 mb-sm-0">
+          <div class="impact-number">100+</div>
+          <p class="impact-label">Individuals Served Annually</p>
+        </div>
+        <div class="col-6 col-sm-3 mb-3 mb-sm-0">
+          <div class="impact-number">92%</div>
+          <p class="impact-label">Graduation Rate</p>
+        </div>
+        <div class="col-6 col-sm-3 mb-3 mb-sm-0">
+          <div class="impact-number">85%</div>
+          <p class="impact-label">College Enrollment</p>
+        </div>
+        <div class="col-6 col-sm-3">
+          <div class="impact-number">20+</div>
+          <p class="impact-label">Community Partners</p>
+        </div>
+      </div>
+  
+      <div class="volunteer-cta-box mx-auto p-3 rounded shadow-sm">
+        <h4 class="mb-2">Make a Difference!</h4>
+        <p class="small mb-3">
+          Volunteer with Melba Community Service to mentor, lead workshops, or support events.
+        </p>
+        <a href="/?volunteer=true" class="btn btn-light btn-sm rounded-pill px-3 py-1">Join Us</a>
+      </div>
+    </div>
+  </section>  
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

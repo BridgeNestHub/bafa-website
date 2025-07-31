@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head', {
+    title: 'Support Melba Community Center - Empowering Youth & Young Adults',
+    description: 'Make a difference! Donate to Melba Community Center and support vital programs for youth and young adults in Seattle.'
+  }) %>
+  <style>
+    .modal-header {
+      background-color: var(--primary);
+    }
+    .donation-option {
+      transition: all 0.3s;
+    }
+    .donation-option:hover {
+      transform: scale(1.03);
+    }
+    .donation-option.active {
+      border-color: #2E86AB !important; /* Melba Community Center primary color */
+      /* Change this line below to your desired background color */
+      background-color: #2E86AB !important; /* Example: Use the primary color for background */
+      color: white !important; /* Ensure text is readable on the dark background */
+    }
+    .donate-type-btn {
+      transition: all 0.3s;
+    }
+    .donate-type-btn.active {
+      background-color: #007bff !important; /* Bootstrap primary blue or Melba Community Center primary */
+      color: white !important;
+      border-color: #007bff !important;
+    }
+  </style>
+</head>
+<body>
+  <%- include('../partials/nav', { currentPage: 'donate' }) %>
+
+  <section class="hero-section bg-primary text-white py-5">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-10 mx-auto text-center">
+          <h1 class="display-5 fw-bold mb-3">Your Support Transforms Futures</h1>
+          <p class="lead">Every donation to <strong>Melba Community Center</strong> directly empowers youth and young adults in Seattle through essential programs in education, career development, and community engagement. Join us in building a brighter tomorrow!</p>
+          <a href="#donation-form-section" class="btn btn-light btn-lg mt-3">Donate Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h2 class="fw-bold mb-4">Why Your Contribution Matters to Melba Community Center</h2>
+          <p class="lead">At Melba Community Center, we believe in the power of investing in our youth. Your donation is more than just money; it's a direct investment in the potential of young lives.</p>
+          <p>We're dedicated to fostering <strong>growth, resilience, and success</strong> for youth and young adults in Seattle. Here's how your support makes a tangible difference:</p>
+          <ul class="list-unstyled">
+            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <b>Empowering Education:</b> We provide tutoring, academic support, and access to resources that help students excel in their studies and pursue higher education.</li>
+            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <b>Building Career Pathways:</b> Our workshops, mentorship programs, and internship opportunities equip young adults with the skills and connections they need to launch successful careers.</li>
+            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <b>Fostering Community & Leadership:</b> We create safe, inclusive spaces where youth can develop leadership skills, engage in community service, and build strong, positive relationships.</li>
+            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i> <b>Promoting Well-being:</b> We offer essential mental health resources and support systems to ensure our participants thrive holistically.</li>
+          </ul>
+          <p class="mt-4">Join our community of supporters and become a catalyst for positive change. Together, we can unlock the full potential of Seattle's next generation.</p>
+        </div>
+        <div class="col-lg-6">
+          <img src="images/together.jpg" class="img-fluid rounded shadow-lg" alt="Youth participating in a Melba Community Center program">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5" id="donation-form-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body p-4 p-md-5">
+              <h2 class="text-center mb-4">Make Your Donation Today</h2>
+
+              <div class="text-center mb-5">
+                <div class="progress mb-3" style="height: 10px;">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="text-muted fw-bold">$1,500 raised of $10,000 goal</p>
+                <p class="small text-muted">Thank you for helping us reach our current fundraising target!</p>
+              </div>
+
+              <div class="d-flex justify-content-center mb-4">
+                <div class="btn-group" role="group" aria-label="Donation type">
+                  <button type="button" class="btn btn-outline-primary donate-type-btn active" id="oneTimeBtn">One-Time</button>
+                  <button type="button" class="btn btn-outline-primary donate-type-btn" id="recurringBtn">Monthly Recurring</button>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <h5 class="mb-3">Select an Amount</h5>
+                <div class="row g-3">
+                  <div class="col-4">
+                    <button type="button" class="btn btn-outline-primary w-100 py-3 donation-option" data-amount="25">
+                      $25
+                    </button>
+                  </div>
+                  <div class="col-4">
+                    <button type="button" class="btn btn-outline-primary w-100 py-3 donation-option" data-amount="50">
+                      $50
+                    </button>
+                  </div>
+                  <div class="col-4">
+                    <button type="button" class="btn btn-outline-primary w-100 py-3 donation-option active" data-amount="100">
+                      $100
+                    </button>
+                  </div>
+                  <div class="col-4">
+                    <button type="button" class="btn btn-outline-primary w-100 py-3 donation-option" data-amount="250">
+                      $250
+                    </button>
+                  </div>
+                  <div class="col-4">
+                    <button type="button" class="btn btn-outline-primary w-100 py-3 donation-option" data-amount="500">
+                      $500
+                    </button>
+                  </div>
+                  <div class="col-4">
+                    <button type="button" class="btn btn-outline-primary w-100 py-3 donation-option" data-amount="1000">
+                      $1,000
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label for="amount" class="form-label">Or enter a custom amount</label>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input type="number" class="form-control" id="amount" name="amount" min="1" step="1" value="100" required>
+                </div>
+              </div>
+
+              <form id="donationForm">
+                <div class="mb-4">
+                  <h5 class="mb-3">Your Information</h5>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label for="firstName" class="form-label">First Name</label>
+                      <input type="text" class="form-control" id="firstName" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="lastName" class="form-label">Last Name</label>
+                      <input type="text" class="form-control" id="lastName" required>
+                    </div>
+                    <div class="col-12">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="col-12">
+                      <label for="phone" class="form-label">Phone (Optional)</label>
+                      <input type="tel" class="form-control" id="phone">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <h5 class="mb-3">Choose Your Payment Method</h5>
+                  <div class="card p-3 mb-3 bg-light">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" value="creditCard" checked>
+                      <label class="form-check-label" for="creditCard">
+                        Credit/Debit Card <i class="bi bi-credit-card-fill ms-2"></i>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="card p-3 bg-light">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="paymentMethod" id="paypal" value="paypal">
+                      <label class="form-check-label" for="paypal">
+                        PayPal <i class="bi bi-paypal ms-2"></i>
+                      </label>
+                    </div>
+                  </div>
+                  </div>
+
+                <div class="mb-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="tributeGift">
+                    <label class="form-check-label" for="tributeGift">
+                      This is a tribute gift (in honor or in memory of someone)
+                    </label>
+                  </div>
+                  <div id="tributeFields" class="mt-3 card p-3 bg-light" style="display: none;">
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label for="honoreeName" class="form-label">Honoree Name</label>
+                        <input type="text" class="form-control" id="honoreeName" placeholder="e.g., Jane Doe">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="tributeType" class="form-label">Tribute Type</label>
+                        <select class="form-select" id="tributeType">
+                          <option value="memory">In Memory Of</option>
+                          <option value="honor">In Honor Of</option>
+                          <option value="celebration">In Celebration Of</option>
+                        </select>
+                      </div>
+                      <div class="col-12">
+                        <label for="messageForHonoree" class="form-label">Optional Message for Honoree/Family</label>
+                        <textarea class="form-control" id="messageForHonoree" rows="3" placeholder="Share a special message..."></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-center mt-5">
+                  <button type="submit" class="btn btn-primary w-75 py-3 fw-bold" id="donateButton">
+                    Complete Donation
+                  </button>
+                  <p class="mt-3 text-muted small">Your donation is securely processed.</p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">See Your Donation's Direct Impact</h2>
+
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-4 col-sm-6">
+          <div class="text-center p-4 border rounded shadow-sm bg-white">
+            <div class="display-4 text-primary mb-3 fw-bold">$25</div>
+            <p class="lead fw-semibold">Provides essential school supplies for one student for an entire year.</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <div class="text-center p-4 border rounded shadow-sm bg-white">
+            <div class="display-4 text-primary mb-3 fw-bold">$100</div>
+            <p class="lead fw-semibold">Sponsors a student for a month of personalized academic tutoring.</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <div class="text-center p-4 border rounded shadow-sm bg-white">
+            <div class="display-4 text-primary mb-3 fw-bold">$500</div>
+            <p class="lead fw-semibold">Funds a comprehensive career development workshop for 20 young adults.</p>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-5">
+        <p class="lead mb-3">Every dollar you give helps us expand our reach and deepen our impact.</p>
+        <a href="#donation-form-section" class="btn btn-success btn-lg">Make an Impact Now</a>
+      </div>
+    </div>
+  </section>
+
+   <section class="py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h2 class="fw-bold mb-4">How Your Contribution Fuels Our Programs</h2>
+          <p class="lead">Your generosity directly enables us to offer vital services to Seattle youth and young adults at no cost to participants.</p>
+          <p>Melba Community Center is a non-profit organization that relies on the vital support of grants and individual donations. Here's a look at what specific amounts can achieve:</p>
+          <ul class="list-unstyled mb-4">
+            <li class="mb-2"><i class="fas fa-hand-holding-heart text-info me-2"></i> <strong>$250</strong> provides materials for a full month of after-school enrichment activities.</li>
+            <li class="mb-2"><i class="fas fa-user-friends text-warning me-2"></i> <strong>$750</strong> covers the cost of a mentor for one student for an entire year.</li>
+            <li class="mb-2"><i class="fas fa-person-chalkboard text-warning me-2"></i> <strong>$1,500</strong> funds a stipend for a valuable summer internship experience for a young adult.</li>
+            <li class="mb-2"><i class="fas fa-graduation-cap text-success me-2"></i> <strong>$3,000</strong> supports a series of mental health and wellness workshops for our entire cohort.</li>
+          </ul>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#donation-form-section" class="btn btn-primary px-4 btn-lg">Donate Now</a>
+            <a href="/contact" class="btn btn-outline-primary px-4 btn-lg">Contact Us to Learn More</a>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card border-0 shadow-lg">
+            <div class="card-body p-4">
+              <h5 class="card-title text-center mb-4 fw-bold">Where Your Money Goes: Our Commitment to Transparency</h5>
+
+              <div class="progress mb-3" style="height: 30px;">
+                <div class="progress-bar bg-primary" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                  <span class="fw-bold fs-6">75% Program Services</span>
+                </div>
+              </div>
+
+              <div class="progress mb-3" style="height: 30px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 15%;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+                  <span class="fw-bold fs-6">15% Operations & Staffing</span>
+                </div>
+              </div>
+
+              <div class="progress mb-3" style="height: 30px;">
+                <div class="progress-bar bg-info" role="progressbar" style="width: 7%;" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100">
+                  <span class="fw-bold fs-6">7% Administrative Costs</span>
+                </div>
+              </div>
+
+              <div class="progress" style="height: 30px;">
+                <div class="progress-bar bg-secondary" role="progressbar" style="width: 3%;" aria-valuenow="3" aria-valuemin="0" aria-valuemax="100">
+                  <span class="fw-bold fs-6">3% Fundraising</span>
+                </div>
+              </div>
+              <p class="small text-muted text-center mt-3">Melba Community Center is committed to responsible stewardship of your donations, ensuring maximum impact for our youth programs.</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <%- include('../partials/footer') %>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="/js/donations.js"></script>
+
+  <script>
+    // Toggle tribute fields
+    document.getElementById('tributeGift')?.addEventListener('change', function() {
+      document.getElementById('tributeFields').style.display = this.checked ? 'block' : 'none';
+    });
+
+    // Handle preset amount buttons
+    document.querySelectorAll('.donation-option').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.donation-option').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        this.classList.add('active');
+        document.getElementById('amount').value = this.dataset.amount;
+      });
+    });
+
+    // Handle One-Time vs. Recurring Donation Toggle
+    document.getElementById('oneTimeBtn')?.addEventListener('click', function() {
+      this.classList.add('active');
+      document.getElementById('recurringBtn').classList.remove('active');
+      // You might add a hidden input field or update form data to reflect this choice
+      // For example: document.getElementById('donationType').value = 'one-time';
+      // Or simply adjust the text on the submit button if no backend change is needed immediately
+      document.getElementById('donateButton').innerText = 'Complete One-Time Donation';
+    });
+
+    document.getElementById('recurringBtn')?.addEventListener('click', function() {
+      this.classList.add('active');
+      document.getElementById('oneTimeBtn').classList.remove('active');
+      // For example: document.getElementById('donationType').value = 'recurring';
+      // Or simply adjust the text on the submit button if no backend change is needed immediately
+      document.getElementById('donateButton').innerText = 'Set Up Monthly Donation';
+    });
+
+    // Initialize button text based on default active state
+    document.addEventListener('DOMContentLoaded', (event) => {
+        if (document.getElementById('oneTimeBtn')?.classList.contains('active')) {
+            document.getElementById('donateButton').innerText = 'Complete One-Time Donation';
+        } else if (document.getElementById('recurringBtn')?.classList.contains('active')) {
+            document.getElementById('donateButton').innerText = 'Set Up Monthly Donation';
+        }
+    });
+
+    // Optional: Add basic form validation/submission logic here or in donations.js
+    document.getElementById('donationForm')?.addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      // Get values from form fields
+      const amount = document.getElementById('amount').value;
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+      const isTribute = document.getElementById('tributeGift').checked;
+      let honoreeName = '';
+      let tributeType = '';
+      let messageForHonoree = '';
+
+      if (isTribute) {
+        honoreeName = document.getElementById('honoreeName').value;
+        tributeType = document.getElementById('tributeType').value;
+        messageForHonoree = document.getElementById('messageForHonoree').value;
+      }
+
+      // Determine donation type (one-time or recurring)
+      const donationType = document.getElementById('oneTimeBtn').classList.contains('active') ? 'one-time' : 'recurring';
+
+      // Here you would typically send this data to your backend for processing
+      // using an AJAX request (e.g., fetch API or jQuery.ajax)
+      console.log({
+        amount,
+        firstName,
+        lastName,
+        email,
+        phone,
+        paymentMethod,
+        donationType,
+        isTribute,
+        honoreeName,
+        tributeType,
+        messageForHonoree
+      });
+
+      alert('Donation form submitted! (This is a demo, no actual transaction occurred.) Check console for data.');
+
+      // In a real application, you'd integrate with Stripe or PayPal
+      // Example for Stripe (simplified):
+      /*
+      stripe.createToken(cardElement).then(function(result) {
+        if (result.error) {
+          // Inform the user if there was an error.
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          // Send the token to your server.
+          fetch('/process-donation', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              token: result.token.id,
+              amount: amount * 100, // Stripe expects cents
+              donationType: donationType,
+              email: email,
+              // ... other form data
+            }),
+          }).then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                alert('Donation successful!');
+                window.location.href = '/thank-you'; // Redirect to a thank you page
+              } else {
+                alert('Donation failed: ' + data.message);
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('An error occurred during donation.');
+            });
+        }
+      });
+      */
+    });
+  </script>
+</body>
+</html>

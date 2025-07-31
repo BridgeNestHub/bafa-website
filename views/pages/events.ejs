@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head', {
+    title: 'Upcoming Events',
+    description: 'View Melba Community Center\'s upcoming events including workshops, community gatherings, and youth programs'
+  }) %>
+  <style>
+    .event-card {
+      transition: transform 0.3s;
+      /* Adjust max-height to control overall card height, if needed */
+      /* max-height: 450px; Uncomment and adjust if cards are still too large */
+      display: flex; /* Ensures content fills height nicely */
+      flex-direction: column;
+    }
+    .event-card:hover {
+      transform: translateY(-5px);
+    }
+    .event-date {
+      width: 80px;
+      flex-shrink: 0;
+    }
+    /* Custom style for image to maintain aspect ratio and fit */
+    .card-img-top {
+      width: 100%;
+      height: 180px; /* Fixed height for consistency */
+      object-fit: cover; /* Ensures image covers the area without distortion */
+      object-position: top center; /* Focus on the top part of the image */
+    }
+    .card-body {
+      flex-grow: 1; /* Allows card body to take available space */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* Pushes buttons to the bottom */
+    }
+    .event-buttons {
+      margin-top: auto; /* Pushes the button container to the bottom of the card-body */
+      text-align: center; /* Center the detail button */
+    }
+  </style>
+  <style>
+    .event-card {
+      transition: transform 0.3s;
+      /* Adjust max-height to control overall card height, if needed */
+      /* max-height: 450px; Uncomment and adjust if cards are still too large */
+      display: flex; /* Ensures content fills height nicely */
+      flex-direction: column;
+    }
+    .event-card:hover {
+      transform: translateY(-5px);
+    }
+    .event-date {
+      width: 80px;
+      flex-shrink: 0;
+    }
+    /* Custom style for image to maintain aspect ratio and fit */
+    .card-img-top {
+      width: 100%;
+      height: 180px; /* Fixed height for consistency */
+      object-fit: cover; /* Ensures image covers the area without distortion */
+    }
+    .card-body {
+      flex-grow: 1; /* Allows card body to take available space */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* Pushes buttons to the bottom */
+    }
+    .event-buttons {
+      margin-top: auto; /* Pushes the button container to the bottom of the card-body */
+      text-align: center; /* Center the detail button */
+    }
+  </style>
+</head>
+<body>
+  <%- include('../partials/nav', { currentPage: 'events' }) %>
+
+  <section class="hero-section bg-primary text-white py-5">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h1 class="display-5 fw-bold mb-3">Upcoming Events</h1>
+          <p class="lead">Join us for transformative workshops, uplifting community gatherings, environmental cleanups, unity circles, leadership development sessions, and community-building events that strengthen our shared spaces and deepen human connections.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container">
+      <% if (events.length > 0) { %>
+        <div class="row g-4">
+          <% events.forEach(event => { %>
+          <div class="col-sm-6 col-md-4 col-lg-3" id="event-<%= event._id %>"> <div class="card h-100 border-0 shadow-sm event-card">
+              <% if (event.image) { %>
+                <img src="<%= event.image %>" class="card-img-top" alt="<%= event.title %>">
+              <% } else { %>
+                <div class="card-img-top bg-secondary" style="height: 180px;"></div>
+              <% } %>
+
+              <div class="card-body">
+                <div class="d-flex mb-3">
+                  <div class="event-date text-center bg-light p-2 rounded me-3">
+                    <div class="fw-bold text-primary"><%= event.eventDate.toLocaleDateString('en-US', { month: 'short' }) %></div>
+                    <div class="display-6 fw-bold"><%= event.eventDate.toLocaleDateString('en-US', { day: 'numeric' }) %></div>
+                  </div>
+                  <div>
+                    <h5 class="card-title mb-1"><%= event.title %></h5>
+                    <p class="text-muted small mb-2">
+                      <i class="fas fa-clock me-1"></i>
+                      <%= event.eventDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) %>
+                    </p>
+                    <p class="text-muted small mb-0">
+                      <i class="fas fa-map-marker-alt me-1"></i>
+                      <%= event.location %>
+                    </p>
+                  </div>
+                </div>
+
+                <!-- <p class="card-text"><%= event.content.substring(0, 120) %>...</p> -->
+
+                <div class="event-buttons"> <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#eventDetailModal"
+                          data-event-id="<%= event._id %>"
+                          data-event-title="<%= event.title %>"
+                          data-event-date="<%= event.eventDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %>"
+                          data-event-time="<%= event.eventDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) %>"
+                          data-event-location="<%= event.location %>"
+                          data-event-image="<%= event.image %>"
+                          data-event-content="<%= event.content.replace(/"/g, '&quot;') %>"> Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <div class="text-center py-5">
+          <div class="display-1 text-muted mb-3">
+            <i class="far fa-calendar-alt"></i>
+          </div>
+          <h3>No Upcoming Events</h3>
+          <p class="lead">Check back soon for new events or subscribe to our newsletter for updates.</p>
+          <a href="/contact" class="btn btn-primary">Contact Us</a>
+        </div>
+      <% } %>
+    </div>
+  </section>
+
+  <section class="py-5 bg-light">
+    <div class="container text-center">
+      <h2 class="mb-4">Missed an Event?</h2>
+      <p class="lead mb-4">Many of our workshops and programs are offered multiple times throughout the year.</p>
+      <a href="/contact" class="btn btn-primary px-4">Request Information</a>
+    </div>
+  </section>
+
+  <%- include('../partials/footer') %>
+
+  <div class="modal fade" id="eventDetailModal" tabindex="-1" aria-labelledby="eventDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="eventDetailModalLabel">Event Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-5">
+              <img id="modalEventImage" src="" class="img-fluid rounded mb-3" alt="Event Image" style="display: none;">
+            </div>
+            <div class="col-md-7">
+              <h3 id="modalEventTitle" class="mb-3"></h3>
+              <p class="text-muted mb-1"><i class="fas fa-calendar-alt me-2"></i><span id="modalEventDate"></span></p>
+              <p class="text-muted mb-1"><i class="fas fa-clock me-2"></i><span id="modalEventTime"></span></p>
+              <p class="text-muted mb-3"><i class="fas fa-map-marker-alt me-2"></i><span id="modalEventLocation"></span></p>
+              <hr>
+              <p id="modalEventContent" class="text-break"></p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const eventDetailModal = document.getElementById('eventDetailModal');
+      eventDetailModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        const button = event.relatedTarget;
+
+        // Extract info from data-* attributes
+        const title = button.getAttribute('data-event-title');
+        const date = button.getAttribute('data-event-date');
+        const time = button.getAttribute('data-event-time');
+        const location = button.getAttribute('data-event-location');
+        const image = button.getAttribute('data-event-image');
+        const content = button.getAttribute('data-event-content');
+
+        // Update the modal's content.
+        const modalTitle = eventDetailModal.querySelector('#modalEventTitle');
+        const modalDate = eventDetailModal.querySelector('#modalEventDate');
+        const modalTime = eventDetailModal.querySelector('#modalEventTime');
+        const modalLocation = eventDetailModal.querySelector('#modalEventLocation');
+        const modalImage = eventDetailModal.querySelector('#modalEventImage');
+        const modalContent = eventDetailModal.querySelector('#modalEventContent');
+
+        modalTitle.textContent = title;
+        modalDate.textContent = date;
+        modalTime.textContent = time;
+        modalLocation.textContent = location;
+        modalContent.innerHTML = content; // Set textContent to avoid XSS if content contains HTML
+
+        if (image && image !== 'null' && image !== '') { // Check if image path exists
+          modalImage.src = image;
+          modalImage.style.display = 'block'; // Show image if present
+        } else {
+          modalImage.src = ''; // Clear src
+          modalImage.style.display = 'none'; // Hide image if not present
+        }
+      });
+    });
+  </script>
+</body>
+</html>

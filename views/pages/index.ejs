@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head', { 
+    title: 'Home',
+    description: 'Melba empowers Seattle youth through education, career development, and community programs'
+  }) %>
+
+  <style>
+    .bafa-bridge-text {
+  color: #333;
+  line-height: 1.75;
+  background-color: #f0f4f8;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.bafa-hero-intro {
+  line-height: 1.7;
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.who-we-serve-section h2 {
+  color: #1a3c63;
+}
+
+.who-we-serve-section .shadow-sm {
+  transition: all 0.3s ease;
+}
+
+.who-we-serve-section .shadow-sm:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.volunteer-section h2 {
+  color: #1a3c63;
+}
+
+.volunteer-section .bg-white {
+  transition: transform 0.3s ease;
+}
+
+.volunteer-section .bg-white:hover {
+  transform: translateY(-4px);
+}
+
+/* General card styles */
+/* BLOG CARD */
+.blog-card {
+  max-width: 300px;
+  margin: auto;
+  border-radius: 8px;
+}
+.blog-card .card-img-top {
+  height: 140px;
+  object-fit: cover;
+}
+.blog-card .card-body {
+  padding: 0.75rem;
+}
+.blog-card .card-title {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+.blog-card .card-text {
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+.blog-card .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+/* Reduce top padding of blog and event sections */
+.blog-events-wrapper {
+  padding-top: 1rem !important;
+  margin-top: 0 !important;
+}
+
+/* Optional: reduce heading bottom margin */
+.blog-events-wrapper h2 {
+  margin-bottom: 2rem;
+}
+
+
+/* EVENTS GRID */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+/* EVENT CARD */
+.event-card {
+  display: flex;
+  flex-direction: row;
+  max-width: 320px;
+  margin: auto;
+  border-radius: 8px;
+  min-height: 120px;
+}
+.event-date {
+  background-color: #2E86AB;
+  color: white;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 80px;
+}
+.event-date .fs-3 {
+  font-size: 1.5rem !important;
+}
+.event-content {
+  padding: 0.75rem;
+}
+.event-card .card-title {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+.event-card .card-text {
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+}
+.event-card .btn {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+  </style>
+  <style>
+    .section-divider {
+      border-top: 2px solid #eee;
+      position: relative;
+    }
+    .section-divider:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -2px;
+      width: 50px;
+      border-top: 2px solid #007bff;
+    }
+    .lead {
+      font-size: 1.1rem;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <%- include('../partials/nav', { currentPage: 'home' }) %>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <video autoplay muted loop playsinline class="background-video">
+      <source src="/images/schoolV.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    
+    <div class="overlay"></div>
+    <div class="container h-100 py-5">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-6 mx-auto text-center">
+          <div class="hero-content glass-card p-4 p-lg-5">
+            <h1 class="display-4 fw-bold mb-4">MELBA <br> Community Service</h1>
+            <p class="lead mb-4">Empowering individuals in Seattle through education, career pathways, and community support since 2022.</p>
+            <div class="d-flex gap-3 justify-content-center">
+              <a href="/programs" class="btn btn-light btn-lg px-4">Our Programs</a>
+              <a href="/donate" class="btn btn-outline-light btn-lg px-4">Support Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission Statement -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 text-center">
+          <h2 class="fw-bold mb-4">Our Mission</h2>
+          <div class="bafa-bridge-text mt-4">
+            <p class="">Melba empowers individuals across the Seattle region, transforming potential into real-world opportunities. We believe success looks different for everyone, which is why we offer comprehensive, culturally responsive support tailored to each person's journey. Whether it's guiding someone through school, navigating the complexities of adulthood, or providing a second chance at a fulfilling career, we meet participants where they are.</p>
+            <p class="bafa-hero-intro mt-3">
+              Our approach is holistic, embracing mentorship, skills training, mental wellness support, job readiness, and leadership development. We're dedicated to nurturing the promise within every person we serve, building strong, confident, and empowered community members equipped to thrive.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who We Serve -->
+<section class="py-5 bg-white who-we-serve-section">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-4">Who We Serve</h2>
+    <p class="text-center mb-5 lead">Melba welcomes individuals from all walks of life, focusing on underserved, underrepresented, and often overlooked communities.</p>
+    
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="p-4 shadow-sm bg-light rounded h-100">
+          <h5 class="fw-bold text-primary">Middle & High School Students</h5>
+          <p>We provide academic tutoring, mentorship, STEM workshops, and leadership clubs for students looking to build a solid foundation early.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-4 shadow-sm bg-light rounded h-100">
+          <h5 class="fw-bold text-primary">Young Adults</h5>
+          <p>For those transitioning to adulthood, we offer college prep, job training, apprenticeships, mental health support, and financial literacy workshops.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-4 shadow-sm bg-light rounded h-100">
+          <h5 class="fw-bold text-primary">Career-Changers & Second-Chance Seekers</h5>
+          <p>We help individuals restart or shift their careers through retraining, tech certifications, GED programs, and business mentorships.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-4 shadow-sm bg-light rounded h-100">
+          <h5 class="fw-bold text-primary">Immigrant, Refugee & BIPOC Communities</h5>
+          <p>Our programs are culturally responsive and multilingual. We prioritize equity for newcomers and historically marginalized populations.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="/about" class="btn btn-outline-primary btn-lg px-4">Learn More About Us</a>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Impact Stats -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row text-center g-4">
+        <div class="col-md-3">
+          <div class="counter" data-target="100">0</div>
+          <h5>Individuals Served Annually</h5>
+          <p class="small text-muted">Across all our programs</p>
+        </div>
+        <div class="col-md-3">
+          <div class="counter" data-target="92">0</div>
+          <h5>High School Graduation Rate</h5>
+          <p class="small text-muted">Compared to 82% district average</p>
+        </div>
+        <div class="col-md-3">
+          <div class="counter" data-target="85">0</div>
+          <h5>College/Trade School Enrollment</h5>
+          <p class="small text-muted">Within 6 months of graduation</p>
+        </div>
+        <div class="col-md-3">
+          <div class="counter" data-target="22">0</div>
+          <h5>Community Partners</h5>
+          <p class="small text-muted">Businesses and organizations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Program Highlights -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">Program Highlights</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm program-highlight">
+            <div class="card-body text-center">
+              <div class="display-3 text-primary mb-3">
+                <i class="fas fa-laptop-code"></i>
+              </div>
+              <h4>Future Tech Leaders</h4>
+              <p>Hands-on coding programs led by expert software engineers from top global companies — empowering students with real-world skills and recognized certifications.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm program-highlight">
+            <div class="card-body text-center">
+              <div class="display-3 text-primary mb-3">
+                <i class="fas fa-leaf"></i>
+              </div>
+              <h4>Green Futures</h4>
+              <p>Empowering our community through hands-on environmental projects and sustainability education — from restoring local green spaces to learning about climate responsibility, we’re nurturing a culture of environmental care dedicated to protecting our planet for generations to come.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm program-highlight">
+            <div class="card-body text-center">
+              <div class="display-3 text-primary mb-3">
+                <i class="fas fa-briefcase"></i>
+              </div>
+              <h4>Career & Life Readiness</h4>
+              <p>We go beyond job training — we walk with you every step of the way. From resume building and interview preparation to hands-on career training and job application support, we’re here to help you launch your career with confidence. And our support doesn’t stop at employment — we assist with school guidance, housing resources, and whatever else you need to thrive.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Programs -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">Our Transformative Programs</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <img src="/images/program-education.jpg" class="card-img-top" alt="Education Program">
+            <div class="card-body">
+              <h5 class="card-title">Education Support</h5>
+              <p class="card-text">We provide students with the tools and guidance they need to succeed—inside and outside the classroom. From academic tutoring to college prep, we support every step of the learning journey.</p>
+              <ul class="mb-3">
+                <li>After-school homework help</li>
+                <li>SAT & ACT preparation courses</li>
+                <li>College application and financial aid workshops</li>
+                <li>STEM enrichment programs led by professionals from leading tech companies</li>
+              </ul>
+              <a href="/programs#education" class="btn btn-outline-primary">Learn More</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <img src="/images/program-career.jpg" class="card-img-top" alt="Career Program">
+            <div class="card-body">
+              <h5 class="card-title">Career Development</h5>
+              <p class="card-text">We support your journey to meaningful employment with personalized resume coaching, job search assistance, and interview preparation led by experienced mentors.</p>
+              <ul class="mb-3">
+                <li>Job search support and application guidance</li>
+                <li>Resume review and personalized interview coaching</li>
+                <li>Summer internship programs with leading industry partners</li>
+                <li>Job shadowing opportunities to gain real-world insights</li>
+              </ul>
+              <a href="/programs#career" class="btn btn-outline-primary">Learn More</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <img src="/images/program-community.jpg" class="card-img-top" alt="Community Program">
+            <div class="card-body">
+              <h5 class="card-title">Community Engagement</h5>
+              <p class="card-text">We prepare events and programs to strengthen the community together, focusing on leadership development, environmental care with the City of Seattle, and active civic participation.</p>
+              <ul class="mb-3">
+                <li>Leadership development</li>
+                <li>Environmental stewardship</li>
+                <li>Community service initiatives that address local needs and foster connection</li>
+                <li>Civic education workshops</li>
+              </ul>
+              <a href="/programs#community" class="btn btn-outline-primary">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-4">
+        <a href="/programs" class="btn btn-primary px-4">View All Our Programs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Stories Carousel -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">Success Stories</h2>
+      <div class="testimonial-carousel-container">
+        <div class="testimonial-carousel">
+          <!-- Story 1 -->
+          <div class="card testimonial-card">
+            <div class="card-body">
+              <p class="fst-italic">"Melba’s internship program helped me land my first tech job. Today, I’m proud to work as a software engineer at a leading company."</p>
+              <div class="d-flex align-items-center mt-auto">
+                <img src="/images/successStories/testimonial1.jpg" class="rounded-circle me-3" width="50" alt="Student">
+                <div>
+                  <h6 class="mb-0">Korme k.</h6>
+                  <small class="text-muted">Melba Alumni, AWS Engineer</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Story 2 -->
+          <div class="card testimonial-card">
+            <div class="card-body">
+              <p class="fst-italic">"The tutoring I received helped me graduate high school and become the first in my family to attend college."</p>
+              <div class="d-flex align-items-center mt-auto">
+                <img src="/images/successStories/testimonial2.jpg" class="rounded-circle me-3" width="50" alt="Student">
+                <div>
+                  <h6 class="mb-0">Faris A.</h6>
+                  <small class="text-muted">UW Freshman, Computer Science</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Story 3 -->
+          <div class="card testimonial-card">
+            <div class="card-body">
+              <p class="fst-italic">"I'm proud to support Melba’s mission to create meaningful opportunities and strengthen our local community."</p>
+              <div class="d-flex align-items-center mt-auto">
+                <img src="/images/successStories/testimonial3.jpg" class="rounded-circle me-3" width="50" alt="Partner">
+                <div>
+                  <h6 class="mb-0">Sarah K.</h6>
+                  <small class="text-muted">Community Leader</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Story 4 -->
+          <div class="card testimonial-card">
+            <div class="card-body">
+              <p class="fst-italic">"The Career Pathways program gave me the skills and confidence to start a rewarding career and support my family."</p>
+              <div class="d-flex align-items-center mt-auto">
+                <img src="/images/successStories/testimonial4.jpg" class="rounded-circle me-3" width="50" alt="Student">
+                <div>
+                  <h6 class="mb-0">Carlos M.</h6>
+                  <small class="text-muted">ILWU Local 19 Member</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Story 5 -->
+          <div class="card testimonial-card">
+            <div class="card-body">
+              <p class="fst-italic">"Melba's mental health support helped me through tough times. Now I mentor other youth facing similar challenges."</p>
+              <div class="d-flex align-items-center mt-auto">
+                <img src="/images/successStories/testimonial5.jpg" class="rounded-circle me-3" width="50" alt="Student">
+                <div>
+                  <h6 class="mb-0">Samira M.</h6>
+                  <small class="text-muted">Youth Peer Counselor</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Story 6 -->
+          <div class="card testimonial-card">
+            <div class="card-body">
+              <p class="fst-italic">"The Green Futures program inspired me to study environmental science. I now work for Seattle Parks Department."</p>
+              <div class="d-flex align-items-center mt-auto">
+                <img src="/images/successStories/testimonial6.jpg" class="rounded-circle me-3" width="50" alt="Student">
+                <div>
+                  <h6 class="mb-0">David P.</h6>
+                  <small class="text-muted">Environmental Technician</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Partners -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">Our Valued Partners</h2>
+      <div class="row g-4 justify-content-center align-items-center">
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/amazon.png" class="partner-logo" alt="Amazon" title="Amazon">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/microsoft.png" class="partner-logo" alt="Microsoft" title="Microsoft">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/starbucks.png" class="partner-logo" alt="Starbucks" title="Starbucks">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/expedia.png" class="partner-logo" alt="Expedia" title="Expedia">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/port-of-seattle.png" class="partner-logo" alt="Port of Seattle" title="Port of Seattle">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/king-county.png" class="partner-logo" alt="King County" title="King County">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/seattle-city.png" class="partner-logo" alt="City of Seattle" title="City of Seattle">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/green-seattle.png" class="partner-logo" alt="Green Seattle Partnership" title="Green Seattle Partnership">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/port-jobs.png" class="partner-logo" alt="Port Jobs" title="Port Jobs">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/dshs.png" class="partner-logo" alt="DSHS" title="WA State DSHS">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/uw.png" class="partner-logo" alt="University of Washington" title="University of Washington">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/seattle-foundation.png" class="partner-logo" alt="Seattle Foundation" title="Seattle Foundation">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/highlineCollege.png" class="partner-logo" alt="Highline College" title="Highline College">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/seattleCentralCollege.png" class="partner-logo" alt="Seattle Central College" title="Seattle Central College">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/southSeattleCollege.png" class="partner-logo" alt="South Seattle College" title="South Seattle College">
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <img src="/images/logos/fosterHighschool.png" class="partner-logo" alt="Foster Highschool" title="Foster Highschool">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest News -->
+<!-- News Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold">Latest News & Updates</h2>
+    <div class="row g-4">
+      
+      <!-- News Card 1 -->
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body">
+            <span class="badge bg-primary mb-2">Featured</span>
+            <h4>A New Chapter: Melba’s Vision for the Future</h4>
+            <p class="text-muted">June 15, 2023</p>
+            <p>At Melba, the future isn’t something we wait for—it’s something we build together...</p>
+            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#newsModal1">Read More</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- News Card 2 -->
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body">
+            <span class="badge bg-success mb-2">Success Story</span>
+            <h4>From Melba to Amazon: Alumni Spotlight on Korme Kedir</h4>
+            <p class="text-muted">May 28, 2023</p>
+            <p>How our career development program helped one student land a software engineering role at Amazon...</p>
+            <!-- Read More Button triggers modal -->
+            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#jamalModal">Read More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="newsModal1" tabindex="-1" aria-labelledby="newsModal1Label" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newsModal1Label">A New Chapter: Melba’s Vision for the Future</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="/images/bafaVision.jpg" alt="Success Story Image" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px;">
+        <p><strong>Published:</strong> July 21, 2023</p>
+
+        <p>As Melba continues to grow, it’s clear: our next chapter is bold, intentional, and community-first. With renewed momentum and visionary leadership, we're moving into an exciting new era of impact.</p>
+
+        <p>Rather than focusing on numbers or headlines, we're focusing on the <em>why</em>—the people behind the programs and the purpose that drives them. This isn't just about expanding services. It's about reimagining what's possible for youth and young adults across Seattle.</p>
+
+        <h6 class="mt-3">🌟 Our Vision: Empowerment at Every Stage</h6>
+        <ul>
+          <li><strong>Melba Tech Labs:</strong> A new generation of coding workshops and AI literacy bootcamps—led by tech mentors from Amazon, Microsoft, and Google.</li>
+          <li><strong>Urban Wellness Circle:</strong> Mental health and mindfulness for youth of color, run by certified BIPOC therapists.</li>
+          <li><strong>Melba+ Career Pathways:</strong> Apprenticeships and shadowing opportunities with Seattle's top industries—from maritime to green energy.</li>
+        </ul>
+
+        <img src="/images/bafaLeadership.jpg" alt="Success Story Image" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px;">
+
+        <h6 class="mt-3">🌱 Our Core Leadership Values</h6>
+        <img src="/images/community.jpg" alt="Core Leadership" style="float: right; max-width: 40%; margin-left: 20px; margin-bottom: 10px;">
+        <ul>
+          <li><strong>Community-first:</strong> We listen before we lead. Youth voices guide our direction.</li>
+          <li><strong>Cultural relevance:</strong> Our curriculum reflects who we serve—not just what we teach.</li>
+          <li><strong>Accessibility:</strong> Programs are multilingual, hybrid, and free for all.</li>
+          <li><strong>Leadership from within:</strong> Over 60% of Melba program leads are alumni, like Korme Kedir, who’ve walked the path themselves.</li>
+        </ul>
+
+        <h6 class="mt-3">🤝 Why Join Us?</h6>
+        <p>Whether you're a student, volunteer, parent, or partner—Melba is your platform. We’re not here to “fix” communities. We’re here to build with them. You bring your story; we’ll help shape your future.</p>
+
+        <p>Ready to mentor? <br> Want to co-lead a program? <br> Dreaming of launching a Melba chapter in your city?</p>
+        <p><strong>Join us.</strong> There’s room for everyone at the table.</p>
+
+        <small class="text-muted">Melba youth leaders presenting their capstone projects in June 2023</small>
+
+        <h6 class="mt-3">👣 Next Steps</h6>
+        <ul>
+          <li>➡️ <a href="/programs">View Our Programs</a></li>
+          <li>➡️ <a href="/donate">Support Our Mission</a></li>
+        </ul>
+
+        <img src="/images/thankUDog.jpg" alt="Success Story Image" style="width: 300px; height: 300px; border-radius: 50%; object-fit: cover; display: block; margin: 20px auto;">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="jamalModal" tabindex="-1" aria-labelledby="jamalModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="jamalModalLabel">From Melba to Amazon: Korme Kedir' Journey</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <img src="/images/toAmazon.jpg" alt="Korme Kedir at Amazon Web Services office" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        
+        <p class="text-muted mb-4"><strong>Published:</strong> July 23, 2025 | <strong>Category:</strong> Success Stories</p>
+      
+        <p class="lead" style="display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+          <img src="/images/thankUDog.jpg" alt="Korme Kedir" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;">
+          <span style="flex: 1;">
+            Seattle, WA — Just two years ago, <strong>Korme Kedir</strong> was tutoring classmates in his cramped college apartment. Today, he's a <span class="text-primary">Software Engineer at Amazon Web Services (AWS)</span>—and he credits his breakthrough to the grassroots community that grew from those humble study sessions: <strong>Melba (MELBA Community Service)</strong>.
+          </span>
+        </p>
+              
+        <div class="section-divider my-4"></div>
+      
+        <h4 class="mb-3">The Living Room That Started a Movement</h4>
+        <div class="pl-3 border-left border-primary">
+          <p>In 2022, while studying at <strong>Highline College</strong> and working as a campus tutor, Korme noticed a gap. "Many of us—first-gen students, immigrants—felt lost in the system," he recalls. So he opened his apartment for <strong>unofficial study nights</strong>:</p>
+          
+          <ul class="fa-ul mb-4">
+            <li><span class="fa-li"><i class="fas fa-code text-primary"></i></span>Debugging code over shared meals</li>
+            <li><span class="fa-li"><i class="fas fa-lightbulb text-primary"></i></span>Swapping internship tips</li>
+            <li><span class="fa-li"><i class="fas fa-globe-americas text-primary"></i></span>Navigating cultural barriers together</li>
+          </ul>
+      
+          <blockquote class="blockquote bg-light p-3 rounded" style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+            <p style="margin: 0;">"First it was just me and one friend. Then five. Soon, my living room couldn't fit everyone."</p>
+          </blockquote>
+          
+        </div>
+      
+        <h4 class="mt-5 mb-3">From Campus Initiative to Career Catalyst</h4>
+        <p>When Highline College took notice, Melba scaled rapidly—but Korme's biggest transformation was personal. <strong>"Melba forced me to level up,"</strong> he says. Surrounded by peers who believed in him.</p>
+        
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <div class="card bg-light mb-3">
+              <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-medal text-warning mr-2"></i> Key Achievements</h5>
+                <ul>
+                  <li>Landed competitive tech internships</li>
+                  <li>Led coding workshops</li>
+                  <li>Developed the "ownership mindset" used daily at AWS</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card bg-light">
+              <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-bullseye text-success mr-2"></i> Melba's Lasting Impact</h5>
+                <ul>
+                  <li>Number of interns guided into tech roles</li>
+                  <li>Model replicated at 3+ colleges</li>
+                  <li>Hybrid (in-person/virtual) support system created</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <h4 class="mt-5 mb-3">Paying It Forward</h4>
+        <p>Now at AWS, Korme continues his Melba involvement:</p>
+        <div class="d-flex flex-wrap mb-4">
+          <span class="badge badge-pill badge-primary mr-2 mb-2 p-2"><i class="fas fa-user-tie mr-1"></i> Mentors students</span>
+          <span class="badge badge-pill badge-success mr-2 mb-2 p-2"><i class="fas fa-hands-helping mr-1"></i> Advocates for diversity</span>
+          <span class="badge badge-pill badge-info mr-2 mb-2 p-2"><i class="fas fa-chalkboard-teacher mr-1"></i> Hosts alumni talks</span>
+        </div>
+      
+        <div class="alert alert-info mt-4">
+          <h5 class="alert-heading"><i class="fas fa-newspaper mr-2"></i>Coming Soon</h5>
+          Melba will announce its <strong>2026 Tech Scholars Program</strong> soon, stay tuned!
+          <a href="/programs" class="alert-link"><br><i>Follow our journey</a></i> for updates.
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Latest Blog Posts and Upcoming events-->
+  <% if (featuredPosts.length > 0 || upcomingEvents.length > 0) { %>
+    <section class="py-5 bg-light">
+      <div class="container">
+        <div class="row g-4">
+          
+          <!-- From Our Blog - 3 Column Layout -->
+          <% if (featuredPosts.length > 0) { %>
+          <div class="col-lg-6">
+            <div class="p-4 bg-white rounded-3 shadow-sm">
+              <h2 class="text-center mb-4 fw-bold text-primary">From Our Blog</h2>
+              <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3"> <!-- 3 columns on lg screens -->
+                <% featuredPosts.forEach(post => { %>
+                <div class="col">
+                  <div class="card h-100 border-0 shadow-sm" style="min-height: 200px;">
+                    <% if (post.image) { %>
+                      <img src="<%= post.image %>" class="card-img-top rounded-top" alt="<%= post.title %>" style="height: 120px; object-fit: cover;">
+                    <% } %>
+                    <div class="card-body p-2">
+                      <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="badge bg-primary bg-opacity-10 text-primary small">Blog</span>
+                        <small class="text-muted">
+                          <i class="far fa-calendar-alt me-1"></i>
+                          <%= post.createdAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) %>
+                        </small>
+                      </div>
+                      <h6 class="card-title fw-bold mb-1" style="font-size: 0.9rem;"><%= post.title %></h6>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 py-1 px-2">
+                      <a href="/blog#post-<%= post._id %>" class="btn btn-sm btn-outline-primary py-1" style="font-size: 0.8rem;">
+                        Read More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <% }); %>
+              </div>
+              <div class="text-center mt-4">
+                <a href="/blog" class="btn btn-primary px-4">View All Posts</a>
+              </div>
+            </div>
+          </div>
+          <% } %>
+      
+          <!-- Upcoming Events - 3 Column Layout -->
+          <% if (upcomingEvents.length > 0) { %>
+          <div class="col-lg-6">
+            <div class="p-4 bg-white rounded-3 shadow-sm">
+              <h2 class="text-center mb-4 fw-bold text-success">Upcoming Events</h2>
+              <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3"> <!-- 3 columns on lg screens -->
+                <% upcomingEvents.forEach(event => { %>
+                <div class="col">
+                  <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                      <div class="d-flex flex-column mb-3">
+                        <div class="bg-success bg-opacity-10 text-center p-2 rounded mb-2">
+                          <div class="fw-bold text-success fs-5">
+                            <%= event.eventDate.toLocaleDateString('en-US', { day: 'numeric' }) %>
+                          </div>
+                          <div class="text-success text-uppercase small">
+                            <%= event.eventDate.toLocaleDateString('en-US', { month: 'short' }) %>
+                          </div>
+                        </div>
+                        <h6 class="card-title fw-bold mb-1" style="font-size: 0.5rem;"><%= event.title %></h6>
+                        <p class="card-text small text-muted">
+                          <i class="fas fa-map-marker-alt text-success me-1"></i>
+                          <%= event.location %>
+                        </p>
+                      </div>
+                      <% if (event.description) { %>
+                        <p class="card-text small text-muted mb-3"><%= event.description.substring(0, 40) %>...</p>
+                      <% } %>
+                      <a href="/events#event-<%= event._id %>" class="btn btn-sm btn-outline-success w-100">
+                        Details
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <% }); %>
+              </div>
+              <div class="text-center mt-4">
+                <a href="/events" class="btn btn-success px-4">View All Events</a>
+              </div>
+            </div>
+          </div>
+          <% } %>
+      
+        </div>
+      </div>
+    </section>
+  <% } %>
+
+  <!-- Volunteer With Us -->
+<section class="py-5 bg-light volunteer-section">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-4">Volunteer With Us</h2>
+    <p class="lead mb-5">Volunteers are the heart of Melba. From tutoring youth to planning events, your time and skills create lasting change.</p>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="p-4 bg-white border rounded shadow-sm" style="min-height: 200px;">
+          <h5 class="fw-bold text-primary">Mentorship</h5>
+          <p>Become a trusted advisor to a young person exploring school, life, or work. One hour a week can change a life.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4 bg-white border rounded shadow-sm" style="min-height: 200px;">
+          <h5 class="fw-bold text-primary">Tutoring & Workshops</h5>
+          <p>Help students with homework, STEM skills, or test prep. No teaching experience required — just heart.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4 bg-white border rounded shadow-sm" style="min-height: 200px;">
+          <h5 class="fw-bold text-primary">Community Events</h5>
+          <p>Support event planning, logistics, or greet families at local outreach events, job fairs, and celebrations.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <button type="button" class="btn btn-primary btn-lg px-4" data-bs-toggle="modal" data-bs-target="#volunteerModal">
+        Become a Volunteer
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade" id="volunteerModal" tabindex="-1" aria-labelledby="volunteerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg"> <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="volunteerModalLabel">Become a Volunteer with Melba</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="volunteerIntroText">Thank you for your interest in volunteering with MELBA Community Service (Melba)! Please fill out the form below, and we'll get in touch.</p>
+
+        <form id="volunteerApplicationForm">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="volunteerFirstName" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="volunteerFirstName" name="firstName" placeholder="Enter your first name" required>
+            </div>
+            <div class="col-md-6">
+              <label for="volunteerLastName" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="volunteerLastName" name="lastName" placeholder="Enter your last name" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="volunteerEmail" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="volunteerEmail" name="email" placeholder="example@domain.com" required>
+          </div>
+          <div class="mb-3">
+            <label for="volunteerPhone" class="form-label">Phone Number (Optional)</label>
+            <input type="tel" class="form-control" id="volunteerPhone" name="phone" placeholder="(123) 456-7890">
+          </div>
+          <div class="mb-3">
+            <label for="volunteerAddress" class="form-label">Address</label>
+            <input type="text" class="form-control" id="volunteerAddress" name="address" placeholder="Seattle, WA">
+          </div>          
+          <div class="mb-3">
+            <label for="volunteerInterests" class="form-label">Areas of Interest (Select all that apply)</label>
+            <div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="interestMentorship" name="volunteerInterests" value="Mentorship">
+                <label class="form-check-label" for="interestMentorship">Mentorship</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="interestTutoring" name="volunteerInterests" value="Tutoring & Workshops">
+                <label class="form-check-label" for="interestTutoring">Tutoring & Workshops</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="interestEvents" name="volunteerInterests" value="Community Events">
+                <label class="form-check-label" for="interestEvents">Community Events</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="interestAdmin" name="volunteerInterests" value="Administrative Support">
+                <label class="form-check-label" for="interestAdmin">Administrative Support</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="interestOther" name="volunteerInterests" value="Other">
+                <label class="form-check-label" for="interestOther">Other</label>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="availability" class="form-label">Your Availability (e.g., "Weekends", "Evenings", "Flexible"):</label>
+            <textarea class="form-control" id="availability" name="availability" rows="2" placeholder="e.g., Weekends, Evenings, or Flexible"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="volunteerMessage" class="form-label">Tell us a little about yourself and why you'd like to volunteer:</label>
+            <textarea class="form-control" id="volunteerMessage" name="message" rows="4" placeholder="Share your motivation or experience"></textarea>
+          </div>
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary" id="submitVolunteerFormBtn">Submit Application</button>
+          </div>
+        </form>
+
+        <!-- Updated Success Message Div (place this right after your form tag) -->
+        <div id="volunteerFormSuccessMessage" class="d-flex justify-content-center align-items-center d-none" style="height: 100%;">
+        <div class="alert alert-success text-center" style="width: 80%; max-width: 500px;">
+            <h4 class="alert-heading">Thank you for your application!</h4>
+            <p>We've received your volunteer application and will be in touch soon.</p>
+            <hr>
+            <div class="d-grid gap-2 col-md-6 mx-auto mt-3">
+              <a href="/" class="btn btn-primary">Return Home</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error message remains the same -->
+        <div id="volunteerFormErrorMessage" class="alert alert-danger mt-3" style="display: none;">
+          There was an error submitting your application. Please try again.
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const volunteerApplicationForm = document.getElementById('volunteerApplicationForm');
+  const volunteerFormSuccessMessage = document.getElementById('volunteerFormSuccessMessage');
+  const volunteerFormErrorMessage = document.getElementById('volunteerFormErrorMessage');
+  const submitVolunteerFormBtn = document.getElementById('submitVolunteerFormBtn');
+  const volunteerModal = document.getElementById('volunteerModal');
+  const volunteerIntroText = document.getElementById('volunteerIntroText');
+
+  // Initialize modal state on page load
+  function resetModalState() {
+    volunteerApplicationForm.style.display = 'block';
+    volunteerIntroText.style.display = 'block';
+    volunteerFormSuccessMessage.classList.add('d-none');
+    volunteerFormErrorMessage.classList.add('d-none');
+    volunteerApplicationForm.reset();
+  }
+
+  // Call it immediately to set initial state
+  resetModalState();
+
+  // Reset modal when opened
+  volunteerModal.addEventListener('show.bs.modal', resetModalState);
+
+  if (volunteerApplicationForm) {
+    volunteerApplicationForm.addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      submitVolunteerFormBtn.disabled = true;
+      submitVolunteerFormBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...';
+      volunteerFormSuccessMessage.classList.add('d-none');
+      volunteerFormErrorMessage.classList.add('d-none');
+
+      // Collect form data including checkboxes
+      const formData = new FormData(this);
+      const data = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        address: formData.get('address'),
+        volunteerInterests: Array.from(document.querySelectorAll('input[name="volunteerInterests"]:checked')).map(el => el.value),
+        availability: formData.get('availability'),
+        message: formData.get('message')
+      };
+
+      try {
+        const response = await fetch('/api/volunteer', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          // Hide the form and intro text, show success message
+          volunteerApplicationForm.style.display = 'none';
+          volunteerIntroText.style.display = 'none';
+          volunteerFormSuccessMessage.classList.remove('d-none');
+          
+          // Reset form (hidden now but still good practice)
+          volunteerApplicationForm.reset();
+        } else {
+          const errorData = await response.json();
+          volunteerFormErrorMessage.textContent = errorData.message || 'There was an error submitting your application.';
+          volunteerFormErrorMessage.classList.remove('d-none');
+        }
+      } catch (error) {
+        console.error('Error submitting volunteer form:', error);
+        volunteerFormErrorMessage.textContent = 'Network error. Please check your connection and try again.';
+        volunteerFormErrorMessage.classList.remove('d-none');
+      } finally {
+        submitVolunteerFormBtn.disabled = false;
+        submitVolunteerFormBtn.textContent = 'Submit Application';
+      }
+    });
+  }
+});
+</script>
+
+  <%- include('../partials/footer') %>
+
+  <!-- Counter Animation Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Improved Counter Animation
+      const animateCounters = () => {
+        const counters = document.querySelectorAll('.counter');
+        const speed = 50; // Lower number = faster animation
+        
+        counters.forEach(counter => {
+          const target = +counter.getAttribute('data-target');
+          const increment = target / speed;
+          let current = 0;
+          
+          const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+              counter.textContent = Math.floor(current);
+              setTimeout(updateCounter, 20);
+            } else {
+              counter.textContent = target;
+            }
+          };
+          
+          updateCounter();
+        });
+      };
+
+      // Auto-scrolling Testimonials
+      const carousel = document.querySelector('.testimonial-carousel');
+      const cards = document.querySelectorAll('.testimonial-card');
+      const cardWidth = cards[0].offsetWidth + 24; // width + gap
+      let direction = 1;
+      let scrollAmount = 0;
+      const maxScroll = carousel.scrollWidth - carousel.parentElement.offsetWidth;
+      
+      const autoScroll = () => {
+        scrollAmount += direction * 1;
+        carousel.style.transform = `translateX(-${scrollAmount}px)`;
+        
+        if (scrollAmount >= maxScroll || scrollAmount <= 0) {
+          direction *= -1;
+        }
+      };
+      
+      // Start animations when in view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounters();
+            setInterval(autoScroll, 50); // Adjust speed here
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      observer.observe(document.querySelector('.counter'));
+      observer.observe(document.querySelector('.testimonial-carousel-container'));
+    });
+  </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const shouldOpenModal = urlParams.get('volunteer');
+
+    if (shouldOpenModal === 'true') {
+      const volunteerModal = new bootstrap.Modal(document.getElementById('volunteerModal'));
+      volunteerModal.show();
+    }
+  });
+</script>
+
+  
+</body>
+</html>

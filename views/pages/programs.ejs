@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head', { 
+    title: 'Our Programs',
+    description: 'Explore Melba\'s comprehensive participants empowerment programs including education, career development, mental health, sports, community engagement, and tech bootcamps.'
+  }) %>
+  <style>
+    /* Add any custom styles here if needed */
+    .program-feature {
+        border: 1px solid var(--light-gray);
+        border-radius: var(--border-radius);
+        padding: 1.5rem; /* Adjust as needed for spacing */
+    }
+
+    /* Success message styling */
+    .modal-body {
+        position: relative;
+        min-height: 300px;
+    }
+
+    /* Style the success message */
+    #enrollmentFormSuccessMessage {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        text-align: center;
+    }
+
+    /* Return home button */
+    .return-home-btn {
+        margin-top: 1.5rem;
+    }
+
+    /* Styles for the impact stats (if not already defined) */
+    .impact-stat {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary); /* Assuming --primary is defined in your variables */
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Styles for schedule badges */
+    .schedule-badge {
+      min-width: 60px; /* Ensure consistent width */
+      padding: 0.5em 0.75em;
+      font-size: 0.85em;
+      display: inline-block;
+      text-align: center;
+    }
+
+    /* Program nav sticky adjustment for better top spacing */
+    .program-nav-sticky {
+        top: 100px; /* Adjusted from 130px to give a bit more space from the sticky nav */
+    }
+
+    /* Adding styles for the new program card icons if not handled by general card styles */
+    .card .display-3 {
+      text-align: center;
+    }
+
+    /* Ensure images in partners section don't stretch too much */
+    .card-body .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Custom style for form labels to match design */
+    .form-label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--dark); /* Assuming --dark is defined in your variables */
+    }
+
+    /* Custom style for modal header to match primary color */
+    .modal-header {
+      background-color: var(--primary);
+      color: white;
+      border-bottom: none;
+      border-top-left-radius: var(--border-radius);
+      border-top-right-radius: var(--border-radius);
+    }
+    .modal-header .btn-close {
+      filter: invert(1) grayscale(100%) brightness(200%); /* Makes close button white */
+    }
+    .modal-content {
+      border-radius: var(--border-radius);
+    }
+    .col-md-4 h3{
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <%- include('../partials/nav', { currentPage: 'programs' }) %>
+  <!-- Programs Hero -->
+  <section class="hero-section bg-primary text-white py-5">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h1 class="display-4 fw-bold mb-3">Our Programs</h1>
+          <p class="lead">At Melba, we're dedicated to nurturing the potential within each individual. Our comprehensive programs are designed to build essential skills, ignite confidence, and foster strong community connections—empowering people across Seattle to create a brighter future.</p>
+          <div class="mt-4 responsive-button-group">
+            <a href="#program-list" class="btn btn-light me-2">Explore Programs</a>
+            <a href="/contact" class="btn btn-outline-light">Get Involved</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Program Highlights -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm">
+            <div class="display-3 text-primary mb-3">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3>Education</h3>
+            <p class="px-3">Academic support and college readiness programs serving 300+ students annually</p>
+            <a href="#education" class="btn btn-sm btn-outline-primary mt-auto">Learn More</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm">
+            <div class="display-3 text-primary mb-3">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <h3>Career Development</h3>
+            <p class="px-3">Paid internships and job training with 20+ corporate partners</p>
+            <a href="#career" class="btn btn-sm btn-outline-primary mt-auto">Learn More</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm">
+            <div class="display-3 text-primary mb-3">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3>Wellness</h3>
+            <p class="px-3">Mental health services and recreational activities for holistic development</p>
+            <a href="#mental-health" class="btn btn-sm btn-outline-primary mt-auto">Learn More</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm">
+            <div class="display-3 text-primary mb-3">
+              <i class="fas fa-basketball-ball"></i>
+            </div>
+            <h3>Sports</h3>
+            <p class="px-3">Team sports and fitness programs for discipline and healthy habits</p>
+            <a href="#sports" class="btn btn-sm btn-outline-primary mt-auto">Learn More</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm">
+            <div class="display-3 text-primary mb-3">
+              <i class="fas fa-hands-helping"></i>
+            </div>
+            <h3>Community Engagement</h3>
+            <p class="px-3">Connecting participants with leadership and civic involvement opportunities</p>
+            <a href="#community" class="btn btn-sm btn-outline-primary mt-auto">Learn More</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm">
+            <div class="display-3 text-primary mb-3">
+              <i class="fas fa-code"></i> <!-- Using a code icon -->
+            </div>
+            <h3>Tech Bootcamps</h3>
+            <p class="px-3">Intensive coding and tech skills training for future innovators</p>
+            <a href="#bootcamp" class="btn btn-sm btn-outline-primary mt-auto">Learn More</a>
+          </div>
+        </div>
+      </div> <!-- Closing row g-4 -->
+    </div>
+  </section>
+  <!-- Programs Content -->
+  <section class="py-5" id="program-list">
+    <div class="container">
+      <div class="row">
+        <!-- Program Navigation -->
+        <div class="col-lg-3 mb-4 mb-lg-0 program-nav-sticky">
+          <div class="card shadow-sm">
+            <div class="card-header bg-light">
+              <h5 class="mb-0">Program Areas</h5>
+            </div>
+            <div class="list-group list-group-flush">
+              <% 
+                // Define programs array here for the include to use, or ensure it's passed from your server
+                const programs = [
+                  { id: 'education', title: 'Education', icon: 'fa-graduation-cap' },
+                  { id: 'career', title: 'Career Development', icon: 'fa-briefcase' },
+                  { id: 'mental-health', title: 'Wellness', icon: 'fa-heart' },
+                  { id: 'sports', title: 'Sports', icon: 'fa-basketball-ball' },
+                  { id: 'community', title: 'Community Engagement', icon: 'fa-hands-helping' },
+                  { id: 'bootcamp', title: 'Tech Bootcamps', icon: 'fa-code' } // New Bootcamp program
+                ];
+              %>
+              <% programs.forEach(program => { %>
+              <a href="#<%= program.id %>" 
+                 class="list-group-item list-group-item-action program-tab <%= program.id === 'education' ? 'active' : '' %>"
+                 data-bs-toggle="pill">
+                <i class="fas <%= program.icon %> me-2 text-primary"></i>
+                <%= program.title %>
+              </a>
+              <% }); %>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Program Details -->
+        <div class="col-lg-9">
+          <div class="tab-content">
+            <!-- Education Program -->
+            <div class="tab-pane fade show active" id="education">
+              <div class="card border-0 shadow-sm mb-4">
+                <img src="/images/program-education.jpg" class="card-img-top" alt="Education Program">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="card-title mb-0">Education Support Program</h2>
+                    <span class="badge bg-primary">Academic Journeys</span>
+                  </div>
+                  <p class="lead">Helping students achieve academic success and prepare for higher education through comprehensive support services.</p>
+                  
+                  <div class="alert alert-primary">
+                    <i class="fas fa-info-circle me-2"></i> <strong>Now Enrolling:</strong> Tutoring sessions and college prep workshops
+                  </div>
+                  
+                  <h5 class="mt-4"><i class="fas fa-star text-warning me-2"></i>Program Highlights</h5>
+                  <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                      <div class="p-3 program-feature">
+                        <h6><i class="fas fa-clock text-primary me-2"></i>After-School Tutoring</h6>
+                        <p class="mb-0">Monday-Thursday, 3:30-6:30pm</p>
+                        <p clas="mb-0">Individualized support in math, science, reading, and writing</p>
+                        <small class="text-muted">We work with families to remove barriers</small>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-3 program-feature">
+                        <h6><i class="fas fa-university text-primary me-2"></i>College Prep Academy</h6>
+                        <p class="mb-0">SAT/ACT prep, application workshops, and campus tours throughout the school year</p>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-3 program-feature">
+                        <h6><i class="fas fa-laptop-code text-primary me-2"></i>STEM Enrichment</h6>
+                        <p class="mb-0">Coding classes and robotics clubs in partnership with Microsoft and Amazon</p>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-3 program-feature">
+                        <h6><i class="fas fa-book-reader text-primary me-2"></i>Summer Bridge Program</h6>
+                        <p class="mb-0">6-week intensive to prevent summer learning loss and prepare for the next grade</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <h5><i class="fas fa-chart-line text-success me-2"></i>Program Impact</h5>
+                  <div class="row g-4 mb-4 text-center">
+                    <div class="col-md-3">
+                      <div class="p-3">
+                        <div class="impact-stat">92%</div>
+                        <p class="mb-0">Graduation Rate</p>
+                        <small>(vs. 82% district average)</small>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="p-3">
+                        <div class="impact-stat">78%</div>
+                        <p class="mb-0">College Enrollment</p>
+                        <small>Within 6 months</small>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="p-3">
+                        <div class="impact-stat">1.2</div>
+                        <p class="mb-0">GPA Increase</p>
+                        <small>Average improvement</small>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="p-3">
+                        <div class="impact-stat">100+</div>
+                        <p class="mb-0">Students Served</p>
+                        <small>Annually</small>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="d-flex flex-wrap gap-3">
+                    <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#enrollNowModal">
+                        <i class="fas fa-user-plus me-2"></i>Enroll Now
+                    </button>
+                    <a href="/donate" class="btn btn-outline-primary px-4">
+                        <i class="fas fa-graduation-cap me-2"></i>Sponsor a Student
+                    </a>
+                    <button type="button" class="btn btn-outline-secondary px-4" data-bs-toggle="modal" data-bs-target="#tutorModal">
+                        <i class="fas fa-chalkboard-teacher me-2"></i>Tutor
+                    </button>
+                </div>
+
+                </div>
+              </div>
+              
+              <!-- Education Program Schedule -->
+              <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-light">
+                  <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>Program Schedule</h5>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Program</th>
+                          <th>Schedule</th>
+                          <th>Location</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>After-School Tutoring</td>
+                          <td>Mon-Thu, 3:30-6:30pm</td>
+                          <td>Central District</td>
+                          <td><span class="badge bg-success schedule-badge">Open</span></td>
+                        </tr>
+                        <tr>
+                          <td>SAT Prep Workshop</td>
+                          <td>Saturdays, 10am-1pm</td>
+                          <td>South Seattle</td>
+                          <td><span class="badge bg-warning text-dark schedule-badge">Limited</span></td>
+                        </tr>
+                        <tr>
+                          <td>College Application Lab</td>
+                          <td>Wednesdays, 4-6pm</td>
+                          <td>Central District</td>
+                          <td><span class="badge bg-success schedule-badge">Open</span></td>
+                        </tr>
+                        <tr>
+                          <td>STEM Saturdays</td>
+                          <td>1st/3rd Sat, 9am-12pm</td>
+                          <td>Amazon Campus</td>
+                          <td><span class="badge bg-danger schedule-badge">Waitlist</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Success Stories -->
+              <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-light">
+                  <h5 class="mb-0"><i class="fas fa-quote-left me-2"></i>Success Stories</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <div class="p-3 bg-light rounded h-100">
+                        <p class="fst-italic">"Melba's tutors helped me improve from a 2.1 to 3.4 GPA. I'm now a freshman at UW studying computer science."</p>
+                        <div class="d-flex align-items-center mt-3">
+                          <img src="/images/successStories/roba.jpg" class="rounded-circle me-3" width="50" alt="Student">
+                          <div>
+                            <h6 class="mb-0">Roba W.</h6>
+                            <small class="text-muted">Class of 2022, UW Student</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-3 bg-light rounded h-100">
+                        <p class="fst-italic">"The college prep program helped me navigate applications and financial aid as a first-generation student."</p>
+                        <div class="d-flex align-items-center mt-3">
+                          <img src="/images/successStories/harmela.jpg" class="rounded-circle me-3" width="50" alt="Student">
+                          <div>
+                            <h6 class="mb-0">Harmela G.</h6>
+                            <small class="text-muted">Seattle University '26</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Career Development Program -->
+            <div class="tab-pane fade" id="career">
+              <div class="card border-0 shadow-sm mb-4">
+                <img src="/images/program-career.jpg" class="card-img-top" alt="Career Program">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="card-title mb-0">Career Development Program</h2>
+                    <span class="badge bg-primary">NextGen Talent</span>
+                  </div>
+                  <p class="lead">Preparing participants for professional success through skills training, mentorship, and paid work experiences.</p>
+                  
+                  <div class="alert alert-primary">
+                    <i class="fas fa-info-circle me-2"></i> <strong>Now Accepting Applications:</strong> Tutoring sessions and college prep workshops 
+                  </div>
+                  
+                  <h5 class="mt-4"><i class="fas fa-star text-warning me-2"></i>Program Components</h5>
+                  <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                      <div class="p-4 bg-light rounded h-100 program-feature">
+                        <h6><i class="fas fa-briefcase text-primary me-2"></i> Career Exploration</h6>
+                        <p>Monthly workshops exposing participants to different industries through company visits, panel discussions, and networking events.</p>
+                        <div class="d-flex flex-wrap gap-1">
+                          <span class="badge bg-secondary">Tech</span>
+                          <span class="badge bg-secondary">Healthcare</span>
+                          <span class="badge bg-secondary">Trades</span>
+                          <span class="badge bg-secondary">Business</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-4 bg-light rounded h-100 program-feature">
+                        <h6><i class="fas fa-file-alt text-primary me-2"></i> Resume Building</h6>
+                        <p>Hands-on assistance creating professional resumes, cover letters, and LinkedIn profiles tailored to different industries.</p>
+                        <ul class="mb-0 ps-3">
+                          <li>One-on-one coaching</li>
+                          <li>ATS optimization</li>
+                          <li>Portfolio development</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-4 bg-light rounded h-100 program-feature">
+                        <h6><i class="fas fa-handshake text-primary me-2"></i> Interview Prep</h6>
+                        <p>Mock interviews with HR professionals from partner companies, communication skills training, and professional etiquette.</p>
+                        <ul class="mb-0 ps-3">
+                          <li>Behavioral interviews</li>
+                          <li>Technical interviews</li>
+                          <li>Job offer guidance</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-4 bg-light rounded h-100 program-feature">
+                        <h6><i class="fas fa-user-tie text-primary me-2"></i> Paid Internships</h6>
+                        <p>8-12 week summer internships at leading Seattle companies with mentorship and career coaching.</p>
+                        <div class="d-flex flex-wrap gap-1 mt-2">
+                          <span class="badge bg-primary">Amazon</span>
+                          <span class="badge bg-primary">Microsoft</span>
+                          <span class="badge bg-primary">Starbucks</span>
+                          <span class="badge bg-primary">Port of Seattle</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <h5><i class="fas fa-chart-line text-success me-2"></i>Program Impact</h5>
+                  <div class="row g-4 mb-4 text-center">
+                    <div class="col-md-3">
+                      <div class="p-3">
+                        <div class="impact-stat">85%</div>
+                        <p class="mb-0">Employment Rate</p>
+                        <small>Within 3 months</small>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="p-3">
+                        <div class="impact-stat">$32.50</div>
+                        <p class="mb-0">Average Wage</p>
+                        <small>For program graduates</small>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="p-3">
+                        <div class="impact-stat">50+</div>
+                        <p class="mb-0">Internships</p>
+                        <small>Since 2023</small>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="p-3">
+                        <div class="impact-stat">20+</div>
+                        <p class="mb-0">Partner Companies</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="d-flex flex-wrap gap-3">
+                    <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#applyNowModal">
+                      <i class="fas fa-user-plus me-2"></i>Apply Now
+                    </button>
+                    <button type="button" class="btn btn-outline-primary px-4" data-bs-toggle="modal" data-bs-target="#fundInternshipsModal">
+                      <i class="fas fa-briefcase me-2"></i>Fund Internships
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary px-4" data-bs-toggle="modal" data-bs-target="#becomePartnerModal">
+                      <i class="fas fa-building me-2"></i>Become a Partner
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Career Program Partners -->
+              <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-light">
+                  <h5 class="mb-0"><i class="fas fa-handshake me-2"></i>Our Career Partners</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row g-4 align-items-center">
+                    <div class="col-6 col-md-3 text-center">
+                      <img src="/images/logos/amazon.png" class="img-fluid" alt="Amazon" style="max-height: 60px;">
+                    </div>
+                    <div class="col-6 col-md-3 text-center">
+                      <img src="/images/logos/microsoft.png" class="img-fluid" alt="Microsoft" style="max-height: 60px;">
+                    </div>
+                    <div class="col-6 col-md-3 text-center">
+                      <img src="/images/logos/starbucks.png" class="img-fluid" alt="Starbucks" style="max-height: 60px;">
+                    </div>
+                    <div class="col-6 col-md-3 text-center">
+                      <img src="/images/logos/port-of-seattle.png" class="img-fluid" alt="Port of Seattle" style="max-height: 60px;">
+                    </div>
+                    <div class="col-6 col-md-3 text-center">
+                      <img src="/images/logos/expedia.png" class="img-fluid" alt="Expedia" style="max-height: 60px;">
+                    </div>
+                    <div class="col-6 col-md-3 text-center">
+                      <img src="/images/logos/seattle-city.png" class="img-fluid" alt="City of Seattle" style="max-height: 60px;">
+                    </div>
+                    <div class="col-6 col-md-3 text-center">
+                      <img src="/images/logos/uw.png" class="img-fluid" alt="University of Washington" style="max-height: 60px;">
+                    </div>
+                    <div class="col-6 col-md-3 text-center">
+                      <img src="/images/logos/seattle-childrens.png" class="img-fluid" alt="Seattle Children's" style="max-height: 60px;">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Mental Health Program -->
+            <div class="tab-pane fade" id="mental-health">
+              <div class="card border-0 shadow-sm mb-4">
+                <img src="/images/program-mental-health.jpg" class="card-img-top" alt="Mental Health Program" loading="lazy">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="card-title mb-0">Mental Wellness Program</h2>
+                    <span class="badge bg-primary">A Safe Space to Heal & Grow</span>
+                  </div>
+                  <p class="lead">Supporting emotional well-being and resilience through counseling and wellness initiatives.</p>
+                  
+                  <div class="alert alert-primary">
+                    <i class="fas fa-info-circle me-2"></i> All services are completely confidential and free for participants.
+                  </div>
+                  
+                  <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                      <div class="p-4 bg-light rounded h-100 program-feature">
+                        <h6><i class="fas fa-heart text-primary me-2"></i> Counseling Services</h6>
+                        <ul class="mb-0 ps-3">
+                          <li>Individual therapy sessions</li>
+                          <li>Group support meetings</li>
+                          <li>Crisis intervention</li>
+                          <li>Family counseling</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-4 bg-light rounded h-100 program-feature">
+                        <h6><i class="fas fa-brain text-primary me-2"></i> Wellness Programs</h6>
+                        <ul class="mb-0 ps-3">
+                          <li>Mindfulness meditation</li>
+                          <li>Stress management workshops</li>
+                          <li>Art and music therapy</li>
+                          <li>Recreational sports leagues (soccer/basketball)</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <h5><i class="fas fa-chart-line text-success me-2"></i>Program Impact</h5>
+                  <div class="row g-4 mb-4 text-center">
+                    <div class="col-md-4">
+                      <div class="p-3">
+                        <div class="impact-stat">73%</div>
+                        <p class="mb-0">Reduced Anxiety</p>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="p-3">
+                        <div class="impact-stat">89%</div>
+                        <p class="mb-0">Improved Coping</p>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="p-3">
+                        <div class="impact-stat">100+</div>
+                        <p class="mb-0">Participants Served</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="d-flex flex-wrap gap-3">
+                    <a href="/contact" class="btn btn-primary px-4">
+                      <i class="fas fa-phone-alt me-2"></i>Get Help
+                    </a>
+                    <a href="/donate" class="btn btn-outline-primary px-4">
+                      <i class="fas fa-heart me-2"></i>Support Wellness
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Sports Programs -->
+            <div class="tab-pane fade" id="sports">
+              <div class="card border-0 shadow-sm mb-4">
+                <img src="/images/program-sports.jpg" class="card-img-top" alt="Sports Programs" loading="lazy">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="card-title mb-0">Sports & Fitness Programs</h2>
+                    <span class="badge bg-primary">Ages 12+</span>
+                  </div>
+                  <p class="lead">Building teamwork, discipline, and healthy habits through athletic activities.</p>
+                  
+                  <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                      <div class="p-4 bg-light rounded h-100 program-feature">
+                        <h6><i class="fas fa-basketball-ball text-primary me-2"></i> Team Sports</h6>
+                        <ul class="mb-0 ps-3">
+                          <li>Basketball (Fall/Winter)</li>
+                          <li>Soccer (Spring)</li>
+                          <li>Volleyball (Summer)</li>
+                          <li>Co-ed options available</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-4 bg-light rounded h-100 program-feature">
+                        <h6><i class="fas fa-dumbbell text-primary me-2"></i> Fitness Programs</h6>
+                        <ul class="mb-0 ps-3">
+                          <li>Strength training</li>
+                          <li>Nutrition coaching</li>
+                          <li>Yoga and flexibility</li>
+                          <li>Outdoor adventures</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <h5><i class="fas fa-chart-line text-success me-2"></i>2024-2025 Season Highlights</h5>
+                  <div class="row g-4 mb-4">
+                    <div class="col-md-4">
+                      <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                          <i class="fas fa-trophy text-warning mb-3" style="font-size: 2rem;"></i>
+                          <h6>City Pioneers</h6>
+                          <p class="mb-0">Boys Soccer Team</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                          <i class="fas fa-graduation-cap text-success mb-3" style="font-size: 2rem;"></i>
+                          <h6>College Athletes</h6>
+                          <p class="mb-0">12 scholarships earned</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                          <i class="fas fa-users text-info mb-3" style="font-size: 2rem;"></i>
+                          <h6>Participation</h6>
+                          <p class="mb-0">100+ Participants served</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="d-flex flex-wrap gap-3">
+                    <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#joinTeamModal">
+                      <i class="fas fa-running me-2"></i>Join a Team
+                    </button>
+                    <a href="/donate" class="btn btn-outline-primary px-4">
+                      <i class="fas fa-tshirt me-2"></i>Sponsor Athletics
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Community Engagement Program -->
+            <div class="tab-pane fade" id="community">
+              <div class="card border-0 shadow-sm mb-4">
+                <img src="/images/program-community.jpg" class="card-img-top" alt="Community Engagement" loading="lazy">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="card-title mb-0">Community Engagement</h2>
+                    <span class="badge bg-primary">Your Voice Matters</span>
+                  </div>
+                  <p class="lead">Connecting participants with leadership opportunities and civic involvement.</p>
+                  
+                  <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                      <div class="p-4 bg-light rounded h-100 program-feature">
+                        <h6><i class="fas fa-hands-helping text-primary me-2"></i> Volunteerism</h6>
+                        <ul class="mb-0 ps-3">
+                          <li>Food bank assistance</li>
+                          <li>Neighborhood cleanups</li>
+                          <li>Senior companionship</li>
+                          <li>Community gardens</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-4 bg-light rounded h-100 program-feature">
+                        <h6><i class="fas fa-microphone text-primary me-2"></i> Community Leadership</h6>
+                        <ul class="mb-0 ps-3">
+                          <li>Leadership council</li>
+                          <li>Public speaking training</li>
+                          <li>Civic engagement</li>
+                          <li>Event planning</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <h5><i class="fas fa-calendar-alt text-primary me-2"></i>Upcoming Opportunities</h5>
+                  <div class="list-group mb-4">
+                    <div class="list-group-item">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <h6 class="mb-1">Food Drive Initiative</h6>
+                          <small class="text-muted">Quarterly event - inquire for schedule</small>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Limited spots available - Contact us to join!</span>
+                      </div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <h6 class="mb-1">Park Cleanup Day</h6>
+                          <small class="text-muted">Held monthly on the 2nd and 4th Saturdays</small>
+                        </div>
+                        <span class="badge bg-success rounded-pill">Open</span>
+                      </div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <h6 class="mb-1">Leadership Advisory Council Meeting</h6>
+                          <small class="text-muted">Held monthly on the 1st Saturday</small>
+                        </div>
+                        <span class="badge bg-info text-dark rounded-pill">Invitation Only</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="d-flex flex-wrap gap-3">
+                    <button type="button" class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#volunteerModal">
+                      <i class="fas fa-hands-helping me-2"></i>Volunteer
+                    </button>
+                    <a href="/donate" class="btn btn-outline-primary px-4">
+                      <i class="fas fa-heart me-2"></i>Support Programs
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tech Bootcamps Program - NEW SECTION -->
+            <div class="tab-pane fade" id="bootcamp">
+              <div class="card border-0 shadow-sm mb-4">
+                <img src="/images/program-bootcamp.jpg" class="card-img-top" alt="Tech Bootcamps" loading="lazy">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="card-title mb-0">Tech Bootcamps</h2>
+                    <span class="badge bg-primary">Skill Up. Stand Out.</span>
+                  </div>
+                  <p class="lead">Accelerate your career in tech with our intensive, self-paced coding bootcamps. Learn cutting-edge skills and build real-world projects, all with dedicated instructor support.</p>
+                  
+                  <div class="alert alert-info">
+                    <i class="fas fa-chalkboard-teacher me-2"></i> All programs are <strong>free to register and attend</strong>, with self-paced learning and assigned instructor support if preferred.
+                  </div>
+
+                  <h5 class="mt-4"><i class="fas fa-list-ul text-warning me-2"></i>Bootcamp Tracks</h5>
+                  <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                      <div class="p-4 bg-light rounded h-100 program-feature">
+                        <h6><i class="fas fa-code text-primary me-2"></i> Web Development Fundamentals</h6>
+                        <ul class="mb-0 ps-3">
+                          <li>HTML & CSS</li>
+                          <li>JavaScript</li>
+                          <li>Python (Basics for Web)</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-4 bg-light rounded h-100 program-feature">
+                        <h6><i class="fas fa-laptop-code text-primary me-2"></i> Advanced Programming</h6>
+                        <ul class="mb-0 ps-3">
+                          <li>Python (Advanced)</li>
+                          <li>Java</li>
+                          <li>Go</li>
+                          <li>TypeScript</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-4 bg-light rounded h-100 program-feature">
+                        <h6><i class="fas fa-react text-primary me-2"></i> Frontend Frameworks</h6>
+                        <ul class="mb-0 ps-3">
+                          <li>React.js</li>
+                          <li>Modern UI/UX principles</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h5 class="mt-4"><i class="fas fa-cogs text-success me-2"></i>How It Works</h5>
+                  <div class="row g-3 mb-4">
+                      <div class="col-md-4">
+                          <div class="p-3 bg-light rounded text-center h-100">
+                              <i class="fas fa-clock mb-2 text-primary" style="font-size: 1.8rem;"></i>
+                              <p class="fw-bold mb-1">Flexible & Self-Paced</p>
+                              <small class="text-muted">Learn on your own schedule</small>
+                          </div>
+                      </div>
+                      <div class="col-md-4">
+                          <div class="p-3 bg-light rounded text-center h-100">
+                              <i class="fas fa-user-tie mb-2 text-primary" style="font-size: 1.8rem;"></i>
+                              <p class="fw-bold mb-1">Instructor Support</p>
+                              <small class="text-muted">Personalized guidance when you need it</small>
+                          </div>
+                      </div>
+                      <div class="col-md-4">
+                          <div class="p-3 bg-light rounded text-center h-100">
+                              <i class="fas fa-dollar-sign mb-2 text-primary" style="font-size: 1.8rem;"></i>
+                              <p class="fw-bold mb-1">Completely Free</p>
+                              <small class="text-muted">No cost to participants</small>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="text-center mt-5">
+                    <button type="button" class="btn btn-primary btn-lg px-5" data-bs-toggle="modal" data-bs-target="#bootcampRegisterModal">
+                      <i class="fas fa-clipboard-list me-2"></i> Register for a Bootcamp
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END Tech Bootcamps Program -->
+
+          </div> <!-- Closing tab-content -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODALS SECTION -->
+
+  <!-- 3. Career - Apply Now Modal (Internship Application) -->
+  <div class="modal fade" id="applyNowModal" tabindex="-1" aria-labelledby="applyNowModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="applyNowModalLabel">Apply for an Internship</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="careerApplyNowForm" class="needs-validation" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="applyFirstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="applyFirstName" name="firstName" required>
+                <div class="invalid-feedback">Please enter your first name.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="applyLastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="applyLastName" name="lastName" required>
+                <div class="invalid-feedback">Please enter your last name.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="applyAge" class="form-label">Age</label>
+                <input type="number" class="form-control" id="applyAge" name="age" min="16" max="30" required>
+                <div class="invalid-feedback">Please enter your age (16-30).</div>
+              </div>
+              <div class="col-md-6">
+                <label for="applyEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="applyEmail" name="email" required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="applyPhone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="applyPhone" name="phone">
+              </div>
+              <div class="col-md-6">
+                <label for="applyInterest" class="form-label">Area of Interest</label>
+                <select class="form-select" id="applyInterest" name="interest" required>
+                  <option selected disabled value="">Choose...</option>
+                  <option>Tech</option>
+                  <option>Healthcare</option>
+                  <option>Trades</option>
+                  <option>Business</option>
+                  <option>Non-Profit/Community</option>
+                  <option>Other</option>
+                </select>
+                <div class="invalid-feedback">Please select an area of interest.</div>
+              </div>
+              <div class="col-12">
+                <label for="applyResume" class="form-label">Upload Resume (PDF preferred)</label>
+                <input class="form-control" type="file" id="applyResume" name="resumeFile" accept=".pdf,.doc,.docx">
+                <small class="form-text text-muted">Max file size 5MB. This is a placeholder for future functionality.</small>
+              </div>
+              <div class="col-12">
+                <label for="applyCoverLetter" class="form-label">Cover Letter / Message</label>
+                <textarea class="form-control" id="applyCoverLetter" name="coverLetter" rows="4" placeholder="Tell us why you're interested in an internship with Melba."></textarea>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-center border-top-0 mt-4">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="submitCareerApplyNowBtn">Submit Application</button>
+            </div>
+          </form>
+          <div id="careerApplyNowSuccessMessage" class="alert alert-success mt-3" style="display: none;" role="alert">
+            Your internship application has been submitted! We'll review it and get back to you.
+          </div>
+          <div id="careerApplyNowErrorMessage" class="alert alert-danger mt-3" style="display: none;" role="alert">
+            There was an error submitting your internship application. Please try again.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Career - Fund Internships Modal -->
+  <div class="modal fade" id="fundInternshipsModal" tabindex="-1" aria-labelledby="fundInternshipsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="fundInternshipsModalLabel">Fund Internships</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="careerFundInternshipsForm" class="needs-validation" novalidate>
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="fundName" class="form-label">Your Name / Organization Name</label>
+                <input type="text" class="form-control" id="fundName" name="name" required>
+                <div class="invalid-feedback">Please enter a name.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="fundEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="fundEmail" name="email" required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="fundPhone" class="form-label">Phone (Optional)</label>
+                <input type="tel" class="form-control" id="fundPhone" name="phone">
+              </div>
+              <div class="col-12">
+                <label for="sponsorshipLevel" class="form-label">Sponsorship Level</label>
+                <select class="form-select" id="sponsorshipLevel" name="sponsorshipLevel" required>
+                  <option selected disabled value="">Choose...</option>
+                  <option value="Full">Full Internship ($5,000)</option>
+                  <option value="Half">Half Internship ($2,500)</option>
+                  <option value="Quarter">Quarter Internship ($1,250)</option>
+                  <option value="Custom">Custom Amount</option>
+                </select>
+                <div class="invalid-feedback">Please select a sponsorship level.</div>
+              </div>
+              <div class="col-12">
+                <label for="fundMessage" class="form-label">Message (Optional)</label>
+                <textarea class="form-control" id="fundMessage" name="message" rows="3" placeholder="Tell us more about your interest in supporting our internships."></textarea>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-center border-top-0 mt-4">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="submitCareerFundInternshipsBtn">Submit Inquiry</button>
+            </div>
+          </form>
+          <div id="careerFundInternshipsSuccessMessage" class="alert alert-success mt-3" style="display: none;" role="alert">
+            Your internship funding inquiry has been submitted! We'll be in touch.
+          </div>
+          <div id="careerFundInternshipsErrorMessage" class="alert alert-danger mt-3" style="display: none;" role="alert">
+            There was an error submitting your inquiry. Please try again.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Career - Become a Partner Modal -->
+  <div class="modal fade" id="becomePartnerModal" tabindex="-1" aria-labelledby="becomePartnerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="becomePartnerModalLabel">Become a Partner</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="careerBecomePartnerForm" class="needs-validation" novalidate>
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="organizationName" class="form-label">Organization Name</label>
+                <input type="text" class="form-control" id="organizationName" name="organizationName" required>
+                <div class="invalid-feedback">Please enter your organization's name.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="contactName" class="form-label">Contact Person Name</label>
+                <input type="text" class="form-control" id="contactName" name="contactName" required>
+                <div class="invalid-feedback">Please enter a contact person's name.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="phone" class="form-label">Phone (Optional)</label>
+                <input type="tel" class="form-control" id="phone" name="phone">
+              </div>
+              <div class="col-md-6">
+                <label for="partnershipType" class="form-label">Type of Partnership</label>
+                <select class="form-select" id="partnershipType" name="partnershipType" required>
+                  <option selected disabled value="">Choose...</option>
+                  <option>Internship Host</option>
+                  <option>Mentorship Program</option>
+                  <option>Event Sponsorship</option>
+                  <option>Skills Training/Workshop Provider</option>
+                  <option>Other</option>
+                </select>
+                <div class="invalid-feedback">Please select a partnership type.</div>
+              </div>
+              <div class="col-12">
+                <label for="partnerMessage" class="form-label">Message (Optional)</label>
+                <textarea class="form-control" id="partnerMessage" name="message" rows="4" placeholder="Tell us more about how you'd like to partner with Melba."></textarea>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-center border-top-0 mt-4">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="submitCareerBecomePartnerBtn">Submit Inquiry</button>
+            </div>
+          </form>
+          <div id="careerBecomePartnerSuccessMessage" class="alert alert-success mt-3" style="display: none;" role="alert">
+            Your partnership inquiry has been submitted! We'll be in touch.
+          </div>
+          <div id="careerBecomePartnerErrorMessage" class="alert alert-danger mt-3" style="display: none;" role="alert">
+            There was an error submitting your inquiry. Please try again.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Sports - Join a Team Modal -->
+  <div class="modal fade" id="joinTeamModal" tabindex="-1" aria-labelledby="joinTeamModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="joinTeamModalLabel">Join a Sports Team</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="needs-validation" novalidate id="joinTeamForm"> <div class="row g-3">
+              <div class="col-md-6">
+                <label for="teamFirstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="teamFirstName" name="firstName" required> <div class="invalid-feedback">Please enter your first name.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="teamLastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="teamLastName" name="lastName" required> <div class="invalid-feedback">Please enter your last name.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="teamAge" class="form-label">Age</label>
+                <input type="number" class="form-control" id="teamAge" name="age" min="12" max="60" required> <div class="invalid-feedback">Please enter your age (12-60).</div>
+              </div>
+              <div class="col-md-6">
+                <label for="teamEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="teamEmail" name="email" required> <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="teamPhone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="teamPhone" name="phone"> </div>
+
+                <div class="col-md-6">
+                  <label for="teamSportInterest" class="form-label">Sport of Interest</label>
+                  <select class="form-select" id="teamSportInterest" name="teamSportInterest" required> <option selected disabled value="">Choose...</option>
+                    <option>Basketball</option>
+                    <option>Soccer</option>
+                    <option>Volleyball</option>
+                    <option>Other</option>
+                  </select>
+                  <div class="invalid-feedback">Please select a sport.</div>
+                </div>
+                <div class="col-12">
+                  <label for="teamExperienceLevel" class="form-label">Experience Level</label>
+                  <select class="form-select" id="teamExperienceLevel" name="teamExperienceLevel"> <option selected disabled value="">Choose...</option>
+                    <option>Beginner</option>
+                    <option>Intermediate</option>
+                    <option>Advanced</option>
+                  </select>
+                </div>
+
+              <div class="col-12">
+                <label for="teamMessage" class="form-label">Additional Message (Optional)</label>
+                <textarea class="form-control" id="teamMessage" name="message" rows="3"></textarea> </div>
+            </div>
+            <div class="modal-footer justify-content-center border-top-0 mt-4">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="submitJoinTeamBtn">Submit Registration</button> </div>
+            <div id="joinTeamSuccessMessage" class="alert alert-success mt-3" style="display: none;">
+                Your team registration has been submitted successfully!
+            </div>
+            <div id="joinTeamErrorMessage" class="alert alert-danger mt-3" style="display: none;">
+                There was an error submitting your registration.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Community - Volunteer Modal -->
+  <div class="modal fade" id="volunteerModal" tabindex="-1" aria-labelledby="volunteerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="volunteerModalLabel">Sign Up to Volunteer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="needs-validation" novalidate id="volunteerApplicationForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="volunteerFirstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="volunteerFirstName" name="firstName" required>
+                <div class="invalid-feedback">Please enter your first name.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="volunteerLastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="volunteerLastName" name="lastName" required>
+                <div class="invalid-feedback">Please enter your last name.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="volunteerEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="volunteerEmail" name="email" required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="volunteerPhone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="volunteerPhone" name="phone" >
+              </div>
+              <div class="col-12">
+                <label for="volunteerAddress" class="form-label">Address</label>
+                <input type="text" class="form-control" id="volunteerAddress" name="address" required> <div class="invalid-feedback">Please enter your address.</div>
+              </div>
+              <div class="col-12">
+                <label for="volunteerInterests" class="form-label">Areas of Interest (Select all that apply)</label>
+                <select class="form-select" id="volunteerInterests" name="volunteerInterests" multiple aria-label="Volunteer areas of interest">
+                  <option value="Food Drives">Food Drives</option>
+                  <option value="Neighborhood Cleanups">Neighborhood Cleanups</option>
+                  <option value="Senior Support">Senior Companionship/Support</option>
+                  <option value="Community Gardens">Community Gardens</option>
+                  <option value="Youth Mentoring">Emerging Leaders Mentoring</option>
+                  <option value="Event Support">Event Support</option>
+                  <option value="Administrative">Administrative Support</option>
+                  <option value="Other">Other</option>
+                </select>
+                <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple.</small>
+              </div>
+              <div class="col-12">
+                <label for="volunteerAvailability" class="form-label">Your Availability</label>
+                <textarea class="form-control" id="volunteerAvailability" name="availability" rows="3" placeholder="e.g., Weekday afternoons, weekends"></textarea>
+              </div>
+              <div class="col-12">
+                <label for="volunteerMessage" class="form-label">Additional Message (Optional)</label>
+                <textarea class="form-control" id="volunteerMessage" name="message" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-center border-top-0 mt-4">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="submitVolunteerFormBtn">Submit Volunteer Form</button>
+            </div>
+          </form>
+        </div>
+
+        <div id="volunteerApplicationSuccessMessage" style="display: none;" class="alert alert-success mt-3">
+          Thank you for your interest in volunteering! We've received your application and will be in touch soon.
+        </div>
+        <div id="volunteerApplicationErrorMessage" style="display: none;" class="alert alert-danger mt-3">
+          An error occurred. Please try again later.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootcamp Registration Modal (Existing from previous update) -->
+  <div class="modal fade" id="bootcampRegisterModal" tabindex="-1" aria-labelledby="bootcampRegisterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bootcampRegisterModalLabel">Register for a Bootcamp</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" novalidate id="bootcampRegistrationForm">
+                    <div id="bootcampFormContent"> <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="bootcampName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="bootcampName" name="name" required>
+                                <div class="invalid-feedback">Please enter your full name.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="bootcampEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="bootcampEmail" name="email" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+                            <div class="col-12">
+                                <label for="bootcampProgram" class="form-label">Desired Bootcamp Track</label>
+                                <select class="form-select" id="bootcampProgram" name="program" required>
+                                    <option selected disabled value="">Choose...</option>
+                                    <option>Web Development Fundamentals</option>
+                                    <option>Advanced Programming</option>
+                                    <option>Frontend Frameworks</option>
+                                    <option>Other</option>
+                                </select>
+                                <div class="invalid-feedback">Please select a bootcamp track.</div>
+                            </div>
+                        <div class="col-12">
+                          <label for="bootcampExperienceLevel" class="form-label">Your Current Tech Experience Level</label>
+                          <select class="form-select" id="bootcampExperienceLevel" name="experienceLevel" required>
+                              <option selected disabled value="">Choose...</option>
+                              <option value="No Experience">No experience (complete beginner)</option>
+                              <option value="Basic Concepts">Basic concepts (HTML, CSS, Scratch)</option>
+                              <option value="Intermediate">Intermediate (some JavaScript, Python basics)</option>
+                              <option value="Advanced">Advanced (familiar with frameworks/libraries)</option>
+                          </select>
+                          <div class="invalid-feedback">Please select your experience level.</div>
+                      </div>
+                            <div class="col-12">
+                                <label for="bootcampMessage" class="form-label">Tell us about your experience and goals (Optional)</label>
+                                <textarea class="form-control" id="bootcampMessage" name="message" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center border-top-0 mt-4">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="submitBootcampRegBtn">Register Now</button>
+                        </div>
+                    </div> <div id="bootcampRegSuccessMessage" class="alert alert-success text-center mt-3" style="display: none;">
+                        <h4>Your bootcamp registration has been submitted successfully!</h4>
+                        <p>We've received your application and will be in touch shortly.</p>
+                        <a href="/" class="btn btn-primary mt-3">Return to Home</a>
+                    </div>
+
+                    <div id="bootcampRegErrorMessage" class="alert alert-danger mt-3" style="display: none;">
+                        There was an error submitting your registration.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <!-- <div class="modal fade" id="bootcampRegisterModal" tabindex="-1" aria-labelledby="bootcampRegisterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bootcampRegisterModalLabel">Thank You for Your Interest!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center py-5">
+          <i class="fas fa-hourglass-half fa-3x text-primary mb-4"></i>
+          <p class="lead"><strong>We're working hard to bring this feature to you!</strong></p>
+          <p>We appreciate your interest in our programs. This section is currently under development to ensure the best possible experience.</p>
+          <p>Please check back regularly for updates, or follow our social media channels to be the first to know when it's ready!</p>
+          <div class="d-flex justify-content-center gap-3 mt-4">
+            <a href="#" class="btn btn-outline-primary"><i class="fab fa-facebook-f me-2"></i>Facebook</a>
+            <a href="#" class="btn btn-outline-primary"><i class="fab fa-twitter me-2"></i>Twitter</a>
+            <a href="#" class="btn btn-outline-primary"><i class="fab fa-instagram me-2"></i>Instagram</a>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got It!</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!-- END Bootcamp Registration Modal -->
+
+  <div class="modal fade" id="enrollNowModal" tabindex="-1" aria-labelledby="enrollNowModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="enrollNowModalLabel">Enroll in Education Support Program</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Ready to boost your academic journey? Fill out this form to apply for our Education Support Program.</p>
+  
+          <form id="enrollmentApplicationForm">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="enrollFirstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="enrollFirstName" name="firstName" required>
+              </div>
+              <div class="col-md-6">
+                <label for="enrollLastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="enrollLastName" name="lastName" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="enrollEmail" class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="enrollEmail" name="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="enrollPhone" class="form-label">Phone Number (Optional)</label>
+              <input type="tel" class="form-control" id="enrollPhone" name="phone">
+            </div>
+            <div class="mb-3">
+                <label for="enrollAge" class="form-label">Age</label>
+                <input type="number" class="form-control" id="enrollAge" name="age" min="12" max="60" required>
+            </div>
+            <div class="mb-3">
+              <label for="enrollGradeLevel" class="form-label">Current Grade Level</label>
+              <select class="form-select" id="enrollGradeLevel" name="gradeLevel" required>
+                <option value="">Select...</option>
+                <option value="6">6th Grade</option>
+                <option value="7">7th Grade</option>
+                <option value="8">8th Grade</option>
+                <option value="9">9th Grade</option>
+                <option value="10">10th Grade</option>
+                <option value="11">11th Grade</option>
+                <option value="12">12th Grade</option>
+                <option value="College">College/Post-Secondary</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="enrollSchool" class="form-label">Current School / Institution (Optional)</label>
+              <input type="text" class="form-control" id="enrollSchool" name="school">
+            </div>
+            <div class="mb-3">
+              <label for="enrollProgramInterest" class="form-label">Which Program Are You Interested In?</label>
+              <select class="form-select" id="enrollProgramInterest" name="programInterest" required>
+                <option value="">Select...</option>
+                <option value="After-School Tutoring">After-School Tutoring</option>
+                <option value="College Prep Academy">College Prep Academy</option>
+                <option value="STEM Enrichment">STEM Enrichment</option>
+                <option value="Summer Bridge Program">Summer Bridge Program</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="enrollMessage" class="form-label">Additional Message (Optional)</label>
+              <textarea class="form-control" id="enrollMessage" name="message" rows="3"></textarea>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" id="submitEnrollmentFormBtn">Submit Enrollment</button>
+            </div>
+          </form>
+
+          <div id="enrollmentFormSuccessMessage" class="alert alert-success mt-3" style="display: none;" role="alert">
+            We've received your enrollment and will be in touch soon.
+          </div>
+          <div id="enrollmentFormErrorMessage" class="alert alert-danger mt-3" style="display: none;" role="alert">
+            There was an error submitting your enrollment. Please try again.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="tutorModal" tabindex="-1" aria-labelledby="tutorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="tutorModalLabel">Apply to Be a Tutor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you passionate about helping students succeed? Join our team of dedicated tutors!</p>
+  
+          <form id="tutorApplicationForm">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="tutorFirstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="tutorFirstName" name="firstName" required>
+              </div>
+              <div class="col-md-6">
+                <label for="tutorLastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="tutorLastName" name="lastName" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="tutorEmail" class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="tutorEmail" name="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="tutorPhone" class="form-label">Phone Number (Optional)</label>
+              <input type="tel" class="form-control" id="tutorPhone" name="phone">
+            </div>
+            <div class="mb-3">
+              <label for="tutorSubjects" class="form-label">Subjects You Can Tutor (Select all that apply)</label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="subjectMath" name="tutorSubjects" value="Mathematics">
+                  <label class="form-check-label" for="subjectMath">Math</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="subjectScience" name="tutorSubjects" value="Science">
+                  <label class="form-check-label" for="subjectScience">Science</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="subjectEnglish" name="tutorSubjects" value="Physics">
+                  <label class="form-check-label" for="subjectEnglish">Physics</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="subjectHistory" name="tutorSubjects" value="Business">
+                  <label class="form-check-label" for="subjectHistory">Business</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="subjectSAT" name="tutorSubjects" value="SAT/ACT Prep">
+                  <label class="form-check-label" for="subjectSAT">SAT/ACT Prep</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="subjectOther" name="tutorSubjects" value="Other">
+                  <label class="form-check-label" for="subjectOther">Other</label>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="tutorExperience" class="form-label">Relevant Experience or Qualifications</label>
+              <textarea class="form-control" id="tutorExperience" name="experience" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="tutorAvailability" class="form-label">Your Availability (e.g., "M/W evenings", "Weekends", "Flexible")</label>
+              <textarea class="form-control" id="tutorAvailability" name="tutorAvailability" rows="2"></textarea>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" id="submitTutorFormBtn">Submit Application</button>
+            </div>
+          </form>
+          <div id="tutorFormSuccessMessage" class="alert alert-success mt-3" style="display: none;" role="alert">
+            Your tutor application has been submitted! We'll review it and get back to you.
+          </div>
+          <div id="tutorFormErrorMessage" class="alert alert-danger mt-3" style="display: none;" role="alert">
+            There was an error submitting your tutor application. Please try again.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <%- include('../partials/footer') %>
+
+ <!-- INLINE BOOTSTRAP JS AND CUSTOM SCRIPT -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" xintegrity="sha512-u3fPA7V8qQkM+DKMh5+V1XN9wYJ5Z+f4Z3c5E5n5w5b5C5Z+c5X5j5Q5t5f5+5=" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/jquery-3.7.1.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // Reusable function to show a floating success alert
+    function showFloatingSuccess(entityName) {
+        // Remove any existing floating success box to prevent duplicates
+        const existing = document.getElementById('floatingSuccessBox');
+        if (existing) {
+            existing.remove();
+        }
+
+        // Create the success message box
+        const box = document.createElement('div');
+        box.id = 'floatingSuccessBox';
+        box.className = 'alert alert-success shadow-lg position-fixed top-50 start-50 translate-middle text-center';
+        box.style.zIndex = 1060; // Ensure it's above Bootstrap modal backdrops
+        box.innerHTML = `
+            <h4 class="alert-heading">Thank You!</h4>
+            <p>Your ${entityName} has been sent successfully.<br>We’ll respond as soon as possible.</p>
+            <a href="/" class="btn btn-outline-success">Return Home</a>
+        `;
+
+        document.body.appendChild(box);
+
+        // Optional: Auto-dismiss the success message after a few seconds
+        // setTimeout(() => box.remove(), 8000);
+    }
+
+    // Generic AJAX form submission handler
+    // This function can be used for any form that needs to submit data via AJAX
+    function handleAjaxFormSubmission(formId, modalElementId, apiPath, entityName, submitBtnText = 'Submit Inquiry') {
+        const form = document.getElementById(formId);
+        // Ensure the form exists before attaching event listeners
+        if (!form) {
+            console.warn(`Form with ID '${formId}' not found. Skipping setup.`);
+            return;
+        }
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        // Assuming success and error messages are siblings of the form (or in a consistent location)
+        const successMessage = document.getElementById(`${formId.replace('Form', '')}SuccessMessage`);
+        const errorMessage = document.getElementById(`${formId.replace('Form', '')}ErrorMessage`);
+        const modalElement = document.getElementById(modalElementId);
+        const modalInstance = modalElement ? bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement) : null;
+
+        // Function to reset the form state (hide messages, show form)
+        const resetFormState = () => {
+            // Re-show the form content if it was hidden (e.g., for bootcamp form)
+            const formContent = form.querySelector('.form-content') || form; // Adjust if your forms have a specific content wrapper
+            if (formContent) {
+                formContent.style.display = 'block';
+            }
+            if (successMessage) successMessage.style.display = 'none';
+            if (errorMessage) errorMessage.style.display = 'none';
+            form.classList.remove('was-validated'); // Clear validation styles
+            form.reset(); // Reset form fields
+        };
+
+        // Attach listener for modal hide event to reset the form
+        if (modalElement) {
+            modalElement.addEventListener('hidden.bs.modal', resetFormState);
+            // Also reset state when the modal is shown to clear previous attempts
+            modalElement.addEventListener('show.bs.modal', resetFormState);
+        }
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Perform client-side validation first
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = submitBtnText;
+                }
+                return;
+            }
+            form.classList.remove('was-validated'); // Clear validation if valid
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...';
+            }
+
+            if (successMessage) successMessage.style.display = 'none';
+            if (errorMessage) errorMessage.style.display = 'none';
+
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => {
+                // Special handling for specific fields like 'age' or 'subjects'
+                if (key === 'age') {
+                    data[key] = Number(value);
+                } else if (key === 'subjects') {
+                    if (!data[key]) {
+                        data[key] = [];
+                    }
+                    data[key].push(value);
+                } else if (key === 'volunteerInterests') { // <-- NEW: Special handling for volunteerInterests
+                    if (!data[key]) {
+                        data[key] = []; // Initialize as an array if it doesn't exist
+                    }
+                    data[key].push(value); // Push each selected value into the array
+                } else if (key !== 'resumeFile') { // Exclude file inputs if not handled
+                    data[key] = value;
+                }
+            });
+
+            try {
+                const response = await fetch(apiPath, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    form.reset();
+                    // For forms that hide content and show inline success, handle that
+                    const formContent = form.querySelector('.form-content');
+                    if (formContent) {
+                        formContent.style.display = 'none';
+                    }
+                    if (successMessage) {
+                        successMessage.style.display = 'block';
+                    }
+
+                    // Hide modal and show floating success if applicable
+                    if (modalInstance) {
+                        // For forms where the success message is inside the modal (like bootcamp),
+                        // we might not want to immediately hide the modal,
+                        // unless the requirement is to show the floating success instead.
+                        // For consistency with other forms using the floating success, hide the modal.
+                         modalInstance.hide();
+                         showFloatingSuccess(entityName);
+                    } else {
+                        // If no modal, just show floating success
+                        showFloatingSuccess(entityName);
+                    }
+
+                } else {
+                    const errorData = await response.json();
+                    if (errorMessage) {
+                        errorMessage.textContent = errorData.message || 'There was an error submitting your application.';
+                        errorMessage.style.display = 'block';
+                    }
+                }
+            } catch (error) {
+                console.error(`Error submitting ${formId} form:`, error);
+                if (errorMessage) {
+                    errorMessage.textContent = 'Network error. Please check your connection and try again.';
+                    errorMessage.style.display = 'block';
+                }
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = submitBtnText;
+                }
+            }
+        });
+    }
+
+    // --- Wire up all your forms using the generic handler ---
+
+    // Enrollment Application Form
+    // The original script had a unique way of handling success/error, let's align it.
+    handleAjaxFormSubmission(
+        'enrollmentApplicationForm',
+        'enrollNowModal', // Modal ID
+        '/admin/applications/enrollment',
+        'enrollment application',
+        'Submit Enrollment'
+    );
+
+    // Tutor Application Form
+    handleAjaxFormSubmission(
+        'tutorApplicationForm',
+        'tutorModal', // Assuming 'tutorModal' is the ID for the tutor form's modal
+        '/api/tutor', // Your specific API endpoint
+        'tutor application',
+        'Submit Application'
+    );
+
+    // Career - Apply Now Form
+    handleAjaxFormSubmission(
+        'careerApplyNowForm',
+        'applyNowModal',
+        '/admin/applications/career/apply',
+        'career application',
+        'Submit Application'
+    );
+
+    // Career - Fund Internships Form
+    handleAjaxFormSubmission(
+        'careerFundInternshipsForm',
+        'fundInternshipsModal',
+        '/admin/applications/career/fund-internships',
+        'internship funding inquiry',
+        'Submit Inquiry'
+    );
+
+    // Career - Become a Partner Form
+    handleAjaxFormSubmission(
+        'careerBecomePartnerForm',
+        'becomePartnerModal',
+        '/admin/applications/career/partner',
+        'partnership inquiry',
+        'Submit Inquiry'
+    );
+
+    // Join Team Form
+    handleAjaxFormSubmission(
+        'joinTeamForm',
+        'joinTeamModal',
+        '/admin/applications/sports/join-team',
+        'team registration',
+        'Submit Registration'
+    );
+
+    // Bootcamp Registration Form
+    handleAjaxFormSubmission(
+        'bootcampRegistrationForm',
+        'bootcampRegisterModal',
+        '/admin/applications/bootcamp',
+        'bootcamp registration',
+        'Register Now'
+    );
+
+    // Volunteer Application Form
+    handleAjaxFormSubmission(
+        'volunteerApplicationForm',  // The ID of your form
+        'volunteerModal',           // The ID of your modal
+        '/api/volunteer', 
+        'volunteer application',    // Text for the floating success message
+        'Submit Volunteer Form'     // Original text for the submit button
+    );
+
+});
+  </script>
+  
+  <!-- Custom JavaScript for form validation and modal handling -->
+</body>
+</html>

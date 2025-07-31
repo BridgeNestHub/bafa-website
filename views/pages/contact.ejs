@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head', { 
+    title: 'Contact Us',
+    description: 'Get in touch with BAFA - Building Aspirations for Future Achievers'
+  }) %>
+  <style>
+    .contact-info-card {
+      transition: transform 0.3s;
+    }
+    .contact-info-card:hover {
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body>
+  <%- include('../partials/nav', { currentPage: 'contact' }) %>
+
+  <!-- Contact Hero -->
+  <section class="hero-section bg-primary text-white py-5">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h1 class="display-5 fw-bold mb-3">Contact BAFA</h1>
+          <p class="lead">We'd love to hear from you! Reach out with questions, volunteer inquiries, or partnership opportunities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Content -->
+  <section class="py-5">
+    <div class="container">
+      <% if (typeof success !== 'undefined') { %>
+        <div class="alert alert-success text-center">
+          <h4 class="alert-heading">Thank You!</h4>
+          <p>Your message has been sent successfully. We'll respond as soon as possible.</p>
+          <a href="/" class="btn btn-outline-success">Return Home</a>
+        </div>
+      <% } else { %>
+        <div class="row g-4">
+          <!-- Contact Form -->
+          <div class="col-lg-7">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body p-4">
+                <h2 class="mb-4">Send Us a Message</h2>
+                
+                <% if (typeof error !== 'undefined') { %>
+                  <div class="alert alert-danger">
+                    There was an error sending your message. Please try again.
+                  </div>
+                <% } %>
+                
+                <form id="contactForm" action="/contact" method="POST">
+                  <div class="mb-3">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="subject" class="form-label">Subject</label>
+                    <select class="form-select" id="subject" name="subject">
+                      <option value="General Inquiry">General Inquiry</option>
+                      <option value="Volunteer Opportunity">Volunteer Opportunity</option>
+                      <option value="Program Information">Program Information</option>
+                      <option value="Mental Wellness Program">Mental Wellness Program</option>
+                      <option value="Partnership">Partnership</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                  </div>
+                  
+                  <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Contact Info -->
+          <div class="col-lg-5">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body p-4">
+                <h2 class="mb-4">Contact Information</h2>
+                
+                <div class="mb-4">
+                  <h5 class="mb-3"><i class="fas fa-map-marker-alt text-primary me-2"></i> Our Location</h5>
+                  <address>
+                    BAFA Youth Center<br>
+                    123 Empowerment Avenue<br>
+                    Seattle, WA 98101
+                  </address>
+                </div>
+                
+                <div class="mb-4">
+                  <h5 class="mb-3"><i class="fas fa-clock text-primary me-2"></i> Hours</h5>
+                  <p>
+                    Monday-Friday: 9am - 6pm<br>
+                    Saturday: 10am - 4pm<br>
+                    Sunday: Closed
+                  </p>
+                </div>
+                
+                <div class="mb-4">
+                  <h5 class="mb-3"><i class="fas fa-phone text-primary me-2"></i> Phone</h5>
+                  <p>(206) 555-7890</p>
+                </div>
+                
+                <div class="mb-4">
+                  <h5 class="mb-3"><i class="fas fa-envelope text-primary me-2"></i> Email</h5>
+                  <p>info@bafa.org</p>
+                </div>
+                
+                <div>
+                  <h5 class="mb-3"><i class="fas fa-share-alt text-primary me-2"></i> Social Media</h5>
+                  <div class="d-flex gap-3">
+                    <a href="#" class="text-primary"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#" class="text-primary"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#" class="text-primary"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-primary"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </section>
+
+  <%- include('../partials/footer') %>
+
+  <script>
+    // Basic form validation
+    document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+      const email = document.getElementById('email');
+      if (!email.value.includes('@')) {
+        e.preventDefault();
+        alert('Please enter a valid email address');
+        email.focus();
+      }
+    });
+  </script>
+</body>
+</html>
