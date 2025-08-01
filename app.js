@@ -3,7 +3,12 @@
  * Sets up Express server, middleware, routes, and database connection
  */
 
-require('dotenv').config();
+// We are running on Railway, so we don't need to load dotenv locally.
+// Railway automatically injects environment variables for us.
+// The presence of a local .env file can override the Railway-provided PORT.
+// This is the most likely cause of the "Application failed to respond" error.
+// require('dotenv').config();
+
 const express = require('express');
 const session = require('express-session');
 const mongoose = require('mongoose');
