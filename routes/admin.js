@@ -1073,17 +1073,4 @@ router.post('/applications/volunteer', async (req, res) => {
   }
 });
 
-router.post('/applications/bootcamp', async (req, res) => {
-  try {
-    const newRegistration = new BootcampRegistration(req.body);
-    await newRegistration.save();
-    console.log('Received bootcamp registration (from under construction modal):', req.body);
-    res.status(200).json({ success: true, message: 'Bootcamp registration inquiry received. We will contact you soon!' });
-  } catch (err) {
-    console.error('Error submitting bootcamp registration:', err);
-    res.status(400).json({ success: false, message: err.message || 'Failed to submit bootcamp registration.' });
-  }
-});
-
-
 module.exports = router;

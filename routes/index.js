@@ -252,6 +252,7 @@ router.post('/api/enrollment', async (req, res) => {
     email,
     phone,
     school,
+    gradeLevel,
     programInterest,
     message
   } = req.body;
