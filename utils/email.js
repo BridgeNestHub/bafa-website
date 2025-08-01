@@ -8,28 +8,24 @@ const { htmlToText } = require('html-to-text');
 
 // Create reusable transporter object
 const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.EMAIL_PORT) || 587,
-    secure: process.env.EMAIL_SECURE === 'true', // true for 465, false for other ports
+    service: 'gmail', // This is simpler than manual host/port config
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD
     },
     tls: {
-        // Do not fail on invalid certs
-        rejectUnauthorized: process.env.NODE_ENV === 'production'
+        rejectUnauthorized: false
     }
 });
 
-// Temporarily comment this out to prevent a startup crash.
 // We will uncomment this once the EMAIL_PASSWORD is correct.
-// transporter.verify((error) => {
-//     if (error) {
-//         console.error('Email transporter verification failed:', error);
-//     } else {
-//         console.log('Email transporter is ready to send messages');
-//     }
-// });
+transporter.verify((error) => {
+    if (error) {
+        console.error('Email transporter verification failed:', error);
+    } else {
+        console.log('Email transporter is ready to send messages');
+    }
+});
 
 /**
  * Send contact form email

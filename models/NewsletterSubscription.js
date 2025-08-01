@@ -5,7 +5,7 @@ const newsletterSubscriptionSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, 'Email is required'],
-    unique: true,
+    unique: true, // This already creates an index, so we don't need the duplicate below
     lowercase: true,
     trim: true,
     match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Please enter a valid email address']
@@ -27,7 +27,7 @@ const newsletterSubscriptionSchema = new mongoose.Schema({
 });
 
 // Index for faster queries
-newsletterSubscriptionSchema.index({ email: 1 });
+// REMOVED: newsletterSubscriptionSchema.index({ email: 1 }); // This is duplicate since email has unique: true
 newsletterSubscriptionSchema.index({ isActive: 1 });
 
 module.exports = mongoose.model('NewsletterSubscription', newsletterSubscriptionSchema);
