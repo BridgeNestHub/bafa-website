@@ -1,5 +1,5 @@
 /**
- * BAFA - Main Application File
+ * MELBA - Main Application File
  * Sets up Express server, middleware, routes, and database connection
  */
 
@@ -13,7 +13,7 @@ const path = require('path');
 const app = express();
 
 // Connect to MongoDB and start the app only if successful
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/bafa', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/melba', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/bafa', {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
   app.use(session({
-    secret: process.env.SESSION_SECRET || 'bafa-secret-key',
+    secret: process.env.SESSION_SECRET || 'melba-secret-key',
     resave: false,
     saveUninitialized: true,
     cookie: { 
@@ -54,7 +54,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/bafa', {
   // 🚀 Start server
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
-    console.log(`🌐 BAFA website running on http://localhost:${PORT}`);
+    console.log(`🌐 MELBA website running on http://localhost:${PORT}`);
   });
 })
 .catch(err => {

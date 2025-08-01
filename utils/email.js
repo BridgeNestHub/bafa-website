@@ -21,14 +21,15 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Verify connection configuration
-transporter.verify((error) => {
-    if (error) {
-        console.error('Email transporter verification failed:', error);
-    } else {
-        console.log('Email transporter is ready to send messages');
-    }
-});
+// Temporarily comment this out to prevent a startup crash.
+// We will uncomment this once the EMAIL_PASSWORD is correct.
+// transporter.verify((error) => {
+//     if (error) {
+//         console.error('Email transporter verification failed:', error);
+//     } else {
+//         console.log('Email transporter is ready to send messages');
+//     }
+// });
 
 /**
  * Send contact form email
