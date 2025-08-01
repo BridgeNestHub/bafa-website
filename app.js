@@ -78,8 +78,8 @@ console.log('📋 Skipping all routes for debugging...');
 //   console.error('Full error:', error);
 // }
 
-// Add a catch-all route for debugging
-app.get('*', (req, res) => {
+// Add a catch-all route for debugging - FIXED SYNTAX
+app.get('/*', (req, res) => {
   console.log(`🔍 Catch-all route hit: ${req.path}`);
   res.status(404).send(`Route ${req.path} not found. Server is running without main routes for debugging.`);
 });
