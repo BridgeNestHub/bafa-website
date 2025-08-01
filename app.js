@@ -56,7 +56,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/melba', {
   });
 
   // 🚀 Start server
-  const PORT = process.env.PORT || 3000;
+  const PORT = process.env.PORT || 8080;
   // Use 0.0.0.0 to bind to all network interfaces, which is required on Railway
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`🌐 MELBA website running on http://0.0.0.0:${PORT}`);
