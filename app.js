@@ -52,15 +52,21 @@ app.get('/test', (req, res) => {
   res.send('Test route working!');
 });
 
-// 🚏 Routes - wrapped in try-catch for better error handling
+// 🚏 Routes - load one at a time to identify the problematic one
 try {
-  console.log('📋 Loading routes...');
+  console.log('📋 Loading index routes...');
   app.use('/', require('./routes/index'));
-  console.log('✅ Index routes loaded');
-  app.use('/admin', require('./routes/admin'));
-  console.log('✅ Admin routes loaded');
+  console.log('✅ Index routes loaded successfully');
 } catch (error) {
-  console.error('❌ Error loading routes:', error);
+  console.error('❌ Error loading INDEX routes:', error.message);
+}
+
+try {
+  console.log('📋 Loading admin routes...');
+  app.use('/admin', require('./routes/admin'));
+  console.log('✅ Admin routes loaded successfully');
+} catch (error) {
+  console.error('❌ Error loading ADMIN routes:', error.message);
 }
 
 // Add a catch-all route for debugging
