@@ -498,199 +498,498 @@
     letter-spacing: 1px;
   }
   
-  /* ================
-     Modern Forms
-     ================ */
-  .form-control,
-  .form-select {
-    padding: 0.75rem 1.25rem;
-    border-radius: var(--border-radius);
-    border: 1px solid var(--light-gray);
-    transition: var(--transition);
-  }
-  
-  .form-control:focus,
-  .form-select:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
-  }
-  
-  .form-label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--dark);
-  }
-  
-  /* ================
-     Modern Footer
-     ================ */
-  footer {
-    background-color: var(--dark);
-    color: white;
-    padding: 4rem 0 2rem;
-  }
-  
-  footer h5 {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
-    color: white;
-  }
-  
-  footer a {
-    color: rgba(255,255,255,0.7);
-    transition: var(--transition);
-    display: inline-block;
-    margin-bottom: 0.5rem;
-  }
-  
-  footer a:hover {
-    color: white;
-    transform: translateX(5px);
-  }
-  
-  .social-links a {
-    display: inline-flex;
-    width: 40px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255,255,255,0.1);
-    border-radius: 50%;
-    margin-right: 0.75rem;
-    transition: var(--transition);
-  }
-  
-  .social-links a:hover {
-    background: var(--gradient-primary);
-    transform: translateY(-3px);
-  }
-  
-  /* ================
-     Modern Animations
-     ================ */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .fade-in {
-    animation: fadeInUp 0.8s ease forwards;
-  }
-  
-  .delay-1 { animation-delay: 0.2s; }
-  .delay-2 { animation-delay: 0.4s; }
-  .delay-3 { animation-delay: 0.6s; }
-  
-  /* ================
-     Responsive Adjustments
-     ================ */
-  @media (max-width: 992px) {
-    .hero-section h1 {
-      font-size: 2.75rem;
-    }
-    
-    .hero-section p.lead {
-      font-size: 1.25rem;
-    }
-    .program-nav-sticky {
-      position: static;
-      max-height: none;
-      overflow: visible;
-      padding-right: 0;
-      margin-bottom: 2rem;
-    }
-  
-    .program-card {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .responsive-button-group a + a {
-      margin-top: 10px;
-    }
-    .card-img-top {
-      height: 350px;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .navbar {
-      padding: 1rem 0;
-    }
-    
-    .hero-section {
-      text-align: center;
-      padding: 5rem 0;
-    }
-    
-    .hero-section p.lead {
-      max-width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .hero-section .d-flex {
-      justify-content: center;
-    }
-    
-    .hero-img {
-      margin-top: 2rem;
-      max-width: 80%;
-    }
-    
-    .card-img-top {
-      height: 180px;
-    }
-    .program-card {
-      padding: 1rem;
-    }
-  
-    .program-card .card-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-  
-    .program-card .btn {
-      font-size: 0.875rem;
-      padding: 0.5rem 1rem;
-    }
-    .responsive-button-group a + a {
-      margin-top: 10px;
-    }
-  }
-
-  
-  @media (max-width: 576px) {
-    .btn {
-      padding: 0.65rem 1.5rem;
-    }
-    
-    .card-body {
-      padding: 1.5rem;
-    }
-    .program-card {
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .responsive-button-group a + a {
-      margin-top: 10px;
-    }
-    #newsletterForm {
-      flex-direction: column !important;
-      gap: 0.5rem;
-      align-items: center;
-    }
-  
-    #newsletterForm button {
-      width: auto;
-      padding: 0.4rem 0.8rem;
-      font-size: 0.9rem;
-    }
-    
-  }
+/* ================
+   Modern Forms - MOBILE OPTIMIZED
+   ================ */
+   .form-control,
+   .form-select {
+     padding: 0.75rem 1.25rem;
+     border-radius: var(--border-radius);
+     border: 1px solid var(--light-gray);
+     transition: none; /* Removed transition to prevent mobile jumping */
+     font-size: 16px !important; /* Critical: Prevents iOS zoom */
+     line-height: 1.5;
+     transform: translateZ(0); /* Force hardware acceleration */
+     -webkit-transform: translateZ(0);
+     -webkit-appearance: none; /* Remove iOS default styling */
+   }
+   
+   .form-control:focus,
+   .form-select:focus {
+     border-color: var(--primary);
+     box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+     outline: none !important;
+     position: relative;
+     z-index: 2;
+   }
+   
+   /* Fix for all form inputs regardless of ID */
+   input[type="text"],
+   input[type="email"],
+   input[type="tel"],
+   input[type="number"],
+   input[type="password"],
+   input[type="search"],
+   input[type="url"],
+   textarea,
+   select {
+     font-size: 16px !important; /* Prevents zoom on ALL inputs */
+     line-height: 1.5;
+     -webkit-appearance: none;
+     border-radius: var(--border-radius);
+   }
+   
+   .form-label {
+     font-weight: 600;
+     margin-bottom: 0.5rem;
+     color: var(--dark);
+   }
+   
+   /* Textarea specific fixes */
+   textarea.form-control {
+     resize: vertical;
+     min-height: 100px;
+     font-family: inherit;
+   }
+   
+   /* Select dropdown fixes for iOS */
+   select.form-select {
+     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m1 6 7 7 7-7'/%3e%3c/svg%3e");
+     background-repeat: no-repeat;
+     background-position: right 0.75rem center;
+     background-size: 16px 12px;
+     padding-right: 2.5rem;
+   }
+   
+   /* Bootstrap validation state fixes */
+   .form-control.is-invalid,
+   .form-select.is-invalid {
+     border-color: #dc3545;
+     box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+   }
+   
+   .form-control.is-valid,
+   .form-select.is-valid {
+     border-color: #198754;
+     box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+   }
+   
+   .invalid-feedback {
+     display: block;
+     width: 100%;
+     margin-top: 0.25rem;
+     font-size: 0.875rem;
+     color: #dc3545;
+   }
+   
+   .valid-feedback {
+     display: block;
+     width: 100%;
+     margin-top: 0.25rem;
+     font-size: 0.875rem;
+     color: #198754;
+   }
+   
+   /* Checkbox and Radio button improvements */
+   .form-check-input {
+     width: 1.2em;
+     height: 1.2em;
+     margin-top: 0.1em;
+     cursor: pointer;
+   }
+   
+   .form-check-label {
+     padding-left: 0.5em;
+     cursor: pointer;
+     user-select: none;
+   }
+   
+   /* Modal form fixes */
+   .modal .form-control,
+   .modal .form-select {
+     margin-bottom: 0;
+   }
+   
+   .modal-body {
+     -webkit-overflow-scrolling: touch;
+   }
+   
+   /* ================
+      Modern Footer
+      ================ */
+   footer {
+     background-color: var(--dark);
+     color: white;
+     padding: 4rem 0 2rem;
+   }
+   
+   footer h5 {
+     font-size: 1.25rem;
+     margin-bottom: 1.5rem;
+     color: white;
+   }
+   
+   footer a {
+     color: rgba(255,255,255,0.7);
+     transition: var(--transition);
+     display: inline-block;
+     margin-bottom: 0.5rem;
+   }
+   
+   footer a:hover {
+     color: white;
+     transform: translateX(5px);
+   }
+   
+   .social-links a {
+     display: inline-flex;
+     width: 40px;
+     height: 40px;
+     align-items: center;
+     justify-content: center;
+     background-color: rgba(255,255,255,0.1);
+     border-radius: 50%;
+     margin-right: 0.75rem;
+     transition: var(--transition);
+   }
+   
+   .social-links a:hover {
+     background: var(--gradient-primary);
+     transform: translateY(-3px);
+   }
+   
+   /* ================
+      Modern Animations
+      ================ */
+   @keyframes fadeInUp {
+     from {
+       opacity: 0;
+       transform: translateY(20px);
+     }
+     to {
+       opacity: 1;
+       transform: translateY(0);
+     }
+   }
+   
+   .fade-in {
+     animation: fadeInUp 0.8s ease forwards;
+   }
+   
+   .delay-1 { animation-delay: 0.2s; }
+   .delay-2 { animation-delay: 0.4s; }
+   .delay-3 { animation-delay: 0.6s; }
+   
+   /* ================
+      MOBILE FORM SPECIFIC FIXES
+      ================ */
+   
+   /* Fix for mobile modal positioning */
+   @media (max-width: 768px) {
+     .modal-dialog {
+       margin: 0;
+       height: 100vh;
+       max-height: none;
+       width: 100%;
+       max-width: none;
+     }
+     
+     .modal-content {
+       height: 100vh;
+       border-radius: 0;
+       border: none;
+       display: flex;
+       flex-direction: column;
+     }
+     
+     .modal-body {
+       flex: 1;
+       padding: 1rem;
+       overflow-y: auto;
+       -webkit-overflow-scrolling: touch;
+     }
+     
+     .modal-header {
+       flex-shrink: 0;
+       padding: 1rem;
+     }
+     
+     .modal-footer {
+       flex-shrink: 0;
+       padding: 1rem;
+       border-top: 1px solid #dee2e6;
+       flex-direction: column;
+       gap: 0.5rem;
+     }
+     
+     .modal-footer .btn {
+       width: 100%;
+       margin: 0;
+     }
+     
+     /* Prevent modal from jumping when keyboard opens */
+     .modal.show .modal-dialog {
+       transform: none !important;
+     }
+     
+     /* Make inline checkboxes stack on mobile */
+     .form-check-inline {
+       display: block;
+       margin-right: 0;
+       margin-bottom: 0.5rem;
+     }
+     
+     /* Improve touch targets for form elements */
+     .form-control,
+     .form-select,
+     .btn {
+       min-height: 44px; /* Apple's recommended touch target size */
+     }
+     
+     /* Stack form columns on mobile */
+     .col-md-6 {
+       margin-bottom: 1rem;
+     }
+     
+     /* Fix newsletter form */
+     #newsletterForm {
+       flex-direction: column !important;
+       gap: 0.5rem;
+       align-items: center;
+     }
+   
+     #newsletterForm button {
+       width: auto;
+       padding: 0.4rem 0.8rem;
+       font-size: 0.9rem;
+     }
+   }
+   
+   /* Additional iOS Safari specific fixes */
+   @supports (-webkit-touch-callout: none) {
+     /* iOS Safari input fixes */
+     .form-control,
+     .form-select,
+     input,
+     textarea,
+     select {
+       -webkit-appearance: none;
+       -webkit-border-radius: var(--border-radius);
+       border-radius: var(--border-radius);
+     }
+     
+     /* Fix iOS Safari select styling */
+     select {
+       -webkit-appearance: none;
+       -moz-appearance: none;
+       appearance: none;
+     }
+     
+     /* Prevent iOS Safari from adding rounded corners and shadows */
+     input[type="text"],
+     input[type="email"],
+     input[type="tel"],
+     input[type="number"],
+     input[type="password"],
+     textarea {
+       -webkit-appearance: none;
+       -webkit-border-radius: var(--border-radius);
+     }
+   }
+   
+   /* Fix for form submission buttons */
+   .btn[type="submit"],
+   button[type="submit"] {
+     -webkit-appearance: none;
+     cursor: pointer;
+     user-select: none;
+     touch-action: manipulation;
+   }
+   
+   /* Prevent double-tap zoom on buttons */
+   .btn {
+     touch-action: manipulation;
+     user-select: none;
+   }
+   
+   /* Fix form spacing in modals */
+   .modal .row.mb-3:last-child,
+   .modal .mb-3:last-child {
+     margin-bottom: 1rem !important;
+   }
+   
+   /* Success/Error message improvements */
+   .alert {
+     margin-top: 1rem;
+     margin-bottom: 1rem;
+   }
+   
+   /* Fix validation states for mobile */
+   .was-validated .form-control:invalid,
+   .was-validated .form-select:invalid {
+     border-color: #dc3545;
+     box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+   }
+   
+   .was-validated .form-control:valid,
+   .was-validated .form-select:valid {
+     border-color: #198754;
+     box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+   }
+   
+   /* ================
+      Responsive Adjustments
+      ================ */
+   @media (max-width: 992px) {
+     .hero-section h1 {
+       font-size: 2.75rem;
+     }
+     
+     .hero-section p.lead {
+       font-size: 1.25rem;
+     }
+     .program-nav-sticky {
+       position: static;
+       max-height: none;
+       overflow: visible;
+       padding-right: 0;
+       margin-bottom: 2rem;
+     }
+   
+     .program-card {
+       margin-left: auto;
+       margin-right: auto;
+     }
+   
+     .responsive-button-group a + a {
+       margin-top: 10px;
+     }
+     .card-img-top {
+       height: 350px;
+     }
+   }
+   
+   @media (max-width: 768px) {
+     .navbar {
+       padding: 1rem 0;
+     }
+     
+     .hero-section {
+       text-align: center;
+       padding: 5rem 0;
+     }
+     
+     .hero-section p.lead {
+       max-width: 100%;
+       margin-left: auto;
+       margin-right: auto;
+     }
+     
+     .hero-section .d-flex {
+       justify-content: center;
+     }
+     
+     .hero-img {
+       margin-top: 2rem;
+       max-width: 80%;
+     }
+     
+     .card-img-top {
+       height: 180px;
+     }
+     .program-card {
+       padding: 1rem;
+     }
+   
+     .program-card .card-icon {
+       font-size: 2rem;
+       margin-bottom: 1rem;
+     }
+   
+     .program-card .btn {
+       font-size: 0.875rem;
+       padding: 0.5rem 1rem;
+     }
+     .responsive-button-group a + a {
+       margin-top: 10px;
+     }
+   }
+   
+   @media (max-width: 576px) {
+     .btn {
+       padding: 0.65rem 1.5rem;
+       min-height: 44px; /* Ensure touch target size */
+     }
+     
+     .card-body {
+       padding: 1.5rem;
+     }
+     .program-card {
+       width: 100%;
+       box-sizing: border-box;
+     }
+     .responsive-button-group a + a {
+       margin-top: 10px;
+     }
+   }
+   
+   /* ================
+      CRITICAL MOBILE FIXES - HIGHEST PRIORITY
+      ================ */
+   
+   /* Prevent body scroll when modal is open on mobile */
+   @media (max-width: 768px) {
+     body.modal-open {
+       position: fixed;
+       width: 100%;
+       overflow: hidden;
+     }
+   }
+   
+   /* Fix viewport height for mobile browsers */
+   :root {
+     --vh: 1vh;
+   }
+   
+   @media (max-width: 768px) {
+     .modal-content {
+       min-height: calc(var(--vh, 1vh) * 100);
+     }
+   }
+   
+   /* Ensure all form elements have proper box-sizing */
+   .form-control,
+   .form-select,
+   input,
+   textarea,
+   select {
+     box-sizing: border-box;
+   }
+   
+   /* Fix for forms with different IDs - universal input targeting */
+   [id*="Modal"] input,
+   [id*="Modal"] textarea,
+   [id*="Modal"] select,
+   [id*="Form"] input,
+   [id*="Form"] textarea,
+   [id*="Form"] select {
+     font-size: 16px !important;
+     -webkit-appearance: none;
+     transform: translateZ(0);
+   }
+   
+   /* Specific targeting for your modal forms */
+   #bootcampRegisterModal input,
+   #bootcampRegisterModal textarea,
+   #bootcampRegisterModal select,
+   #enrollNowModal input,
+   #enrollNowModal textarea,
+   #enrollNowModal select,
+   #tutorModal input,
+   #tutorModal textarea,
+   #tutorModal select {
+     font-size: 16px !important;
+     line-height: 1.5;
+     -webkit-appearance: none;
+     border-radius: var(--border-radius);
+   }
