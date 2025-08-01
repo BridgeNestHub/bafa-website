@@ -12,6 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const mongoose = require('mongoose');
 const path = require('path');
 
@@ -19,11 +20,7 @@ const path = require('path');
 const app = express();
 
 // Connect to MongoDB and start the app only if successful
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/melba', {
-  // Remove these deprecated options
-  // useNewUrlParser: true,
-  // useUnifiedTopology: true
-})
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/melba')
 .then(() => {
   console.log('✅ Connected to MongoDB');
 
@@ -31,7 +28,9 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/melba', {
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
-  app.use(session({
+  
+  // Session configuration with MongoDB store for production
+  const sessionConfig = {
     secret: process.env.SESSION_SECRET || 'melba-secret-key',
     resave: false,
     saveUninitialized: true,
@@ -39,7 +38,17 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/melba', {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       secure: process.env.NODE_ENV === 'production'
     }
-  }));
+  };
+
+  // Use MongoDB store for sessions in production
+  if (process.env.NODE_ENV === 'production') {
+    sessionConfig.store = MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+      touchAfter: 24 * 3600 // lazy session update
+    });
+  }
+
+  app.use(session(sessionConfig));
 
   // 🧠 View engine setup (EJS)
   app.set('views', path.join(__dirname, 'views'));
