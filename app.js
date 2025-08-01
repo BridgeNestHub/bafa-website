@@ -50,14 +50,3 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`🌐 Minimal server running on http://0.0.0.0:${PORT}`);
 });
 
-// MongoDB connection (non-blocking)
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/melba', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => {
-  console.log('✅ Connected to MongoDB');
-})
-.catch(err => {
-  console.error('❌ MongoDB connection error:', err);
-});
