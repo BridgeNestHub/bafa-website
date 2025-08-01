@@ -1,6 +1,6 @@
 /**
- * MELBA - Main Application File
- * Sets up Express server, middleware, routes, and database connection
+ * MELBA - Main Application File - DEBUG VERSION
+ * This version will load routes carefully to identify the problematic route
  */
 
 const express = require('express');
@@ -35,7 +35,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Add a simple health check route that works without any dependencies
+// Add a simple health check route
 app.get('/health', (req, res) => {
   console.log('🏥 Health check requested');
   res.status(200).json({ 
@@ -52,27 +52,36 @@ app.get('/test', (req, res) => {
   res.send('Test route working!');
 });
 
-// 🚏 Routes - load one at a time to identify the problematic one
-try {
-  console.log('📋 Loading index routes...');
-  app.use('/', require('./routes/index'));
-  console.log('✅ Index routes loaded successfully');
-} catch (error) {
-  console.error('❌ Error loading INDEX routes:', error.message);
-}
+// 🚏 Routes - TEMPORARILY SKIP ALL ROUTES FOR TESTING
+console.log('📋 Skipping all routes for debugging...');
 
-try {
-  console.log('📋 Loading admin routes...');
-  app.use('/admin', require('./routes/admin'));
-  console.log('✅ Admin routes loaded successfully');
-} catch (error) {
-  console.error('❌ Error loading ADMIN routes:', error.message);
-}
+// STEP 1: Test with NO routes - uncomment this and deploy first
+// If this works, then the issue is definitely in one of your route files
+
+// STEP 2: If step 1 works, uncomment ONLY the index routes:
+// try {
+//   console.log('📋 Loading ONLY index routes...');
+//   app.use('/', require('./routes/index'));
+//   console.log('✅ Index routes loaded successfully');
+// } catch (error) {
+//   console.error('❌ Error loading INDEX routes:', error.message);
+//   console.error('Full error:', error);
+// }
+
+// STEP 3: If step 2 works, then uncomment the admin routes:
+// try {
+//   console.log('📋 Loading ONLY admin routes...');
+//   app.use('/admin', require('./routes/admin'));
+//   console.log('✅ Admin routes loaded successfully');
+// } catch (error) {
+//   console.error('❌ Error loading ADMIN routes:', error.message);
+//   console.error('Full error:', error);
+// }
 
 // Add a catch-all route for debugging
 app.get('*', (req, res) => {
   console.log(`🔍 Catch-all route hit: ${req.path}`);
-  res.status(404).send(`Route ${req.path} not found. Server is running.`);
+  res.status(404).send(`Route ${req.path} not found. Server is running without main routes for debugging.`);
 });
 
 // 🛠️ Error handling middleware
@@ -86,6 +95,7 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🌐 MELBA website running on http://0.0.0.0:${PORT}`);
   console.log(`🔗 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log('🔍 DEBUG MODE: All routes disabled for testing');
 });
 
 // Connect to MongoDB separately
