@@ -185,37 +185,5 @@ document.addEventListener('DOMContentLoaded', function() {
       
       lazyImages.forEach(img => imageObserver.observe(img));
     }
-
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const fixedHeader = document.querySelector('.navbar.sticky-top');
-    const fixedFooter = document.querySelector('footer');
-
-    const headerHeight = fixedHeader ? fixedHeader.offsetHeight : 0;
-    const footerHeight = fixedFooter ? fixedFooter.offsetHeight : 0;
-
-    // Add padding to body to prevent content from being hidden
-    document.body.style.paddingTop = `${headerHeight}px`;
-    document.body.style.paddingBottom = `${footerHeight}px`;
-
-    // Listen for focus on all form elements
-    document.querySelectorAll('input, textarea, select').forEach(element => {
-      element.addEventListener('focus', function() {
-        // Use setTimeout to give the mobile keyboard a moment to appear
-        setTimeout(() => {
-          const elementRect = this.getBoundingClientRect();
-          const viewportHeight = window.innerHeight;
-
-          // Check if the element is currently hidden by the header or footer
-          if (elementRect.top < headerHeight || elementRect.bottom > viewportHeight - footerHeight) {
-            this.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
-        }, 200); // 200ms delay
-      });
-    });
-});
-
+    
   });
