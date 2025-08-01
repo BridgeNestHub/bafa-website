@@ -6,7 +6,6 @@
 // We are running on Railway, so we don't need to load dotenv locally.
 // Railway automatically injects environment variables for us.
 // The presence of a local .env file can override the Railway-provided PORT.
-// This is the most likely cause of the "Application failed to respond" error.
 // require('dotenv').config();
 
 const express = require('express');
@@ -58,8 +57,9 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/melba', {
 
   // 🚀 Start server
   const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`🌐 MELBA website running on http://localhost:${PORT}`);
+  // Use 0.0.0.0 to bind to all network interfaces, which is required on Railway
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🌐 MELBA website running on http://0.0.0.0:${PORT}`);
   });
 })
 .catch(err => {
