@@ -614,6 +614,9 @@
     .responsive-button-group a + a {
       margin-top: 10px;
     }
+    .card-img-top {
+      height: 350px;
+    }
   }
   
   @media (max-width: 768px) {
