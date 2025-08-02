@@ -117,17 +117,18 @@
                 </div>
 
                 <!-- <p class="card-text"><%= event.content.substring(0, 120) %>...</p> -->
-
-                <div class="event-buttons"> <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#eventDetailModal"
+                <div class="event-buttons"> 
+                  <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#eventDetailModal"
                           data-event-id="<%= event._id %>"
                           data-event-title="<%= event.title %>"
                           data-event-date="<%= event.eventDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %>"
                           data-event-time="<%= event.eventDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) %>"
                           data-event-location="<%= event.location %>"
                           data-event-image="<%= event.image %>"
-                          data-event-content="<%= event.content.replace(/"/g, '&quot;') %>"> Details
+                          data-event-content="<%- encodeURIComponent(event.content) %>"> Details
                   </button>
                 </div>
+
               </div>
             </div>
           </div>
@@ -191,15 +192,36 @@
       eventDetailModal.addEventListener('show.bs.modal', function (event) {
         // Button that triggered the modal
         const button = event.relatedTarget;
-
+    
         // Extract info from data-* attributes
         const title = button.getAttribute('data-event-title');
         const date = button.getAttribute('data-event-date');
         const time = button.getAttribute('data-event-time');
         const location = button.getAttribute('data-event-location');
         const image = button.getAttribute('data-event-image');
-        const content = button.getAttribute('data-event-content');
-
+        const encodedContent = button.getAttribute('data-event-content');
+    
+        // CRITICAL FIX: Decode the content and clean any malformed URLs
+        let content = '';
+        try {
+          content = decodeURIComponent(encodedContent);
+          
+          // Clean any malformed href attributes
+          content = content.replace(/href=["']([^"']+)["']/gi, function(match, url) {
+            // Remove any extra quotes that might have been added
+            const cleanUrl = url.replace(/^["']+|["']+$/g, '');
+            
+            // Ensure absolute URLs stay absolute
+            if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
+              return `href="${cleanUrl}"`;
+            }
+            return match;
+          });
+        } catch (e) {
+          console.error('Error decoding content:', e);
+          content = encodedContent; // Fallback to encoded version
+        }
+    
         // Update the modal's content.
         const modalTitle = eventDetailModal.querySelector('#modalEventTitle');
         const modalDate = eventDetailModal.querySelector('#modalEventDate');
@@ -207,22 +229,23 @@
         const modalLocation = eventDetailModal.querySelector('#modalEventLocation');
         const modalImage = eventDetailModal.querySelector('#modalEventImage');
         const modalContent = eventDetailModal.querySelector('#modalEventContent');
-
+    
         modalTitle.textContent = title;
         modalDate.textContent = date;
         modalTime.textContent = time;
         modalLocation.textContent = location;
-        modalContent.innerHTML = content; // Set textContent to avoid XSS if content contains HTML
-
-        if (image && image !== 'null' && image !== '') { // Check if image path exists
+        modalContent.innerHTML = content; // Now uses cleaned content
+    
+        if (image && image !== 'null' && image !== '') {
           modalImage.src = image;
-          modalImage.style.display = 'block'; // Show image if present
+          modalImage.style.display = 'block';
         } else {
-          modalImage.src = ''; // Clear src
-          modalImage.style.display = 'none'; // Hide image if not present
+          modalImage.src = '';
+          modalImage.style.display = 'none';
         }
       });
     });
   </script>
+  
 </body>
 </html>

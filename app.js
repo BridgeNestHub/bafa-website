@@ -19,6 +19,9 @@ const path = require('path');
 // Initialize Express app
 const app = express();
 
+const isProduction = process.env.NODE_ENV === 'production';
+
+
 // Connect to MongoDB and start the app only if successful
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/melba')
 .then(() => {
@@ -33,19 +36,27 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/melba')
   const sessionConfig = {
     secret: process.env.SESSION_SECRET || 'melba-secret-key',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    name: 'melba.sid', // Custom session name for security
     cookie: { 
       maxAge: 1000 * 60 * 60 * 24, // 1 day
-      secure: process.env.NODE_ENV === 'production'
+      secure: isProduction, // True in production (HTTPS), false in development (HTTP)
+      httpOnly: true, // Prevents XSS attacks
+      sameSite: isProduction ? 'strict' : 'lax' // Stricter in production
     }
   };
 
   // Use MongoDB store for sessions in production
-  if (process.env.NODE_ENV === 'production') {
+  if (isProduction) {
     sessionConfig.store = MongoStore.create({
       mongoUrl: process.env.MONGODB_URI,
-      touchAfter: 24 * 3600 // lazy session update
+      touchAfter: 24 * 3600, // lazy session update
+      ttl: 24 * 60 * 60 // 1 day TTL for session cleanup
     });
+    
+    console.log('🔒 Production mode: Secure cookies enabled');
+  } else {
+    console.log('🔧 Development mode: Secure cookies disabled');
   }
 
   app.use(session(sessionConfig));

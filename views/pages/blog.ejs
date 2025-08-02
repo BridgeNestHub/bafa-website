@@ -84,10 +84,11 @@
                           data-post-title="<%= post.title %>"
                           data-post-date="<%= post.createdAt.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %>"
                           data-post-image="<%= post.image %>"
-                          data-post-content="<%= post.content.replace(/"/g, '&quot;') %>">
+                          data-post-content="<%- encodeURIComponent(post.content) %>">
                     Read More
                   </button>
                 </div>
+
               </div>
             </div>
           </div>
@@ -154,142 +155,161 @@
   <div class="toast-container position-fixed top-50 start-50 translate-middle p-3" style="z-index: 1100;">
     </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Modal for blog posts
-      const blogPostModal = document.getElementById('blogPostModal');
-      blogPostModal.addEventListener('show.bs.modal', function(event) {
-        // Button that triggered the modal
-        const button = event.relatedTarget;
-  
-        // Extract info from data-* attributes
-        const title = button.getAttribute('data-post-title');
-        const date = button.getAttribute('data-post-date');
-        const image = button.getAttribute('data-post-image');
-        const content = button.getAttribute('data-post-content');
-  
-        // Update the modal's content.
-        const modalTitle = blogPostModal.querySelector('#modalPostTitle');
-        const modalDate = blogPostModal.querySelector('#modalPostDate');
-        const modalImage = blogPostModal.querySelector('#modalPostImage');
-        const modalContent = blogPostModal.querySelector('#modalPostContent');
-  
-        modalTitle.textContent = title;
-        modalDate.textContent = date;
-        modalContent.innerHTML = content; // Using innerHTML for rich content
-  
-        if (image && image !== 'null' && image !== '') { // Check if image path exists
-          modalImage.src = image;
-          modalImage.style.display = 'block'; // Show image if present
-        } else {
-          modalImage.src = ''; // Clear src
-          modalImage.style.display = 'none'; // Hide image if not present
-        }
-      });
-  
-      // Newsletter subscription form handling
-      const newsletterForm = document.getElementById('newsletterForm');
-      const emailInput = document.getElementById('emailInput');
-  
-      newsletterForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-  
-        const email = emailInput.value.trim();
-  
-        if (email && validateEmail(email)) {
-          // Show a loading state on the button
-          const subscribeButton = newsletterForm.querySelector('button[type="submit"]');
-          subscribeButton.disabled = true;
-          subscribeButton.textContent = 'Subscribing...';
-  
-          // Send the email to your backend
-          fetch('/subscribe', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                email: email
-              })
-            })
-            .then(response => response.json())
-            .then(data => {
-              // Re-enable the button
-              subscribeButton.disabled = false;
-              subscribeButton.textContent = 'Subscribe';
-              emailInput.value = ''; // Clear the input field
-  
-              if (data.success) {
-                // Show success toast notification
-                showGlobalNotification(data.message, 'success', 5000); // 5 seconds
-              } else {
-                // Show error toast notification
-                showGlobalNotification(data.message || 'Subscription failed. Please try again.', 'danger', 7000); // 7 seconds
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Modal for blog posts
+        const blogPostModal = document.getElementById('blogPostModal');
+        blogPostModal.addEventListener('show.bs.modal', function(event) {
+          // Button that triggered the modal
+          const button = event.relatedTarget;
+    
+          // Extract info from data-* attributes
+          const title = button.getAttribute('data-post-title');
+          const date = button.getAttribute('data-post-date');
+          const image = button.getAttribute('data-post-image');
+          const encodedContent = button.getAttribute('data-post-content');
+          
+          // CRITICAL: Decode and clean the content
+          let content = '';
+          try {
+            content = decodeURIComponent(encodedContent);
+            
+            // Clean any malformed href attributes
+            content = content.replace(/href=["']([^"']+)["']/gi, function(match, url) {
+              const cleanUrl = url.replace(/^["']+|["']+$/g, '');
+              
+              if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
+                return `href="${cleanUrl}"`;
               }
-            })
-            .catch(error => {
-              console.error('Error:', error);
-              subscribeButton.disabled = false;
-              subscribeButton.textContent = 'Subscribe';
-              // Show error toast for network issues
-              showGlobalNotification('An error occurred. Please check your connection.', 'danger', 7000);
+              return match;
             });
-        } else {
-          // Show validation error toast
-          showGlobalNotification('Please enter a valid email address.', 'danger', 5000);
+          } catch (e) {
+            console.error('Error decoding blog content:', e);
+            content = encodedContent;
+          }
+    
+          // Update the modal's content.
+          const modalTitle = blogPostModal.querySelector('#modalPostTitle');
+          const modalDate = blogPostModal.querySelector('#modalPostDate');
+          const modalImage = blogPostModal.querySelector('#modalPostImage');
+          const modalContent = blogPostModal.querySelector('#modalPostContent');
+    
+          modalTitle.textContent = title;
+          modalDate.textContent = date;
+          modalContent.innerHTML = content; // Now uses cleaned content
+    
+          if (image && image !== 'null' && image !== '') { // Check if image path exists
+            modalImage.src = image;
+            modalImage.style.display = 'block'; // Show image if present
+          } else {
+            modalImage.src = ''; // Clear src
+            modalImage.style.display = 'none'; // Hide image if not present
+          }
+        });
+    
+        // Newsletter subscription form handling
+        const newsletterForm = document.getElementById('newsletterForm');
+        const emailInput = document.getElementById('emailInput');
+    
+        newsletterForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+    
+          const email = emailInput.value.trim();
+    
+          if (email && validateEmail(email)) {
+            // Show a loading state on the button
+            const subscribeButton = newsletterForm.querySelector('button[type="submit"]');
+            subscribeButton.disabled = true;
+            subscribeButton.textContent = 'Subscribing...';
+    
+            // Send the email to your backend
+            fetch('/subscribe', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  email: email
+                })
+              })
+              .then(response => response.json())
+              .then(data => {
+                // Re-enable the button
+                subscribeButton.disabled = false;
+                subscribeButton.textContent = 'Subscribe';
+                emailInput.value = ''; // Clear the input field
+    
+                if (data.success) {
+                  // Show success toast notification
+                  showGlobalNotification(data.message, 'success', 5000); // 5 seconds
+                } else {
+                  // Show error toast notification
+                  showGlobalNotification(data.message || 'Subscription failed. Please try again.', 'danger', 7000); // 7 seconds
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                subscribeButton.disabled = false;
+                subscribeButton.textContent = 'Subscribe';
+                // Show error toast for network issues
+                showGlobalNotification('An error occurred. Please check your connection.', 'danger', 7000);
+              });
+          } else {
+            // Show validation error toast
+            showGlobalNotification('Please enter a valid email address.', 'danger', 5000);
+          }
+        });
+    
+        // Email validation function
+        function validateEmail(email) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+        }
+    
+        /**
+         * Shows a global toast notification.
+         * @param {string} message - The message to display.
+         * @param {string} type - The type of notification ('success', 'danger').
+         * @param {number} duration - The duration in milliseconds before the toast auto-hides.
+         */
+        function showGlobalNotification(message, type = 'success', duration = 3000) {
+          const toastContainer = document.querySelector('.toast-container');
+          const toastId = 'toast-' + Date.now(); // Unique ID for each toast
+    
+          const iconClass = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+    
+          const toastHtml = `
+              <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex p-2 align-items-center">
+                  <i class="fas ${iconClass} text-${type} fs-4 me-2"></i>
+                  <div class="toast-body text-dark">
+                    ${message}
+                  </div>
+                  <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+              </div>
+            `;
+    
+          toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+    
+          const toastElement = document.getElementById(toastId);
+          const toast = new bootstrap.Toast(toastElement, {
+            autohide: true,
+            delay: duration
+          });
+    
+          // Add appropriate Bootstrap classes for styling
+          toastElement.classList.add(`bg-${type}-subtle`, `text-${type}`);
+    
+          // Manually show the toast
+          toast.show();
+    
+          // Clean up the DOM after the toast has been hidden
+          toastElement.addEventListener('hidden.bs.toast', () => {
+            toastElement.remove();
+          });
         }
       });
-  
-      // Email validation function
-      function validateEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-      }
-  
-      /**
-       * Shows a global toast notification.
-       * @param {string} message - The message to display.
-       * @param {string} type - The type of notification ('success', 'danger').
-       * @param {number} duration - The duration in milliseconds before the toast auto-hides.
-       */
-      function showGlobalNotification(message, type = 'success', duration = 3000) {
-        const toastContainer = document.querySelector('.toast-container');
-        const toastId = 'toast-' + Date.now(); // Unique ID for each toast
-  
-        const iconClass = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
-  
-        const toastHtml = `
-            <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-              <div class="d-flex p-2 align-items-center">
-                <i class="fas ${iconClass} text-${type} fs-4 me-2"></i>
-                <div class="toast-body text-dark">
-                  ${message}
-                </div>
-                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-              </div>
-            </div>
-          `;
-  
-        toastContainer.insertAdjacentHTML('beforeend', toastHtml);
-  
-        const toastElement = document.getElementById(toastId);
-        const toast = new bootstrap.Toast(toastElement, {
-          autohide: true,
-          delay: duration
-        });
-  
-        // Add appropriate Bootstrap classes for styling
-        toastElement.classList.add(`bg-${type}-subtle`, `text-${type}`);
-  
-        // Manually show the toast
-        toast.show();
-  
-        // Clean up the DOM after the toast has been hidden
-        toastElement.addEventListener('hidden.bs.toast', () => {
-          toastElement.remove();
-        });
-      }
-    });
   </script>
 
 </body>

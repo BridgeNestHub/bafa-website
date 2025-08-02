@@ -31,7 +31,9 @@ const JoinTeamRegistration = require('../models/JoinTeamRegistration');
 const BootcampRegistration = require('../models/BootcampRegistration');
 const NewsletterSubscription = require('../models/NewsletterSubscription');
 
-const { isAuthenticated } = require('../utils/auth');
+const { authenticate, isAuthenticated, noCache } = require('../utils/auth');
+
+// const { isAuthenticated } = require('../utils/auth');
 
 // --- Helper function for deleting image files ---
 // This function can be reused across different models that have images
@@ -113,14 +115,37 @@ router.get('/login', (req, res) => {
     });
 });
 
-router.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    if (username === process.env.ADMIN_USERNAME &&
-        password === process.env.ADMIN_PASSWORD) {
-        req.session.authenticated = true;
-        return res.redirect('/admin/dashboard');
-    }
-    res.redirect('/admin/login?error=1');
+router.post('/login', async (req, res) => {
+  try {
+      console.log('Login attempt received');
+      console.log('Username:', req.body.username);
+      console.log('Password provided:', !!req.body.password);
+      
+      const { username, password } = req.body;
+      
+      // Validate input
+      if (!username || !password) {
+          console.log('Missing username or password');
+          return res.redirect('/admin/login?error=1');
+      }
+      
+      // Use the authenticate function from utils/auth.js
+      const isValid = await authenticate(username, password);
+      
+      if (isValid) {
+          console.log('Authentication successful');
+          req.session.authenticated = true;
+          req.session.username = username;
+          return res.redirect('/admin/dashboard');
+      } else {
+          console.log('Authentication failed');
+          return res.redirect('/admin/login?error=1');
+      }
+      
+  } catch (error) {
+      console.error('Login route error:', error);
+      return res.redirect('/admin/login?error=1');
+  }
 });
 
 router.get('/dashboard', isAuthenticated, async (req, res, next) => {
@@ -1072,5 +1097,26 @@ router.post('/applications/volunteer', async (req, res) => {
     res.status(400).json({ success: false, message: err.message || 'Failed to submit volunteer application.' });
   }
 });
+
+function cleanEncodedContent(content) {
+  if (typeof content !== 'string') return content;
+  
+  // Fix URL-encoded quotes in content
+  let cleaned = content;
+  
+  // Handle double or triple encoded URLs
+  while (cleaned.includes('%22') || cleaned.includes('%27')) {
+      try {
+          const decoded = decodeURIComponent(cleaned);
+          if (decoded === cleaned) break; // Prevent infinite loop
+          cleaned = decoded;
+      } catch (e) {
+          break;
+      }
+  }
+  
+  return cleaned;
+}
+
 
 module.exports = router;
