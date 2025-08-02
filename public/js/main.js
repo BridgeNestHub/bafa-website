@@ -1,5 +1,5 @@
 /**
- * BAFA Main JavaScript File
+ * MELBA Main JavaScript File
  * Handles common frontend functionality across the site
  * Includes Universal Mobile Form Optimization
  */
@@ -540,7 +540,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Console Log Success
   // ======================
   
-  console.log('✅ BAFA Main JS loaded with Universal Mobile Form Optimization');
+  console.log('✅ MELBA Main JS loaded with Universal Mobile Form Optimization');
   
 });
 

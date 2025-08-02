@@ -20,19 +20,27 @@ const path = require('path');
 const app = express();
 
 const isProduction = process.env.NODE_ENV === 'production';
+const isRailway = !!process.env.RAILWAY_ENVIRONMENT;
 
+// Trust Railway's proxy for secure cookies (CRITICAL FOR RAILWAY)
+if (isProduction && isRailway) {
+  app.set('trust proxy', 1);
+  console.log('🚂 Railway proxy trust enabled');
+}
 
 // Connect to MongoDB and start the app only if successful
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/melba')
 .then(() => {
   console.log('✅ Connected to MongoDB');
+  console.log('🔍 Environment:', isProduction ? 'Production' : 'Development');
+  console.log('🔍 Railway detected:', isRailway);
 
   // 🔧 Middleware
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
   
-  // Session configuration with MongoDB store for production
+  // Session configuration with Railway-compatible settings
   const sessionConfig = {
     secret: process.env.SESSION_SECRET || 'melba-secret-key',
     resave: false,
@@ -40,9 +48,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/melba')
     name: 'melba.sid', // Custom session name for security
     cookie: { 
       maxAge: 1000 * 60 * 60 * 24, // 1 day
-      secure: isProduction, // True in production (HTTPS), false in development (HTTP)
+      // Railway-compatible secure cookie settings
+      secure: isProduction && isRailway, // Only secure on Railway production
       httpOnly: true, // Prevents XSS attacks
-      sameSite: isProduction ? 'strict' : 'lax' // Stricter in production
+      sameSite: 'lax' // Changed from 'strict' to 'lax' for Railway compatibility
     }
   };
 
@@ -54,9 +63,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/melba')
       ttl: 24 * 60 * 60 // 1 day TTL for session cleanup
     });
     
-    console.log('🔒 Production mode: Secure cookies enabled');
+    console.log('🔒 Production mode: MongoDB store enabled');
+    console.log('🔒 Secure cookies:', sessionConfig.cookie.secure);
   } else {
-    console.log('🔧 Development mode: Secure cookies disabled');
+    console.log('🔧 Development mode: Memory store, secure cookies disabled');
   }
 
   app.use(session(sessionConfig));
