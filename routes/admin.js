@@ -115,6 +115,37 @@ router.get('/login', (req, res) => {
     });
 });
 
+//only for debug
+// Debug environment info
+router.get('/debug-env', (req, res) => {
+  res.json({
+      nodeEnv: process.env.NODE_ENV,
+      baseUrl: process.env.BASE_URL,
+      hasSessionSecret: !!process.env.SESSION_SECRET,
+      hasAdminUser: !!process.env.ADMIN_USERNAME,
+      hasAdminPass: !!process.env.ADMIN_PASSWORD,
+      protocol: req.protocol,
+      secure: req.secure,
+      host: req.get('host'),
+      originalUrl: req.originalUrl
+  });
+});
+
+// Enhanced session debug
+router.get('/debug-session', (req, res) => {
+  res.json({
+      authenticated: req.session.authenticated,
+      username: req.session.username,
+      sessionID: req.sessionID,
+      session: req.session,
+      cookies: req.headers.cookie,
+      isSecure: req.secure,
+      protocol: req.protocol
+  });
+});
+
+//to be deleted
+
 router.post('/login', async (req, res) => {
   try {
       console.log('Login attempt received');
