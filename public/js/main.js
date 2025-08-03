@@ -184,32 +184,53 @@ document.addEventListener('DOMContentLoaded', function() {
   // Enhanced contact form validation (mobile optimized)
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
-      contactForm.addEventListener('submit', function(e) {
-          const emailInput = this.querySelector('input[type="email"]');
-          const messageInput = this.querySelector('textarea');
-          let isValid = true;
-          
-          // Simple email validation
-          if (!emailInput.value.includes('@') || !emailInput.value.includes('.')) {
-              emailInput.classList.add('is-invalid');
-              isValid = false;
-          } else {
-              emailInput.classList.remove('is-invalid');
-          }
-          
-          // Message length validation
-          if (messageInput.value.trim().length < 10) {
-              messageInput.classList.add('is-invalid');
-              isValid = false;
-          } else {
-              messageInput.classList.remove('is-invalid');
-          }
-          
-          if (!isValid) {
-              e.preventDefault();
-              scrollToFirstInvalidField(this);
-          }
-      });
+    contactForm.addEventListener('submit', function (e) {
+      const emailInput = this.querySelector('input[type="email"]');
+      const messageInput = this.querySelector('textarea');
+      let isValid = true;
+
+      // Reset any existing messages
+      document.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+
+      // Simple email validation
+      if (!emailInput.value.includes('@') || !emailInput.value.includes('.')) {
+        emailInput.classList.add('is-invalid');
+        showError(emailInput, 'Please enter a valid email address.');
+        isValid = false;
+      } else {
+        emailInput.classList.remove('is-invalid');
+      }
+
+      // Message length validation
+      if (messageInput.value.trim().length < 10) {
+        messageInput.classList.add('is-invalid');
+        showError(messageInput, 'Message must be at least 10 characters.');
+        isValid = false;
+      } else {
+        messageInput.classList.remove('is-invalid');
+      }
+
+      if (!isValid) {
+        e.preventDefault(); // Block form submission
+        scrollToFirstInvalidField(this);
+      } else {
+        console.log('Form is valid, submitting...');
+      }
+    });
+
+    function showError(inputElement, message) {
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'invalid-feedback';
+      errorDiv.textContent = message;
+      inputElement.parentNode.appendChild(errorDiv);
+    }
+
+    function scrollToFirstInvalidField(form) {
+      const firstInvalid = form.querySelector('.is-invalid');
+      if (firstInvalid) {
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
   }
   
   // Universal Bootstrap validation forms
@@ -540,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Console Log Success
   // ======================
   
-  console.log('✅ MELBA Main JS loaded with Universal Mobile Form Optimization');
+  // console.log('✅ MELBA Main JS loaded with Universal Mobile Form Optimization');
   
 });
 

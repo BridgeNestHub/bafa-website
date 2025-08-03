@@ -14,6 +14,11 @@ const contactSubmissionSchema = new mongoose.Schema({
     lowercase: true,
     match: [/.+@.+\..+/, 'Please fill a valid email address']
   },
+  phone: {
+    type: String,
+    trim: true,
+    default: ''
+  },
   subject: { // Assuming you might add a subject field to your contact form later, or use a default
     type: String,
     trim: true

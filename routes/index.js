@@ -161,7 +161,7 @@ router.get('/contact', (req, res) => {
  */
 router.post('/contact', async (req, res) => {
   try {
-    const { name, email, message } = req.body;
+    const { name, email, phone, subject, message } = req.body;
 
     // Validate basic fields
     if (!name || !email || !message) {
@@ -172,6 +172,8 @@ router.post('/contact', async (req, res) => {
     const newSubmission = new ContactSubmission({
       name,
       email,
+      phone,
+      subject,
       message,
       // You can add other fields like IP address, timestamp, etc. if needed
     });
@@ -184,6 +186,8 @@ router.post('/contact', async (req, res) => {
     await sendContactEmail({
       name,
       email,
+      phone: phone || '',
+      subject,
       message
     });
     console.log('Contact email sent successfully.');
