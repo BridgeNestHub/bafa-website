@@ -326,6 +326,7 @@ router.post('/api/tutor', async (req, res) => {
       tutorSubjects: Array.isArray(tutorSubjects) ? tutorSubjects : [tutorSubjects],
       experience: experience || '',
       tutorAvailability: tutorAvailability || '',
+      message: message || ''
     });
 
     await newApplication.save();

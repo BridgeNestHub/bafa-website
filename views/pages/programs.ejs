@@ -121,7 +121,7 @@
               <i class="fas fa-graduation-cap"></i>
             </div>
             <h3>Education</h3>
-            <p class="px-3">Academic support and college readiness programs serving 300+ students annually</p>
+            <p class="px-3">Academic support and college readiness programs serving 100+ students annually</p>
             <a href="#education" class="btn btn-sm btn-outline-primary mt-auto">Learn More</a>
           </div>
         </div>
@@ -529,7 +529,7 @@
                       <img src="/images/logos/uw.png" class="img-fluid" alt="University of Washington" style="max-height: 60px;">
                     </div>
                     <div class="col-6 col-md-3 text-center">
-                      <img src="/images/logos/seattle-childrens.png" class="img-fluid" alt="Seattle Children's" style="max-height: 60px;">
+                      <img src="/images/logos/seattle-city.png" class="img-fluid" alt="City of Seattle" style="max-height: 60px;">
                     </div>
                   </div>
                 </div>
@@ -733,7 +733,7 @@
                           <h6 class="mb-1">Food Drive Initiative</h6>
                           <small class="text-muted">Quarterly event - inquire for schedule</small>
                         </div>
-                        <span class="badge bg-primary rounded-pill">Limited spots available - Contact us to join!</span>
+                        <span class="badge bg-primary rounded-pill">Limited spots available</span>
                       </div>
                     </div>
                     <div class="list-group-item">
@@ -874,22 +874,18 @@
               <div class="col-md-6">
                 <label for="applyFirstName" class="form-label">First Name</label>
                 <input type="text" class="form-control" id="applyFirstName" name="firstName" required>
-                <div class="invalid-feedback">Please enter your first name.</div>
               </div>
               <div class="col-md-6">
                 <label for="applyLastName" class="form-label">Last Name</label>
                 <input type="text" class="form-control" id="applyLastName" name="lastName" required>
-                <div class="invalid-feedback">Please enter your last name.</div>
               </div>
               <div class="col-md-6">
                 <label for="applyAge" class="form-label">Age</label>
-                <input type="number" class="form-control" id="applyAge" name="age" min="16" max="30" required>
-                <div class="invalid-feedback">Please enter your age (16-30).</div>
+                <input type="number" class="form-control" id="applyAge" name="age" min="12" max="80" required>
               </div>
               <div class="col-md-6">
                 <label for="applyEmail" class="form-label">Email</label>
                 <input type="email" class="form-control" id="applyEmail" name="email" required>
-                <div class="invalid-feedback">Please enter a valid email address.</div>
               </div>
               <div class="col-md-6">
                 <label for="applyPhone" class="form-label">Phone</label>
@@ -906,12 +902,11 @@
                   <option>Non-Profit/Community</option>
                   <option>Other</option>
                 </select>
-                <div class="invalid-feedback">Please select an area of interest.</div>
               </div>
               <div class="col-12">
                 <label for="applyResume" class="form-label">Upload Resume (PDF preferred)</label>
                 <input class="form-control" type="file" id="applyResume" name="resumeFile" accept=".pdf,.doc,.docx">
-                <small class="form-text text-muted">Max file size 5MB. This is a placeholder for future functionality.</small>
+                <!-- <small class="form-text text-muted">Max file size 5MB. This is a placeholder for future functionality.</small> -->
               </div>
               <div class="col-12">
                 <label for="applyCoverLetter" class="form-label">Cover Letter / Message</label>
@@ -948,12 +943,10 @@
               <div class="col-12">
                 <label for="fundName" class="form-label">Your Name / Organization Name</label>
                 <input type="text" class="form-control" id="fundName" name="name" required>
-                <div class="invalid-feedback">Please enter a name.</div>
               </div>
               <div class="col-md-6">
                 <label for="fundEmail" class="form-label">Email</label>
                 <input type="email" class="form-control" id="fundEmail" name="email" required>
-                <div class="invalid-feedback">Please enter a valid email address.</div>
               </div>
               <div class="col-md-6">
                 <label for="fundPhone" class="form-label">Phone (Optional)</label>
@@ -968,7 +961,6 @@
                   <option value="Quarter">Quarter Internship ($1,250)</option>
                   <option value="Custom">Custom Amount</option>
                 </select>
-                <div class="invalid-feedback">Please select a sponsorship level.</div>
               </div>
               <div class="col-12">
                 <label for="fundMessage" class="form-label">Message (Optional)</label>
@@ -1005,17 +997,14 @@
               <div class="col-12">
                 <label for="organizationName" class="form-label">Organization Name</label>
                 <input type="text" class="form-control" id="organizationName" name="organizationName" required>
-                <div class="invalid-feedback">Please enter your organization's name.</div>
               </div>
               <div class="col-md-6">
                 <label for="contactName" class="form-label">Contact Person Name</label>
                 <input type="text" class="form-control" id="contactName" name="contactName" required>
-                <div class="invalid-feedback">Please enter a contact person's name.</div>
               </div>
               <div class="col-md-6">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" required>
-                <div class="invalid-feedback">Please enter a valid email address.</div>
               </div>
               <div class="col-md-6">
                 <label for="phone" class="form-label">Phone (Optional)</label>
@@ -1031,7 +1020,6 @@
                   <option>Skills Training/Workshop Provider</option>
                   <option>Other</option>
                 </select>
-                <div class="invalid-feedback">Please select a partnership type.</div>
               </div>
               <div class="col-12">
                 <label for="partnerMessage" class="form-label">Message (Optional)</label>
@@ -1066,19 +1054,19 @@
           <form class="needs-validation" novalidate id="joinTeamForm"> <div class="row g-3">
               <div class="col-md-6">
                 <label for="teamFirstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="teamFirstName" name="firstName" required> <div class="invalid-feedback">Please enter your first name.</div>
+                <input type="text" class="form-control" id="teamFirstName" name="firstName" required> 
               </div>
               <div class="col-md-6">
                 <label for="teamLastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="teamLastName" name="lastName" required> <div class="invalid-feedback">Please enter your last name.</div>
+                <input type="text" class="form-control" id="teamLastName" name="lastName" required> 
               </div>
               <div class="col-md-6">
                 <label for="teamAge" class="form-label">Age</label>
-                <input type="number" class="form-control" id="teamAge" name="age" min="12" max="60" required> <div class="invalid-feedback">Please enter your age (12-60).</div>
+                <input type="number" class="form-control" id="teamAge" name="age" min="12" max="80" required> 
               </div>
               <div class="col-md-6">
                 <label for="teamEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="teamEmail" name="email" required> <div class="invalid-feedback">Please enter a valid email address.</div>
+                <input type="email" class="form-control" id="teamEmail" name="email" required> 
               </div>
               <div class="col-md-6">
                 <label for="teamPhone" class="form-label">Phone</label>
@@ -1092,7 +1080,6 @@
                     <option>Volleyball</option>
                     <option>Other</option>
                   </select>
-                  <div class="invalid-feedback">Please select a sport.</div>
                 </div>
                 <div class="col-12">
                   <label for="teamExperienceLevel" class="form-label">Experience Level</label>
@@ -1136,17 +1123,14 @@
               <div class="col-md-6">
                 <label for="volunteerFirstName" class="form-label">First Name</label>
                 <input type="text" class="form-control" id="volunteerFirstName" name="firstName" required>
-                <div class="invalid-feedback">Please enter your first name.</div>
               </div>
               <div class="col-md-6">
                 <label for="volunteerLastName" class="form-label">Last Name</label>
                 <input type="text" class="form-control" id="volunteerLastName" name="lastName" required>
-                <div class="invalid-feedback">Please enter your last name.</div>
               </div>
               <div class="col-md-6">
                 <label for="volunteerEmail" class="form-label">Email</label>
                 <input type="email" class="form-control" id="volunteerEmail" name="email" required>
-                <div class="invalid-feedback">Please enter a valid email address.</div>
               </div>
               <div class="col-md-6">
                 <label for="volunteerPhone" class="form-label">Phone</label>
@@ -1154,7 +1138,7 @@
               </div>
               <div class="col-12">
                 <label for="volunteerAddress" class="form-label">Address</label>
-                <input type="text" class="form-control" id="volunteerAddress" name="address" required> <div class="invalid-feedback">Please enter your address.</div>
+                <input type="text" class="form-control" id="volunteerAddress" name="address" required> 
               </div>
               <div class="col-12">
                 <label for="volunteerInterests" class="form-label">Areas of Interest (Select all that apply)</label>
@@ -1211,12 +1195,10 @@
                             <div class="col-md-6">
                                 <label for="bootcampName" class="form-label">Full Name</label>
                                 <input type="text" class="form-control" id="bootcampName" name="name" required>
-                                <div class="invalid-feedback">Please enter your full name.</div>
                             </div>
                             <div class="col-md-6">
                                 <label for="bootcampEmail" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="bootcampEmail" name="email" required>
-                                <div class="invalid-feedback">Please enter a valid email address.</div>
                             </div>
                             <div class="col-12">
                                 <label for="bootcampProgram" class="form-label">Desired Bootcamp Track</label>
@@ -1227,7 +1209,6 @@
                                     <option>Frontend Frameworks</option>
                                     <option>Other</option>
                                 </select>
-                                <div class="invalid-feedback">Please select a bootcamp track.</div>
                             </div>
                         <div class="col-12">
                           <label for="bootcampExperienceLevel" class="form-label">Your Current Tech Experience Level</label>
@@ -1238,7 +1219,6 @@
                               <option value="Intermediate">Intermediate (some JavaScript, Python basics)</option>
                               <option value="Advanced">Advanced (familiar with frameworks/libraries)</option>
                           </select>
-                          <div class="invalid-feedback">Please select your experience level.</div>
                       </div>
                             <div class="col-12">
                                 <label for="bootcampMessage" class="form-label">Tell us about your experience and goals (Optional)</label>
@@ -1322,7 +1302,7 @@
             </div>
             <div class="mb-3">
                 <label for="enrollAge" class="form-label">Age</label>
-                <input type="number" class="form-control" id="enrollAge" name="age" min="12" max="60" required>
+                <input type="number" class="form-control" id="enrollAge" name="age" min="12" max="80" required>
             </div>
             <div class="mb-3">
               <label for="enrollGradeLevel" class="form-label">Current Grade Level</label>
@@ -1687,7 +1667,7 @@
     handleAjaxFormSubmission(
         'bootcampRegistrationForm',
         'bootcampRegisterModal',
-        '/admin/applications/bootcamp',
+        '/applications/bootcamp',
         'bootcamp registration',
         'Register Now'
     );
