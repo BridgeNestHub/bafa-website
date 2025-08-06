@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const careerApplyNowApplicationSchema = new mongoose.Schema({
   firstName: { type: String, required: true, trim: true },
   lastName: { type: String, required: true, trim: true },
-  age: { type: Number, required: true, min: 16, max: 30 },
+  age: { type: Number, required: true, min: 16, max: 80 },
   email: {
     type: String,
     required: true,

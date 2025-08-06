@@ -889,7 +889,7 @@
               </div>
               <div class="col-md-6">
                 <label for="applyPhone" class="form-label">Phone</label>
-                <input type="tel" class="form-control" id="applyPhone" name="phone">
+                <input type="tel" class="form-control" id="applyPhone" name="phone" onblur="formatPhoneNumber(this)" maxlength="14">
               </div>
               <div class="col-md-6">
                 <label for="applyInterest" class="form-label">Area of Interest</label>
@@ -950,7 +950,7 @@
               </div>
               <div class="col-md-6">
                 <label for="fundPhone" class="form-label">Phone (Optional)</label>
-                <input type="tel" class="form-control" id="fundPhone" name="phone">
+                <input type="tel" class="form-control" id="fundPhone" name="phone" onblur="formatPhoneNumber(this)" maxlength="14">
               </div>
               <div class="col-12">
                 <label for="sponsorshipLevel" class="form-label">Sponsorship Level</label>
@@ -1008,7 +1008,7 @@
               </div>
               <div class="col-md-6">
                 <label for="phone" class="form-label">Phone (Optional)</label>
-                <input type="tel" class="form-control" id="phone" name="phone">
+                <input type="tel" class="form-control" id="phone" name="phone" onblur="formatPhoneNumber(this)" maxlength="14">
               </div>
               <div class="col-md-6">
                 <label for="partnershipType" class="form-label">Type of Partnership</label>
@@ -1070,7 +1070,8 @@
               </div>
               <div class="col-md-6">
                 <label for="teamPhone" class="form-label">Phone</label>
-                <input type="tel" class="form-control" id="teamPhone" name="phone"> </div>
+                <input type="tel" class="form-control" id="teamPhone" name="phone" onblur="formatPhoneNumber(this)" maxlength="14"> 
+              </div>
 
                 <div class="col-md-6">
                   <label for="teamSportInterest" class="form-label">Sport of Interest</label>
@@ -1134,7 +1135,7 @@
               </div>
               <div class="col-md-6">
                 <label for="volunteerPhone" class="form-label">Phone</label>
-                <input type="tel" class="form-control" id="volunteerPhone" name="phone" >
+                <input type="tel" class="form-control" id="volunteerPhone" name="phone" onblur="formatPhoneNumber(this)" maxlength="14">
               </div>
               <div class="col-12">
                 <label for="volunteerAddress" class="form-label">Address</label>
@@ -1298,7 +1299,7 @@
             </div>
             <div class="mb-3">
               <label for="enrollPhone" class="form-label">Phone Number (Optional)</label>
-              <input type="tel" class="form-control" id="enrollPhone" name="phone">
+              <input type="tel" class="form-control" id="enrollPhone" name="phone" onblur="formatPhoneNumber(this)" maxlength="14">
             </div>
             <div class="mb-3">
                 <label for="enrollAge" class="form-label">Age</label>
@@ -1380,7 +1381,7 @@
             </div>
             <div class="mb-3">
               <label for="tutorPhone" class="form-label">Phone Number (Optional)</label>
-              <input type="tel" class="form-control" id="tutorPhone" name="phone">
+              <input type="tel" class="form-control" id="tutorPhone" name="phone" onblur="formatPhoneNumber(this)" maxlength="14">
             </div>
             <div class="mb-3">
               <label for="tutorSubjects" class="form-label">Subjects You Can Tutor (Select all that apply)</label>

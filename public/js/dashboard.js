@@ -955,6 +955,7 @@ async function loadTutorApplications() {
         { data: 'firstName', render: function(data, type, row) { return `${data} ${row.lastName}`; } },
         { data: 'email' },
         { data: 'tutorSubjects', render: function(data) { return data ? data.join(', ') : 'N/A'; } },
+        { data: 'message', render: function(data) { return data ? data : 'No message'; } },
         { data: 'createdAt', render: function(data) { return new Date(data).toLocaleString(); } },
         { data: null } // Actions column (View, Delete)
     ];

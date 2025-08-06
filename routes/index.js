@@ -165,41 +165,82 @@ router.post('/contact', async (req, res) => {
 
     // Validate basic fields
     if (!name || !email || !message) {
-      return res.redirect('/contact?error=1'); // Or render with an error message
+      return res.redirect('/contact?error=1');
     }
 
-    // 1. Save to MongoDB
+    // 1. Save to MongoDB (This is the critical step)
     const newSubmission = new ContactSubmission({
       name,
       email,
       phone,
       subject,
       message,
-      // You can add other fields like IP address, timestamp, etc. if needed
     });
     await newSubmission.save();
-    console.log('Contact submission saved to DB:', newSubmission); // Log for confirmation
+    console.log('✅ Contact submission saved to DB:', newSubmission);
 
-    // 2. Send Email (optional, keep or remove as per your requirement)
-    // Note: ensure your sendContactEmail function actually uses these parameters
-    // and your email service is configured (e.g., Nodemailer with API keys)
-    await sendContactEmail({
-      name,
-      email,
-      phone: phone || '',
-      subject,
-      message
-    });
-    console.log('Contact email sent successfully.');
+    // 2. Send Email (This is the non-critical step)
+    try {
+      // Send notification email to the admin
+      const adminEmailData = {
+        name,
+        email: 'contact@melbacommunityservice.org', 
+        subject: 'New Contact Form Submission',
+        message: `
+        New Contact Form Submission:
+      
+        Name: ${name}
+        Email: ${email}
+        Phone: ${phone || 'N/A'}
+        Subject: ${subject || 'No subject'}
+        Message: ${message}
+      
+        Submitted on: ${new Date().toLocaleString()}
+        `
+      };
+      
+      await sendContactEmail(adminEmailData);
+      console.log('✅ Admin email notification sent for contact form submission');
+      
+      // Send confirmation email to the user
+      const userEmailData = {
+        name,
+        email,
+        subject: 'Thank You for Contacting Us',
+        message: `
+        Dear ${name},
+        
+        Thank you for your message. We have successfully received your submission and appreciate you reaching out.
+        
+        Here is a copy of your message:
+        
+        Subject: ${subject || 'No subject'}
+        Message: ${message}
+        
+        Our team will review your message and get back to you as soon as possible.
+        
+        Sincerely,
+        The Melba Community Center Team
+        `
+      };
+      
+      await sendContactEmail(userEmailData);
+      console.log('✅ User confirmation email sent for contact form submission');
+      
+    } catch (emailError) {
+      // Log the email error but don't halt the user's request
+      console.error('❌ Error sending one or both email notifications for contact form:', emailError);
+    }
 
+    // 3. Respond with a success message regardless of email status
     res.redirect('/contact?success=1');
   } catch (err) {
-    console.error('Contact form submission error:', err);
+    console.error('❌ Contact form submission error:', err);
     res.redirect('/contact?error=1');
   }
 });
 
-// NEW ROUTE: Handle volunteer applications API endpoint
+//Handle volunteer applications API endpoint
 router.post('/api/volunteer', async (req, res) => {
   // Destructure req.body - now including address
   const { firstName, lastName, email, phone, volunteerInterests, availability, message, address } = req.body;
@@ -220,6 +261,7 @@ router.post('/api/volunteer', async (req, res) => {
   }
 
   try {
+    // 1. Save the application to the database (this is the critical step)
     const newApplication = new VolunteerApplication({
       firstName,
       lastName,
@@ -233,7 +275,71 @@ router.post('/api/volunteer', async (req, res) => {
 
     await newApplication.save();
     console.log('✅ New volunteer application saved to MongoDB:', newApplication);
-    res.status(200).json({ message: 'Volunteer application submitted successfully!' });
+
+    // 2. Handle the email notification as a non-critical process
+    try {
+      // Prepare and send the email notification to the admin
+      const adminEmailData = {
+        name: `${firstName} ${lastName}`,
+        email: 'contact@melbacommunityservice.org',
+        subject: 'New Volunteer Application Received',
+        message: `
+        New Volunteer Application:
+      
+        Name: ${firstName} ${lastName}
+        Email: ${email}
+        Phone: ${phone || 'N/A'}
+        Address: ${address || 'N/A'}
+        Volunteer Interests: ${Array.isArray(volunteerInterests) ? volunteerInterests.join(', ') : volunteerInterests}
+        Availability: ${availability || 'N/A'}
+        Message: ${message || 'No additional message'}
+      
+        Submitted on: ${new Date().toLocaleString()}
+        `
+      };
+      
+      await sendContactEmail(adminEmailData);
+      console.log('✅ Admin email notification sent for volunteer application');
+
+      // Prepare and send the confirmation email to the user
+      const userEmailData = {
+          name: `${firstName} ${lastName}`,
+          email: email, // Use the user's email address
+          subject: 'Confirmation of Your Volunteer Application',
+          message: `
+          Dear ${firstName},
+          
+          Thank you for your interest in volunteering with us! We have successfully received your application.
+          
+          Here is a summary of the information you submitted for your records:
+          
+          Name: ${firstName} ${lastName}
+          Email: ${email}
+          Phone: ${phone || 'N/A'}
+          Address: ${address || 'N/A'}
+          Volunteer Interests: ${Array.isArray(volunteerInterests) ? volunteerInterests.join(', ') : volunteerInterests}
+          Availability: ${availability || 'N/A'}
+          Message: ${message || 'No additional message'}
+          
+          What to expect next: Our team will review your application and be in touch within 5-7 business days regarding the next steps.
+          
+          Thank you for your interest in helping our community!
+          
+          Sincerely,
+          The Melba Community Center Team
+          `
+      };
+
+      await sendContactEmail(userEmailData);
+      console.log('✅ User confirmation email sent for volunteer application');
+
+    } catch (emailError) {
+      // Log the email error, but don't halt the main process
+      console.error('❌ Error sending one or both email notifications:', emailError);
+    }
+    
+    // 3. Send the success response to the user
+    res.status(200).json({ message: 'Volunteer application submitted successfully! A confirmation email has been sent to you.' });
 
   } catch (error) {
     console.error('❌ Error processing volunteer application:', error);
@@ -248,6 +354,7 @@ router.post('/api/volunteer', async (req, res) => {
   }
 });
 
+//Enrollment
 router.post('/api/enrollment', async (req, res) => {
   const {
     firstName,
@@ -278,6 +385,7 @@ router.post('/api/enrollment', async (req, res) => {
   }
 
   try {
+    // 1. Save the application to the database (this is the critical step)
     const newApplication = new EnrollmentApplication({
       firstName,
       lastName,
@@ -293,7 +401,73 @@ router.post('/api/enrollment', async (req, res) => {
     await newApplication.save();
 
     console.log('✅ New enrollment application saved to MongoDB:', newApplication);
-    res.status(200).json({ message: 'Enrollment application submitted successfully!' });
+
+    // 2. Handle the email notification as a non-critical process
+    try {
+      // Prepare and send the email notification to the admin
+      const adminEmailData = {
+        name: `${firstName} ${lastName}`,
+        email: 'contact@melbacommunityservice.org', 
+        subject: 'New Enrollment Application Received',
+        message: `
+        New Enrollment Application:
+      
+        Name: ${firstName} ${lastName}
+        Age: ${age}
+        Email: ${email}
+        Phone: ${phone || 'N/A'}
+        School: ${school || 'N/A'}
+        Grade Level: ${gradeLevel || 'N/A'}
+        Program Interest: ${programInterest}
+        Message: ${message || 'No additional message'}
+      
+        Submitted on: ${new Date().toLocaleString()}
+        `
+      };
+      
+      await sendContactEmail(adminEmailData);
+      console.log('✅ Admin email notification sent for enrollment application');
+
+      // Prepare and send the confirmation email to the user
+      const userEmailData = {
+          name: `${firstName} ${lastName}`,
+          email: email, // Use the user's email address
+          subject: 'Confirmation of Your Enrollment Application',
+          message: `
+          Dear ${firstName},
+          
+          Thank you for applying for a program at Melba Community Center! We have received your application.
+          
+          Here is a summary of the information you submitted for your records:
+          
+          Name: ${firstName} ${lastName}
+          Age: ${age}
+          Email: ${email}
+          Phone: ${phone || 'N/A'}
+          School: ${school || 'N/A'}
+          Grade Level: ${gradeLevel || 'N/A'}
+          Program Interest: ${programInterest}
+          Message: ${message || 'No additional message'}
+          
+          What to expect next: Our team will review your application and be in touch within 5-7 business days with more information.
+          
+          Thank you for your interest!
+          
+          Sincerely,
+          The Melba Community Center Team
+          `
+      };
+
+      await sendContactEmail(userEmailData);
+      console.log('✅ User confirmation email sent for enrollment application');
+
+    } catch (emailError) {
+      // Log the email error, but don't halt the main process
+      console.error('❌ Error sending one or both email notifications:', emailError);
+    }
+    
+    // 3. Send the success response to the user
+    res.status(200).json({ message: 'Enrollment application submitted successfully! A confirmation email has been sent to you.' });
 
   } catch (error) {
     console.error('❌ Error processing enrollment application:', error);
@@ -308,11 +482,28 @@ router.post('/api/enrollment', async (req, res) => {
   }
 });
 
+//Tutor
 router.post('/api/tutor', async (req, res) => {
-  const { firstName, lastName, email, phone, tutorSubjects, experience, tutorAvailability } = req.body;
+  // DEBUG: Log the entire request body to see what we're receiving
+  console.log('DEBUG: Full req.body:', req.body);
+  console.log('DEBUG: req.body[tutorSubjects[]]:', req.body['tutorSubjects[]']);
+  console.log('DEBUG: req.body.tutorSubjects:', req.body.tutorSubjects);
+  
+  const { firstName, lastName, email, phone, experience, tutorAvailability, message } = req.body;
+  
+  // Handle tutorSubjects array properly
+  let tutorSubjects = req.body['tutorSubjects[]'] || req.body.tutorSubjects || [];
+  
+  // Ensure it's always an array
+  if (!Array.isArray(tutorSubjects)) {
+    tutorSubjects = [tutorSubjects];
+  }
+  
+  // Filter out any empty values
+  tutorSubjects = tutorSubjects.filter(subject => subject && subject.trim() !== '');
 
   // Validation
-  if (!firstName || !lastName || !email || !tutorSubjects || tutorSubjects.length === 0) {
+  if (!firstName || !lastName || !email || tutorSubjects.length === 0) {
     return res.status(400).json({ message: 'First name, last name, email, and at least one subject are required.' });
   }
 
@@ -322,12 +513,13 @@ router.post('/api/tutor', async (req, res) => {
   }
 
   try {
+    // 1. Save the application to the database (this is the critical step)
     const newApplication = new TutorApplication({
       firstName,
       lastName,
       email,
       phone: phone || '',
-      tutorSubjects: Array.isArray(tutorSubjects) ? tutorSubjects : [tutorSubjects],
+      tutorSubjects: tutorSubjects, // Now properly handled as an array
       experience: experience || '',
       tutorAvailability: tutorAvailability || '',
       message: message || ''
@@ -336,7 +528,71 @@ router.post('/api/tutor', async (req, res) => {
     await newApplication.save();
 
     console.log('✅ New tutor application saved to MongoDB:', newApplication);
-    res.status(200).json({ message: 'Tutor application submitted successfully!' });
+
+    // 2. Handle the email notification as a non-critical process
+    try {
+      // Prepare and send the email notification to the admin
+      const adminEmailData = {
+        name: `${firstName} ${lastName}`,
+        email: 'contact@melbacommunityservice.org',
+        subject: 'New Tutor Application Received',
+        message: `
+        New Tutor Application:
+      
+        Name: ${firstName} ${lastName}
+        Email: ${email}
+        Phone: ${phone || 'N/A'}
+        Subjects: ${tutorSubjects.join(', ')}
+        Experience: ${experience || 'N/A'}
+        Availability: ${tutorAvailability || 'N/A'}
+        Message: ${message || 'No additional message'}
+      
+        Submitted on: ${new Date().toLocaleString()}
+        `
+      };
+      
+      await sendContactEmail(adminEmailData);
+      console.log('✅ Admin email notification sent for tutor application');
+
+      // Prepare and send the confirmation email to the user
+      const userEmailData = {
+          name: `${firstName} ${lastName}`,
+          email: email, // Use the user's email address
+          subject: 'Confirmation of Your Tutor Application',
+          message: `
+          Dear ${firstName},
+          
+          Thank you for your interest in becoming a tutor with us! We have successfully received your application.
+          
+          Here is a summary of the information you submitted for your records:
+          
+          Name: ${firstName} ${lastName}
+          Email: ${email}
+          Phone: ${phone || 'N/A'}
+          Subjects: ${tutorSubjects.join(', ')}
+          Experience: ${experience || 'N/A'}
+          Availability: ${tutorAvailability || 'N/A'}
+          Message: ${message || 'No additional message'}
+          
+          What to expect next: Our team will review your application and be in touch within 5-7 business days regarding the next steps.
+          
+          Thank you for your interest in helping our community!
+          
+          Sincerely,
+          The Melba Community Center Team
+          `
+      };
+
+      await sendContactEmail(userEmailData);
+      console.log('✅ User confirmation email sent for tutor application');
+
+    } catch (emailError) {
+      // Log the email error but don't halt the main process
+      console.error('❌ Error sending one or both email notifications:', emailError);
+    }
+    
+    // 3. Send the success response to the user regardless of email status
+    res.status(200).json({ message: 'Tutor application submitted successfully! A confirmation email has been sent to you.' });
 
   } catch (error) {
     console.error('❌ Error processing tutor application:', error);
@@ -351,6 +607,7 @@ router.post('/api/tutor', async (req, res) => {
   }
 });
 
+//Internship application
 router.post('/api/career/apply', async (req, res) => {
   const { firstName, lastName, age, email, phone, interest, coverLetter } = req.body;
   // Note: resumeFile is not handled here; it requires multer for file uploads
@@ -370,6 +627,7 @@ router.post('/api/career/apply', async (req, res) => {
   }
 
   try {
+    // 1. Save the application to the database (this is the critical step)
     const newApplication = new CareerApplyNowApplication({
       firstName,
       lastName,
@@ -384,7 +642,67 @@ router.post('/api/career/apply', async (req, res) => {
     await newApplication.save();
 
     console.log('✅ New Career Internship Application saved to MongoDB:', newApplication);
-    res.status(200).json({ message: 'Internship application submitted successfully!' });
+
+    // 2. Handle the email notification as a non-critical process
+    try {
+      // Prepare and send the email notification to the admin
+      const adminEmailData = {
+        name: `${firstName} ${lastName}`,
+        email: 'contact@melbacommunityservice.org',
+        subject: 'New Career - Internship Application',
+        message: `
+        New Career - Internship Application:
+      
+        Name: ${firstName} ${lastName}
+        Age: ${age}
+        Email: ${email}
+        Phone: ${phone || 'N/A'}
+        Area of Interest: ${interest}
+        Cover Letter: ${coverLetter || 'No cover letter submitted'}
+      
+        Submitted on: ${new Date().toLocaleString()}
+        `
+      };
+      
+      await sendContactEmail(adminEmailData);
+      console.log('✅ Admin email notification sent for career internship application');
+
+      // Prepare and send the confirmation email to the user
+      const userEmailData = {
+          name: `${firstName} ${lastName}`,
+          email: email, // Use the user's email address
+          subject: 'Confirmation of Your Career Internship Application',
+          message: `
+          Dear ${firstName},
+          
+          Thank you for applying for a career internship at Melba Community Center! We have successfully received your application.
+          
+          Here is a summary of the information you submitted for your records:
+          
+          Name: ${firstName} ${lastName}
+          Age: ${age}
+          Email: ${email}
+          Phone: ${phone || 'N/A'}
+          Area of Interest: ${interest}
+          Cover Letter: ${coverLetter || 'No cover letter submitted'}
+          
+          What to expect next: Our team will review your application and be in touch within 5-7 business days regarding the next steps.
+          
+          Thank you,
+          The Melba Community Center Team
+          `
+      };
+
+      await sendContactEmail(userEmailData);
+      console.log('✅ User confirmation email sent for career internship application');
+
+    } catch (emailError) {
+      // Log the email error, but don't halt the main process
+      console.error('❌ Error sending career internship application email notification:', emailError);
+    }
+    
+    // 3. Send the success response to the user
+    res.status(200).json({ message: 'Internship application submitted successfully! A confirmation email has been sent to you.' });
 
   } catch (error) {
     console.error('❌ Error processing Career Internship Application:', error);
@@ -399,7 +717,7 @@ router.post('/api/career/apply', async (req, res) => {
   }
 });
 
-// NEW ROUTE: Handle Career Fund Internships inquiries API endpoint
+//Handle Career Fund Internships inquiries API endpoint
 router.post('/api/career/fund', async (req, res) => {
   const { name, email, phone, sponsorshipLevel, message } = req.body;
 
@@ -414,6 +732,7 @@ router.post('/api/career/fund', async (req, res) => {
   }
 
   try {
+    // 1. Save the inquiry to the database (this is the critical step)
     const newInquiry = new CareerFundInquiry({
       name,
       email,
@@ -425,7 +744,67 @@ router.post('/api/career/fund', async (req, res) => {
     await newInquiry.save();
 
     console.log('✅ New Career Fund Internships Inquiry saved to MongoDB:', newInquiry);
-    res.status(200).json({ message: 'Internship funding inquiry submitted successfully!' });
+
+    // 2. Handle the email notification as a non-critical process
+    try {
+      // Send notification email to the admin
+      const adminEmailData = {
+        name: name,
+        email: 'contact@melbacommunityservice.org',
+        subject: 'New Career - Fund Internships Inquiry',
+        message: `
+        New Career - Fund Internships Inquiry:
+      
+        Name/Organization: ${name}
+        Email: ${email}
+        Phone: ${phone || 'N/A'}
+        Sponsorship Level: ${sponsorshipLevel}
+        Message: ${message || 'No additional message'}
+      
+        Submitted on: ${new Date().toLocaleString()}
+        `
+      };
+      
+      await sendContactEmail(adminEmailData);
+      console.log('✅ Admin email notification sent for career fund internships inquiry');
+
+      // Send confirmation email to the user
+      const userEmailData = {
+        name: name,
+        email: email, // Use the user's email address
+        subject: 'Confirmation of Your Internship Funding Inquiry',
+        message: `
+        Dear ${name || 'Supporter'},
+        
+        Thank you for reaching out to us about funding our internships! We have successfully received your inquiry.
+        
+        Here is a summary of the information you submitted:
+        
+        Name/Organization: ${name}
+        Email: ${email}
+        Phone: ${phone || 'N/A'}
+        Sponsorship Level: ${sponsorshipLevel}
+        Message: ${message || 'No additional message'}
+        
+        What to expect next: A member of our team will review your inquiry and contact you within 5-7 business days.
+        
+        Thank you for your support!
+        
+        Sincerely,
+        The Melba Community Center Team
+        `
+      };
+
+      await sendContactEmail(userEmailData);
+      console.log('✅ User confirmation email sent for career fund internships inquiry');
+
+    } catch (emailError) {
+      // Log the email error but don't halt the main process
+      console.error('❌ Error sending one or both email notifications:', emailError);
+    }
+    
+    // 3. Send the success response to the user
+    res.status(200).json({ message: 'Internship funding inquiry submitted successfully! A confirmation email has been sent to you.' });
 
   } catch (error) {
     console.error('❌ Error processing Career Fund Internships Inquiry:', error);
@@ -440,7 +819,8 @@ router.post('/api/career/fund', async (req, res) => {
   }
 });
 
-// NEW ROUTE: Handle Career Become a Partner inquiries API endpoint
+
+//Handle Career Become a Partner inquiries API endpoint
 router.post('/api/career/partner', async (req, res) => {
   const { organizationName, contactName, email, phone, partnershipType, message } = req.body;
 
@@ -455,6 +835,7 @@ router.post('/api/career/partner', async (req, res) => {
   }
 
   try {
+    // 1. Save the inquiry to the database (critical step)
     const newInquiry = new CareerPartnerInquiry({
       organizationName,
       contactName,
@@ -467,7 +848,67 @@ router.post('/api/career/partner', async (req, res) => {
     await newInquiry.save();
 
     console.log('✅ New Career Become a Partner Inquiry saved to MongoDB:', newInquiry);
-    res.status(200).json({ message: 'Partnership inquiry submitted successfully!' });
+
+    // 2. Handle the email notification as a non-critical process
+    try {
+      // Send notification email to the admin
+      const adminEmailData = {
+        name: contactName,
+        email: 'contact@melbacommunityservice.org',
+        subject: 'New Career - Become a Partner Inquiry',
+        message: `
+        New Career - Become a Partner Inquiry:
+      
+        Organization Name: ${organizationName}
+        Contact Name: ${contactName}
+        Email: ${email}
+        Phone: ${phone || 'N/A'}
+        Partnership Type: ${partnershipType}
+        Message: ${message || 'No additional message'}
+      
+        Submitted on: ${new Date().toLocaleString()}
+        `
+      };
+      
+      await sendContactEmail(adminEmailData);
+      console.log('✅ Admin email notification sent for career partner inquiry');
+
+      // Send confirmation email to the user
+      const userEmailData = {
+        name: contactName,
+        email: email, // Use the user's email address
+        subject: 'Confirmation of Your Partnership Inquiry',
+        message: `
+        Dear ${contactName},
+        
+        Thank you for your interest in partnering with Melba Community Center! We have successfully received your inquiry.
+        
+        Here is a summary of the information you submitted:
+        
+        Organization Name: ${organizationName}
+        Contact Name: ${contactName}
+        Email: ${email}
+        Phone: ${phone || 'N/A'}
+        Partnership Type: ${partnershipType}
+        Message: ${message || 'No additional message'}
+        
+        What to expect next: A member of our team will review your inquiry and be in touch within 5-7 business days.
+        
+        Sincerely,
+        The Melba Community Center Team
+        `
+      };
+
+      await sendContactEmail(userEmailData);
+      console.log('✅ User confirmation email sent for career partner inquiry');
+
+    } catch (emailError) {
+      // Log the email error but don't halt the main process
+      console.error('❌ Error sending career partner inquiry email notification:', emailError);
+    }
+    
+    // 3. Send the success response to the user
+    res.status(200).json({ message: 'Partnership inquiry submitted successfully! A confirmation email has been sent to you.' });
 
   } catch (error) {
     console.error('❌ Error processing Career Become a Partner Inquiry:', error);
@@ -483,11 +924,79 @@ router.post('/api/career/partner', async (req, res) => {
 });
 
 router.post('/applications/bootcamp', async (req, res) => {
+  // It's good practice to validate and destructure the body
+  const { firstName, lastName, email, program, experienceLevel, message } = req.body;
+
   try {
+      // 1. Save the registration to the database (this is the critical step)
       const newRegistration = new BootcampRegistration(req.body);
       await newRegistration.save();
       console.log('✅ New Bootcamp Registration saved to MongoDB:', newRegistration);
-      res.status(200).json({ success: true, message: 'Bootcamp registration submitted successfully!' });
+
+      // Get the full name from the saved registration, as it's confirmed to be correct.
+      const fullName = newRegistration.name;
+      // Extract the first name for the greeting, using the full name.
+      const userFirstName = fullName.split(' ')[0] || 'Registrant';
+      
+      // 2. Handle the email notification as a non-critical process
+      try {
+          // Send notification email to the admin
+          const adminEmailData = {
+              name: fullName,
+              email: 'contact@melbacommunityservice.org',
+              subject: 'New Bootcamp Registration',
+              message: `
+              New Bootcamp Registration:
+              
+              Name: ${fullName || ''}
+              Email: ${email || 'N/A'}
+              Program: ${program || 'N/A'}
+              Experience Level: ${experienceLevel || 'N/A'}
+              Message: ${message || 'No additional message'}
+              
+              Submitted on: ${new Date().toLocaleString()}
+              `
+          };
+          
+          await sendContactEmail(adminEmailData);
+          console.log('✅ Admin email notification sent for bootcamp registration');
+
+          // Send confirmation email to the user
+          const userEmailData = {
+              name: fullName,
+              email: email, // Use the user's email address
+              subject: 'Confirmation of Your Bootcamp Registration',
+              message: `
+              Dear ${userFirstName || 'Registrant'},
+              
+              Thank you for registering for our bootcamp! We have successfully received your submission.
+              
+              Here is a summary of the information you submitted:
+              
+              Name: ${fullName || ''}
+              Email: ${email || 'N/A'}
+              Program: ${program || 'N/A'}
+              Experience Level: ${experienceLevel || 'N/A'}
+              Message: ${message || 'No additional message'}
+              
+              What to expect next: Our team will review your registration and be in touch soon with more information.
+              
+              Sincerely,
+              The Melba Community Center Team
+              `
+          };
+
+          await sendContactEmail(userEmailData);
+          console.log('✅ User confirmation email sent for bootcamp registration');
+
+      } catch (emailError) {
+          // Log the email error but do not throw it, allowing the main process to continue
+          console.error('❌ Error sending one or both email notifications:', emailError);
+      }
+      
+      // 3. Send the success response to the user regardless of email status
+      res.status(200).json({ success: true, message: 'Bootcamp registration submitted successfully! A confirmation email has been sent to you.' });
+
   } catch (err) {
       console.error('❌ Error saving bootcamp registration:', err);
       if (err.name === 'ValidationError') {
@@ -524,8 +1033,58 @@ router.post('/subscribe', async (req, res) => {
     const newSubscriber = new NewsletterSubscription({ email });
     await newSubscriber.save();
 
+    console.log('✅ New newsletter subscriber saved:', newSubscriber);
+
+    // --- NON-CRITICAL EMAIL NOTIFICATION BLOCK ---
+    // This block handles sending emails to both the admin and the user.
+    // It will not prevent the submission from being saved.
+    try {
+      // 1. Prepare and send the email notification to the admin
+      const adminEmailData = {
+        name: 'Newsletter Subscriber',
+        email: 'contact@melbacommunityservice.org', 
+        subject: 'New Newsletter Subscription',
+        message: `
+        New Newsletter Subscription:
+
+        Email: ${email}
+
+        Subscribed on: ${new Date().toLocaleString()}
+        `
+      };
+
+      await sendContactEmail(adminEmailData);
+      console.log('✅ Admin email notification sent for newsletter subscription');
+
+      // 2. Prepare and send the confirmation email to the user
+      const userEmailData = {
+          name: 'Subscriber', // You might not have a name for newsletter subscribers
+          email: email, // Send to the user's provided email
+          subject: 'Welcome to Our Newsletter!',
+          message: `
+          Dear Subscriber,
+          
+          Thank you for subscribing to our newsletter! You'll now receive the latest stories and updates from Melba Community Center directly in your inbox.
+          
+          We're excited to share our news with you!
+          
+          Sincerely,
+          The Melba Community Center Team
+          `
+      };
+
+      await sendContactEmail(userEmailData);
+      console.log('✅ User confirmation email sent for newsletter subscription');
+
+    } catch (emailError) {
+      // Log the email sending error but do not halt the user's request
+      console.error('❌ Error sending one or both email notifications:', emailError);
+      // The application will continue from here, and the user will still get a success response.
+    }
+    // --- END OF NON-CRITICAL EMAIL NOTIFICATION BLOCK ---
+
     // Respond with a success message
-    res.status(201).json({ success: true, message: "Thanks for subscribing! You'll now receive the latest stories and updates from Melba Community Center." });
+    res.status(201).json({ success: true, message: "Thanks for subscribing! You'll now receive the latest stories and updates from Melba Community Center. A confirmation email has been sent to you." });
 
   } catch (error) {
     console.error('Subscription error:', error);

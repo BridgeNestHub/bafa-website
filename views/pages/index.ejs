@@ -860,7 +860,7 @@
           </div>
           <div class="mb-3">
             <label for="volunteerPhone" class="form-label">Phone Number (Optional)</label>
-            <input type="tel" class="form-control" id="volunteerPhone" name="phone" placeholder="(123) 456-7890">
+            <input type="tel" class="form-control" id="volunteerPhone" name="phone" onblur="formatPhoneNumber(this)" maxlength="14">
           </div>
           <div class="mb-3">
             <label for="volunteerAddress" class="form-label">Address</label>

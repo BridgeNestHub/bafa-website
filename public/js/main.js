@@ -601,3 +601,23 @@ EXAMPLES:
 <!-- Newsletter with auto-submit -->
 <form data-submit-url="/newsletter-signup" data-mobile-optimize="true">
 */
+
+function formatPhoneNumber(input) {
+  // Remove all non-numeric characters from the input value
+  let cleaned = input.value.replace(/\D/g, '');
+
+  // Truncate the string to 10 digits to prevent extra numbers
+  if (cleaned.length > 10) {
+    cleaned = cleaned.substring(0, 10);
+  }
+
+  // Check if the cleaned number has 10 digits to be formatted
+  if (cleaned.length === 10) {
+    // Apply the desired format: (xxx) xxx-xxxx
+    let formatted = `(${cleaned.substring(0, 3)}) ${cleaned.substring(3, 6)}-${cleaned.substring(6, 10)}`;
+    input.value = formatted;
+  } else {
+    // If it's not a valid 10-digit number, just keep the cleaned numbers
+    input.value = cleaned;
+  }
+}

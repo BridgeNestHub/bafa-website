@@ -65,7 +65,7 @@
                   
                   <div class="mb-3">
                     <label for="phone" class="form-label">Phone number</label>
-                    <input type="tel" class="form-control" id="phoneInput" name="phone">
+                    <input type="tel" class="form-control" id="phoneInput" name="phone" onblur="formatPhoneNumber(this)" maxlength="14">
                   </div>
 
                   <div class="mb-3">

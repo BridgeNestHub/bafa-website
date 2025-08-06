@@ -16,7 +16,7 @@ const joinTeamRegistrationSchema = new mongoose.Schema({
     type: Number,
     required: true,
     min: 12, // Based on Sports program's age range
-    max: 60
+    max: 80
   },
   email: {
     type: String,
