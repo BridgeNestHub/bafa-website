@@ -484,27 +484,16 @@ router.post('/api/enrollment', async (req, res) => {
 
 //Tutor
 router.post('/api/tutor', async (req, res) => {
-  // DEBUG: Log the entire request body to see what we're receiving
-  console.log('DEBUG: Full req.body:', req.body);
-  console.log('DEBUG: req.body[tutorSubjects[]]:', req.body['tutorSubjects[]']);
-  console.log('DEBUG: req.body.tutorSubjects:', req.body.tutorSubjects);
+  const { firstName, lastName, email, phone, tutorSubjects, experience, tutorAvailability, message } = req.body;
   
-  const { firstName, lastName, email, phone, experience, tutorAvailability, message } = req.body;
+    // --- Input Validation ---
+    if (!firstName || !lastName || !email) {
+      return res.status(400).json({ message: 'First name, last name, and email are required.' });
+    }
   
-  // Handle tutorSubjects array properly
-  let tutorSubjects = req.body['tutorSubjects[]'] || req.body.tutorSubjects || [];
-  
-  // Ensure it's always an array
-  if (!Array.isArray(tutorSubjects)) {
-    tutorSubjects = [tutorSubjects];
-  }
-  
-  // Filter out any empty values
-  tutorSubjects = tutorSubjects.filter(subject => subject && subject.trim() !== '');
-
-  // Validation
-  if (!firstName || !lastName || !email || tutorSubjects.length === 0) {
-    return res.status(400).json({ message: 'First name, last name, email, and at least one subject are required.' });
+  // Check if tutorSubjects exists and is an array with at least one item
+  if (!tutorSubjects || !Array.isArray(tutorSubjects) || tutorSubjects.length === 0) {
+    return res.status(400).json({ message: 'Please select at least one area of interest.' });
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -519,7 +508,7 @@ router.post('/api/tutor', async (req, res) => {
       lastName,
       email,
       phone: phone || '',
-      tutorSubjects: tutorSubjects, // Now properly handled as an array
+      tutorSubjects,
       experience: experience || '',
       tutorAvailability: tutorAvailability || '',
       message: message || ''
@@ -542,7 +531,7 @@ router.post('/api/tutor', async (req, res) => {
         Name: ${firstName} ${lastName}
         Email: ${email}
         Phone: ${phone || 'N/A'}
-        Subjects: ${tutorSubjects.join(', ')}
+        Subjects: ${Array.isArray(tutorSubjects) ? tutorSubjects.join(', ') : tutorSubjects}
         Experience: ${experience || 'N/A'}
         Availability: ${tutorAvailability || 'N/A'}
         Message: ${message || 'No additional message'}
@@ -569,7 +558,7 @@ router.post('/api/tutor', async (req, res) => {
           Name: ${firstName} ${lastName}
           Email: ${email}
           Phone: ${phone || 'N/A'}
-          Subjects: ${tutorSubjects.join(', ')}
+          Subjects: ${Array.isArray(tutorSubjects) ? tutorSubjects.join(', ') : tutorSubjects}
           Experience: ${experience || 'N/A'}
           Availability: ${tutorAvailability || 'N/A'}
           Message: ${message || 'No additional message'}

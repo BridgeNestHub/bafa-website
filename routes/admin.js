@@ -1489,21 +1489,28 @@ router.post('/applications/sports/join-team', async (req, res) => {
 
     // --- NON-CRITICAL EMAIL NOTIFICATION BLOCK ---
     try {
+      // Use the name, sport, and experience level directly from the saved object
+      // FIX: Construct the full name from firstName and lastName, as 'name' is not a field in the DB.
+      const fullName = `${newRegistration.firstName || ''} ${newRegistration.lastName || ''}`.trim();
+      const userFirstName = newRegistration.firstName || 'Registrant'; // Use the first name directly
+      const sport = newRegistration.teamSportInterest || 'N/A'; // Corrected property name from the log
+      const experienceLevel = newRegistration.teamExperienceLevel || 'N/A'; // Corrected property name from the log
+
       // 1. Prepare and send the email notification to the admin
       const adminEmailData = {
-        name: `${req.body.firstName || ''} ${req.body.lastName || ''}`.trim() || 'N/A',
+        name: fullName,
         email: 'contact@melbacommunityservice.org',
         subject: 'New Sports Team Registration',
         message: `
         New Sports Team Registration:
       
-        Name: ${req.body.firstName || ''} ${req.body.lastName || ''}
-        Age: ${req.body.age || 'N/A'}
-        Email: ${req.body.email || 'N/A'}
-        Phone: ${req.body.phone || 'N/A'}
-        Sport: ${req.body.sport || 'N/A'}
-        Experience Level: ${req.body.experienceLevel || 'N/A'}
-        Message: ${req.body.message || 'No additional message'}
+        Name: ${fullName}
+        Age: ${newRegistration.age || 'N/A'}
+        Email: ${newRegistration.email || 'N/A'}
+        Phone: ${newRegistration.phone || 'N/A'}
+        Sport: ${sport}
+        Experience Level: ${experienceLevel}
+        Message: ${newRegistration.message || 'No additional message'}
       
         Submitted on: ${new Date().toLocaleString()}
         `
@@ -1514,23 +1521,23 @@ router.post('/applications/sports/join-team', async (req, res) => {
 
       // 2. Prepare and send the confirmation email to the user
       const userEmailData = {
-          name: `${req.body.firstName || ''} ${req.body.lastName || ''}`.trim(),
-          email: req.body.email, // Send the email to the user's provided address
+          name: fullName,
+          email: newRegistration.email, // Use the user's provided address
           subject: 'Confirmation of Your Sports Team Registration',
           message: `
-          Dear ${req.body.firstName || 'Registrant'},
+          Dear ${userFirstName},
           
           Thank you for registering for a spot on one of our sports teams! We have successfully received your registration and will be in touch with more information soon.
           
           Here is a copy of the information you submitted:
           
-          Name: ${req.body.firstName || ''} ${req.body.lastName || ''}
-          Age: ${req.body.age || 'N/A'}
-          Email: ${req.body.email || 'N/A'}
-          Phone: ${req.body.phone || 'N/A'}
-          Sport: ${req.body.sport || 'N/A'}
-          Experience Level: ${req.body.experienceLevel || 'N/A'}
-          Message: ${req.body.message || 'No additional message'}
+          Name: ${fullName}
+          Age: ${newRegistration.age || 'N/A'}
+          Email: ${newRegistration.email || 'N/A'}
+          Phone: ${newRegistration.phone || 'N/A'}
+          Sport: ${sport}
+          Experience Level: ${experienceLevel}
+          Message: ${newRegistration.message || 'No additional message'}
           
           What to expect next: Our sports coordinator will contact you to discuss your registration and provide details on next steps.
           
@@ -1552,6 +1559,7 @@ router.post('/applications/sports/join-team', async (req, res) => {
     res.status(400).json({ success: false, message: err.message || 'Failed to submit join team registration.' });
   }
 });
+
 
 router.post('/applications/volunteer', async (req, res) => {
   try {

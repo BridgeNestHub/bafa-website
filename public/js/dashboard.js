@@ -22,6 +22,8 @@ async function fetchDataAndRenderTable(apiEndpoint, tableId, columns, viewHandle
         if (data.length === 0) {
             if (noDataMessageElement) noDataMessageElement.style.display = 'block';
             $(`#${tableId}`).hide(); // Hide the table itself
+            // **Crucial Fix:** Return from the function here to stop DataTable from initializing
+            return; 
         } else {
             if (noDataMessageElement) noDataMessageElement.style.display = 'none';
             $(`#${tableId}`).show(); // Show the table
@@ -955,7 +957,6 @@ async function loadTutorApplications() {
         { data: 'firstName', render: function(data, type, row) { return `${data} ${row.lastName}`; } },
         { data: 'email' },
         { data: 'tutorSubjects', render: function(data) { return data ? data.join(', ') : 'N/A'; } },
-        { data: 'message', render: function(data) { return data ? data : 'No message'; } },
         { data: 'createdAt', render: function(data) { return new Date(data).toLocaleString(); } },
         { data: null } // Actions column (View, Delete)
     ];
@@ -970,13 +971,9 @@ async function viewTutorApplication(id) {
         { key: 'lastName', label: 'Last Name' },
         { key: 'email', label: 'Email' },
         { key: 'phone', label: 'Phone' },
-        // { key: 'tutorSubjects', label: 'Subjects Taught' },
-        { key: 'tutorSubjects', label: 'Subjects Taught',
-            format: (subjects) => Array.isArray(subjects) ? subjects.join(', ') : subjects
-          },
+        { key: 'tutorSubjects', label: 'Subjects Taught', type: 'array'  },
         { key: 'experience', label: 'Experience' },
         { key: 'tutorAvailability', label: 'Tutor Availability' },
-        { key: 'message', label: 'Message' },
         { key: 'createdAt', label: 'Submitted On', type: 'datetime' }
     ];
     await populateAndShowViewModal(id, `/admin/api/applications/tutor/${id}`, 'Tutor Application', fields, 'email');
